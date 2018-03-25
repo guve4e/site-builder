@@ -1,12 +1,23 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mac
- * Date: 3/24/18
- * Time: 10:32 PM
+ * Authenticate User.
  */
 
 require_once("SessionHelper.php");
+require_once(HTTP_PATH . "/PhpHttpAdapter.php");
+
+class NavigateToLocation
+{
+    /**
+     * Navigates to the specified path.
+     * @throws Exception
+     */
+    public function Navigate(string $path)
+    {
+        if ($path == "") throw new Exception("Path must be specified!");
+        header("Location: " . $this->path);
+    }
+}
 
 class AuthenticateUser
 {
@@ -64,11 +75,32 @@ class AuthenticateUser
     private $http;
 
     /**
+     * @var object
+     * Used to jump from php file to other
+     */
+    private $nav;
+
+    /**
      * @var null
      * Instance variable
      * used to simulate Singleton.
      */
     static private $instance = null;
+
+    /**
+     * Navigates to successPath if authenticated,
+     * and to failurePath if not.
+     * @param bool $isAuthenticated
+     * @throws Exception
+     */
+    private function navigate(bool $isAuthenticated)
+    {
+        if ($isAuthenticated) {
+            $this->nav->navigate($this->successPath);
+        } else {
+            $this->nav->navigate($this->failurePath . "?error=authorized");
+        }
+    }
 
     /**
      * Given user object, it decides if it is valid
@@ -80,18 +112,13 @@ class AuthenticateUser
      * @param $user: object, representing User.
      * Retrieved form back-end services.
      */
-    private function loadUser($user)
+    private function loadUserInSession($user)
     {
         // check for success
         if ($user) { // if authenticated
-            //ob_end_clean();
-
+            // TODO user unnecessary
             $this->user = $user;
-            $this->saveUserInsession("authenticated_user");
-
-            header("Location: " . $this->successPath);
-        } else {    // if NOT authenticated
-            header("Location: " . $this->failurePath . "?error=authorized");
+            $this->saveUserInsession("authenticated_user", $user);
         }
     }
 
@@ -118,8 +145,10 @@ class AuthenticateUser
                 $this->registerPassword = $post['register_password'];
                 $this->password = $post['register_password_repeat'];
             }
-            else
+            else // JS should not allow password miss-match
                 throw new Exception("Passwords don't match");
+        } else {
+            throw new Exception("Credential fields are not set!");
         }
     }
 
@@ -136,7 +165,13 @@ class AuthenticateUser
         $this->validateNewUserFields($post);
         $user = $this->registerUser($this->registerEmail,$this->password, $this->registerName);
 
-        $this->loadUser($user);
+        if ($user) {
+            $this->loadUserInSession($user);
+            $this->navigate(true);
+        }
+        else {
+            $this->navigate(false);
+        }
     }
 
     /**
@@ -171,7 +206,13 @@ class AuthenticateUser
         $this->validateExistingUserFields($post);
         $user = $this->retrieveUser($this->username, $this->password);
 
-        $this->loadUser($user);
+        if ($user) {
+            $this->loadUserInSession($user);
+            $this->navigate(true);
+        }
+        else {
+            $this->navigate(false);
+        }
     }
 
     /**
@@ -186,7 +227,7 @@ class AuthenticateUser
      * @return bool, true or false
      * @throws Exception
      */
-    private function isExistingUser(array $get)
+    private function requestIsFromExistingUserForm(array $get)
     {
         if(!isset($get['id']))
             throw new Exception("Wrong Form Submit!");
@@ -196,18 +237,25 @@ class AuthenticateUser
 
     /**
      * AuthenticateUser constructor.
+     * If called from existing user form, then
+     * we are dealing with existing user, if not
+     * then we are dealing with new user and we
+     * need to register it first.
      *
      * @param $get: array, $_GET super-global (copy)
      * @param $post: array, $_POST super-global (copy)
      * @param $http: PhpHttpAdapter object (copy)
      * @throws Exception
      */
-    private function __construct(array $get, array $post, PhpHttpAdapter $http)
+    private function __construct(array $get, array $post, PhpHttpAdapter $http, NavigateToLocation $nav)
     {
-        if(!is_array($post) || !is_array($get))
+        if(empty($post) || empty($get) || !isset($http) || !isset($nav))
             throw new Exception("Not valid initialization!");
 
-        if ($this->isExistingUser($get))
+        $this->http = $http;
+        $this->nav = $nav;
+
+        if ($this->requestIsFromExistingUserForm($get))
             $this->validateExistingUser($post);
         else
             $this->validateNewUser($post);
@@ -215,17 +263,22 @@ class AuthenticateUser
 
     /**
      * TODO api call
-     * @param $email
-     * @param $password
-     * @param $name
+     * @param string $email
+     * @param string $password
+     * @param string $name
      * @return StdClass
+     * @throws Exception
      */
-    public function registerUser(string $email, string $password, string $name)
+    private function registerUser(string $email, string $password, string $name)
     {
-        $tmp = new StdClass;
-        $tmp->U_ID = 10004;
-        $tmp->PRODUCTS_COUNT = 455;
-        return $tmp;
+        $this->http->setMethod('POST')
+            ->setParameter('some_parameter')
+            ->setJsonData(["email" => $email, "name"=> $name, "password" => $password]);
+
+        $this->http->send();
+        $user = $this->http->getJsonData();
+
+        return $user;
     }
 
     /**
@@ -233,26 +286,35 @@ class AuthenticateUser
      * @param $login
      * @param $password
      * @return StdClass
+     * @throws Exception
      */
-    public function retrieveUser(string $login, string $password)
+    private function retrieveUser(string $login, string $password)
     {
-        $tmp = new StdClass;
-        $tmp->U_ID = 10004;
-        $tmp->PRODUCTS_COUNT = 455;
 
-        return $tmp;
+        $this->http->setMethod('POST')
+            ->setParameter('some_parameter')
+            ->setJsonData(["login" => $login, "password" => $password]);
+
+        $this->http->send();
+        $user = $this->http->getJsonData();
+
+        return $user;
     }
 
     /**
      * Singleton.
      * @access public
+     * @param array $get
+     * @param array $post
+     * @param PhpHttpAdapter $http
+     * @param NavigateToLocation $nav
      * @return AuthenticateUser
      * @throws Exception
      */
-    public static function Authenticate(array $get, array $post, PhpHttpAdapter $http) : AuthenticateUser
+    public static function Authenticate(array $get, array $post, PhpHttpAdapter $http, NavigateToLocation $nav) : AuthenticateUser
     {
         if (self::$instance === null) {
-            self::$instance = new AuthenticateUser($get, $post, $http);
+            self::$instance = new AuthenticateUser($get, $post, $http, $nav);
         }
 
         return self::$instance;
@@ -268,6 +330,7 @@ class AuthenticateUser
         unset($this->successPath);
         unset($this->username);
         unset($this->http);
+        unset($this->nav);
         self::$instance = null;
     }
 }

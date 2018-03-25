@@ -6,8 +6,8 @@
  * 1. cookie object (Cookie Class)
  * 2. hash (string produced by combining the
  * $_SERVER['REMOTE_ADDR'] + $_SERVER['HTTP_USER_AGENT'] + $_SERVER['HTTP_ACCEPT']
- * This class looks trough the users machine and checks for cookie with name "crystalpure_user".
- * If NOT found, retrieves the needed info from _SERVER superglobal and produces a hash.
+ * This class looks trough the users machine and checks for cookie with name "web_user".
+ * If NOT found, retrieves the needed info from _SERVER super-global and produces a hash.
  * This hash is stored in the users machine in cookie and it adds the user in a table.
  * If the cookie is already there it retrieves the has and asks the web-api for user with this hash.
  */
@@ -173,7 +173,7 @@ class IdentifyUser
         $this->user = $this->retrieveUser();
 
         // save to session
-        $this->saveUserInSession($this->cookieSetter->getCookieName());
+        $this->saveUserInSession($this->cookieSetter->getCookieName(), $this->user);
     }
 
     /**
