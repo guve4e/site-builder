@@ -14,10 +14,13 @@
 
 
 require_once("CookieSetter.php");
+require_once("SessionHelper.php");
 require_once(HTTP_PATH . "/PhpHttpAdapter.php");
 
 class IdentifyUser
 {
+    use SessionHelper;
+
     /**
      * @var object
      * Makes a cookie
@@ -103,7 +106,7 @@ class IdentifyUser
      * new user.
      * @throws Exception
      */
-    private function makeData()
+    private function makeData() : array
     {
         $hash =  $this->cookieSetter->getHash();
         // check for proper hash
@@ -136,17 +139,6 @@ class IdentifyUser
             ->setJsonData($data);
         // send request
         $this->http->send();
-    }
-
-    /**
-     * Saves user object into $_SESSION
-     * super-global.
-     */
-    protected function saveUserInSession($sessionToken)
-    {
-        // save info in session
-        $_SESSION[$sessionToken] = $this->user;
-        Logger::logMsg("USER_SESSION", print_r($this->user, true));
     }
 
     /**

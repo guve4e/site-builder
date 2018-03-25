@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests CookieSetter Class.
+ * Tests IdentifyUser Class.
  */
 
 require_once ("../../../config.php");
@@ -27,7 +27,6 @@ class IdentifyUserTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-
 
         // Mock user, simulates user retrieval from
         // back end services
@@ -58,7 +57,6 @@ class IdentifyUserTest extends TestCase
         $_COOKIE = array();
 
         try {
-
             // Mock the setCookie method that actually creates a cookie on the
             // users computer. Since this method is mocked, lets manually update
             // $_COOKIE super-global
