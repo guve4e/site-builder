@@ -153,18 +153,16 @@ class AuthenticateUser
     }
 
     /**
-     * Validates the array parameter and
-     * if everything ok, it registers
-     * new User.
+     * If the user returned from web-api call
+     * was valid, load it in session and navigate
+     * to a successful path, if not (null), navigate
+     * to failure path.
      *
-     * @param $post : array, copy of $_POST
+     * @param StdClass $user
      * @throws Exception
      */
-    private function validateNewUser(array $post)
+    private function authenticateUser($user) : void
     {
-        $this->validateNewUserFields($post);
-        $user = $this->registerUser($this->registerEmail,$this->password, $this->registerName);
-
         if ($user) {
             $this->loadUserInSession($user);
             $this->navigate(true);
@@ -172,6 +170,38 @@ class AuthenticateUser
         else {
             $this->navigate(false);
         }
+    }
+
+    /**
+     * Validates the array parameter and
+     * if everything ok, it registers
+     * new User.
+     *
+     * @param $post : array, copy of $_POST
+     * @throws Exception
+     */
+    private function validateNewUser(array $post) : void
+    {
+        $this->validateNewUserFields($post);
+        $user = $this->registerUser($this->registerEmail,$this->password, $this->registerName);
+
+        $this->authenticateUser($user);
+    }
+
+    /**
+     * Validates the array parameter and
+     * if everything ok, it authenticates
+     * the User.
+     *
+     * @param $post : array, copy of $_POST
+     * @throws Exception
+     */
+    private function validateExistingUser(array $post) : void
+    {
+        $this->validateExistingUserFields($post);
+        $user = $this->retrieveUser($this->username, $this->password);
+
+        $this->authenticateUser($user);
     }
 
     /**
@@ -184,34 +214,12 @@ class AuthenticateUser
      * @throws Exception, If some fields are not
      * specified.
      */
-    private function validateExistingUserFields(array $post)
+    private function validateExistingUserFields(array $post) : void
     {
         if(isset($post['login_username']) && isset($post['login_password']))
         {
             $this->username = $post['login_username'];
             $this->password = $post['login_password'];
-        }
-    }
-
-    /**
-     * Validates the array parameter and
-     * if everything ok, it authenticates
-     * the User.
-     *
-     * @param $post : array, copy of $_POST
-     * @throws Exception
-     */
-    private function validateExistingUser(array $post)
-    {
-        $this->validateExistingUserFields($post);
-        $user = $this->retrieveUser($this->username, $this->password);
-
-        if ($user) {
-            $this->loadUserInSession($user);
-            $this->navigate(true);
-        }
-        else {
-            $this->navigate(false);
         }
     }
 
@@ -227,7 +235,7 @@ class AuthenticateUser
      * @return bool, true or false
      * @throws Exception
      */
-    private function requestIsFromExistingUserForm(array $get)
+    private function requestIsFromExistingUserForm(array $get) : bool
     {
         if(!isset($get['id']))
             throw new Exception("Wrong Form Submit!");

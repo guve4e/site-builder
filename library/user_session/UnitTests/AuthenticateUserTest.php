@@ -42,7 +42,7 @@ class AuthenticateUserTest extends TestCase
         $this->nav->method('navigate');
     }
 
-    public function testIdentifyExistingUser() {
+    public function testAuthenticateExistingUser() {
         // Arrange
 
         // Make sure $_SESSION and $_COOKIE are clean
@@ -74,7 +74,7 @@ class AuthenticateUserTest extends TestCase
     /**
      * @expectedException  Exception
      */
-    public function testIdentifyUserMustThrowExceptionWhenFormFieldsAreNotSet() {
+    public function testAuthenticateUserMustThrowExceptionWhenFormFieldsAreNotSet() {
         $_GET = array();
         $_POST = array();
 
@@ -84,7 +84,7 @@ class AuthenticateUserTest extends TestCase
     /**
      * @expectedException  Exception
      */
-    public function testIdentifyUserMustThrowExceptionWhenPasswordFormFieldsAreNotEqual() {
+    public function testAuthenticateUserMustThrowExceptionWhenPasswordFormFieldsAreNotEqual() {
         $_GET = array();
         $_POST = array();
         $_GET['id'] = "new_user";
@@ -96,7 +96,7 @@ class AuthenticateUserTest extends TestCase
         AuthenticateUser::Authenticate($_GET, $_POST, $this->http, $this->nav);
     }
 
-    public function testIdentifyNewUser() {
+    public function testAuthenticateNewUser() {
         // Arrange
 
         // Make sure $_SESSION and $_COOKIE are clean
@@ -118,6 +118,37 @@ class AuthenticateUserTest extends TestCase
 
             // Assert
             $this->assertEquals(["authenticated_user" => $this->user], $_SESSION);
+
+            // Clean
+            $authenticateObject->__destruct();
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public function testAuthenticateNewUserWhenFailsAuthentication() {
+        // Arrange
+
+        // Make sure $_SESSION and $_COOKIE are clean
+        $_SESSION = array();
+        $_COOKIE = array();
+        $_GET['id'] = "new_user";
+        $_POST['register_name'] = "John Doe";
+        $_POST['register_email']= "johndoe@gmail.com";
+        $_POST['register_password'] = "password";
+        $_POST['register_password_repeat'] = "password";
+
+        try {
+
+            $this->http->method('getJsonData')
+                ->willReturn(null);
+
+            // Act
+            $authenticateObject = AuthenticateUser::Authenticate($_GET, $_POST, $this->http, $this->nav);
+
+            // Assert
+            $this->assertEquals([], $_SESSION);
 
             // Clean
             $authenticateObject->__destruct();
