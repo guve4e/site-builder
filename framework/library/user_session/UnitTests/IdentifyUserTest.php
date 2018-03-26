@@ -3,7 +3,7 @@
  * Tests IdentifyUser Class.
  */
 
-require_once ("../../../config.php");
+require_once("../../../config.php");
 require_once("../IdentifyUser.php");
 require_once ("UtilityTest.php");
 require_once ("../../Logger.php");

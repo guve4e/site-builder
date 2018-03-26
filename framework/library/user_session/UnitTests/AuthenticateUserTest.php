@@ -3,7 +3,7 @@
  * Tests AuthenticateUser Class.
  */
 
-require_once ("../../../config.php");
+require_once("../../../config.php");
 require_once("../AuthenticateUser.php");
 require_once ("UtilityTest.php");
 require_once ("../../Logger.php");
