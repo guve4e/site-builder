@@ -12,31 +12,28 @@ defined("LIBRARY_PATH")
     or define("LIBRARY_PATH", realpath(dirname(__FILE__) . '/library'));
 
 defined("MENU_PATH")
-    or define("MENU_PATH", realpath(dirname(__FILE__) . '/menu'));
+    or define("MENU_PATH", realpath(dirname(__FILE__) . '/template/menu'));
 
 defined("NAVBAR_PATH")
-    or define("NAVBAR_PATH", realpath(dirname(__FILE__) . '/navbar'));
+    or define("NAVBAR_PATH", realpath(dirname(__FILE__) . '/template/navbar'));
 
-defined("CONSTRUCTOR_PATH")
-    or define("CONSTRUCTOR_PATH", realpath(dirname(__FILE__) . '/library/constructor'));
+defined("BUILD_PATH")
+    or define("BUILD_PATH", realpath(dirname(__FILE__) . '/library/build_page'));
 
-defined("AUTH_PATH")
-    or define("AUTH_PATH", realpath(dirname(__FILE__) . '/library/authentication'));
+defined("USER_SESSION_PATH")
+    or define("USER_SESSION_PATH", realpath(dirname(__FILE__) . '/library/user_session'));
 
 defined("HTTP_PATH")
     or define("HTTP_PATH", realpath(dirname(__FILE__) . '/library/http'));
 
-defined("DATA_PATH")
-    or define("DATA_PATH", realpath(dirname(__FILE__) . '/content'));
-  
-defined("TEMPLATES_PATH")
+defined("TEMPLATE_PATH")
     or define("TEMPLATE_PATH", realpath(dirname(__FILE__) . '/template'));
 
 defined("VIEW_PATH")
-    or define("VIEW_PATH", realpath(dirname(__FILE__) . '/views'));
+    or define("VIEW_PATH", realpath(dirname(__FILE__) . '/template/views'));
 
 defined("LOG_PATH")
-    or define("LOG_PATH", realpath(dirname(__FILE__) . '/content/logs'));
+    or define("LOG_PATH", realpath(dirname(__FILE__) . '/logs'));
 
 
 /**

@@ -1,0 +1,77 @@
+{
+    "title": "Site Title",
+
+    "styles": [
+        {
+            "rel": "stylesheet",
+            "type" : "",
+            "src": "bower",
+            "path": "/uikit/css/",
+            "name": "uikit.almost-flat",
+            "media":"all",
+            "min": true
+        },
+        {
+            "rel": "stylesheet",
+            "type" : "",
+            "src": "",
+            "path": "assets/icons/flags/",
+            "name": "flags",
+            "media":"all",
+            "min": true
+        },
+        {
+            "rel": "stylesheet",
+            "type" : "",
+            "src": "",
+            "path": "assets/css/",
+            "name": "main",
+            "media":"all",
+            "min": true
+        },
+        {
+            "rel": "stylesheet",
+            "type" : "",
+            "src": "",
+            "path": "assets/css/",
+            "name": "style_switcher",
+            "media":"all",
+            "min": true
+        },
+        {
+            "rel": "stylesheet",
+            "type" : "",
+            "src": "bower",
+            "path": "/uikit/css/themes/",
+            "name": "themes_combined",
+            "media":"all",
+            "min": true
+        }
+    ],
+    "scripts": [
+
+        { 
+            "src": "",      
+            "path": "assets/js/",      
+            "name": "common",               
+            "min": false 
+        },
+
+        { 
+            "src": "",      
+            "path": "assets/js/",      
+            "name": "uikit_custom",         
+            "min": true 
+        },
+
+        { 
+            "src": "",      
+            "path": "assets/js/",      
+            "name": "altair_admin_common",  
+            "min": true 
+        }
+    ]
+}
+             
+ 
+            
