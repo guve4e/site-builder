@@ -3,7 +3,7 @@ require_once(BUILD_PATH . "/json/JsonLoader.php");
 
 /**
  * Loads Page json configuration
- * file.Every page has view.php file with
+ * file. Every page has view.php file with
  * html code and page.json file with
  * configuration about the page.
  */

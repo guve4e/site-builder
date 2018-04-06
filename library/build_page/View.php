@@ -4,7 +4,7 @@ require_once(BUILD_PATH . "/json/ViewConfigurationLoaderLoader.php");
 /**
  *
  */
-class View
+final class View
 {
     /**
      * @var string
@@ -64,16 +64,31 @@ class View
     private $viewTitle;
 
     /**
+     * @var object
+     * Provides file system
+     * functionality
+     */
+    private $file;
+
+    /**
+     * @var static Singleton
+     */
+    private static $instance;
+
+    /**
      * View constructor.
      *
-     * @param $viewName
+     * @param $file file object
+     * @param $viewName string representing the name of the view
      * @throws Exception
      */
-    private function __construct($viewName)
+    private function __construct(File $file, string $viewName)
     {
-        // guard clause
-        if (!isset($viewName))
+        if (!isset($viewName) || !isset($file))
             throw new Exception("page name is NOT set");
+
+        // set file object
+        $this->file = $file;
 
         // if everything ok set the page id
         $this->viewName = $viewName;
@@ -83,19 +98,14 @@ class View
 
         // set the view
         $this->constructViewPath();
-
-        // set JS page
         $this->constructJSPagePath();
-
         $this->loadViewConfig();
-
         $this->setBodyClass();
-
         $this->setViewTitle();
     }
 
     /**
-     * TODO SMELLS!!!
+     * TODO IMPORTANT!!!
      * Given the page name, it extracts needed
      * information and initializes some attributes.
      */
@@ -121,11 +131,12 @@ class View
 
     /**
      * Constructs the view path.
+     * @throws Exception
      */
     private function constructViewPath()
     {
         $this->viewPath = $this->viewDir . "/view.php";
-        if (!file_exists($this->viewPath))
+        if (!$this->file->fileExists($this->viewPath))
             throw new Exception("View does not exist!");
     }
 
@@ -145,16 +156,18 @@ class View
      * store it in page object
      * at this point viewConfig contains all
      * the information needed to print the page.
+     * @throws Exception
      */
     private function loadViewConfig()
     {
-        $viewConfig = new ViewConfigurationLoader($this->viewName);
+        $viewConfig = new ViewConfigurationLoader($this->file, $this->viewName);
         $this->viewConfig = $viewConfig->getData();
     }
 
     /**
      * Set Body Class Style if available from
      * json config file
+     * @throws Exception
      */
     private function setBodyClass()
     {
@@ -167,6 +180,7 @@ class View
 
     /**
      *
+     * @throws Exception
      */
     private function setViewTitle()
     {
@@ -178,6 +192,7 @@ class View
 
     /**
      *
+     * @throws Exception
      */
     public function printListStyles()
     {
@@ -189,6 +204,7 @@ class View
 
     /**
      *
+     * @throws Exception
      */
     public function printListScripts()
     {
@@ -203,26 +219,31 @@ class View
      * corresponding to the view
      * and loads a script, if
      * the view has one.
+     * @throws Exception
      */
     public function build()
     {
         // include the view
-        require($this->viewPath);
+        if ($this->file->fileExists($this->viewPath))
+            require($this->viewPath);
+        else
+            throw new Exception("View can not be build {$this->viewPath} does not exist!");
     }
 
-    /*
+    /**
      * Singleton.
-     * @access public
+     * @param File $file
+     * @param $viewName
      * @return View
+     * @throws Exception
      */
-    public static function MakeView($viewName) : View
+    public static function MakeView(File $file, $viewName) : View
     {
-        static $inst = null;
-        if ($inst === null) {
-            $inst = new View($viewName);
+        if (self::$instance === null) {
+            self::$instance = new View($file, $viewName);
         }
 
-        return $inst;
+        return self::$instance;
     }
 
     /**
@@ -263,5 +284,19 @@ class View
     public function getViewJSPath() : string
     {
         return $this->viewJSPath;
+    }
+
+    public function __destruct()
+    {
+        unset($this->file);
+        unset($this->viewPath);
+        unset($this->viewBodyClass);
+        unset($this->viewTitle);
+        unset($this->viewName);
+        unset($this->viewKey);
+        unset($this->viewJSPath);
+        unset($this->viewDir);
+        unset($this->viewConfig);
+        self::$instance = null;
     }
 }

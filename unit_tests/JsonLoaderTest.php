@@ -48,7 +48,7 @@ class JsonLoaderTest extends TestCase
 
             $this->assertEquals([ 'key'=>'value' ], $actualData);
         } catch (Exception $e) {
-            echo $e;
+            echo $e->getMessage();
         }
     }
 
@@ -62,7 +62,7 @@ class JsonLoaderTest extends TestCase
 
             $this->assertEquals([ 'key'=>'value' ], $actualData);
         } catch (Exception $e) {
-            echo $e;
+            echo $e->getMessage();
         }
     }
 
@@ -76,7 +76,7 @@ class JsonLoaderTest extends TestCase
 
             $this->assertEquals([ 'key'=>'value' ], $actualData);
         } catch (Exception $e) {
-            echo $e;
+            echo $e->getMessage();
         }
     }
 
@@ -90,7 +90,7 @@ class JsonLoaderTest extends TestCase
 
             $this->assertEquals([ 'key'=>'value' ], $actualData);
         } catch (Exception $e) {
-            echo $e;
+            echo $e->getMessage();
         }
     }
 

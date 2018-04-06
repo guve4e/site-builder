@@ -7,10 +7,8 @@ require_once (CONSTRUCTOR_PATH . "/json/SiteConfiguration.php");
 /**
  *
  */
-final class Page
+class Page
 {
-
-
     /**
      * @var string
      * Name of a view.

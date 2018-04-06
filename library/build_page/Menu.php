@@ -1,7 +1,7 @@
 <?php
 
-require_once (CONSTRUCTOR_PATH . "/Menu.php");
-require_once (CONSTRUCTOR_PATH . "/json/MenuConfiguration.php");
+require_once (BUILD_PATH . "/Menu.php");
+require_once (BUILD_PATH . "/json/MenuConfigurationLoaderLoader.php");
 
 /**
  *
@@ -22,15 +22,29 @@ final class Menu
     private $viewName;
 
     /**
-     * Menu constructor.
-     * @param $viewName
-     * @throws  Exception
+     * @var object
+     * Provides file system
+     * functionality
      */
-    private function __construct($viewName)
+    private $file;
+
+    /**
+     * @var static Singleton
+     */
+    private static $instance;
+
+    /**
+     * Menu constructor.
+     * @param File $file
+     * @param string $viewName
+     * @throws Exception
+     */
+    private function __construct(File $file, string $viewName)
     {
-        if(!isset($viewName))
+        if(!isset($viewName) || !isset($file))
             throw new Exception("The name of the view is not set!");
 
+        $this->file = $file;
         $this->viewName = $viewName;
 
         $this->loadMenuConfig();
@@ -38,20 +52,28 @@ final class Menu
 
     /**
      * Loads json configuration.
+     * @throws Exception
      */
     private function loadMenuConfig()
     {
-        $menuConfig = new MenuConfigurationLoader();
+        $menuConfig = new MenuConfigurationLoader($this->file);
         $this->menuConfig = $menuConfig->getData();
     }
 
     /**
      * Includes the "*php file
      * corresponding to the menu.
+     * @throws Exception
      */
     public function build()
     {
-        include(MENU_PATH . '/sidebar_main.php');
+        $menuPath = MENU_PATH . '/sidebar_main.php';
+
+        // include the menu
+        if ($this->file->fileExists($menuPath))
+            include($menuPath);
+        else
+            throw new Exception("Menu can not be build '{$menuPath}' does not exist!");
     }
 
     /**
@@ -59,8 +81,8 @@ final class Menu
      * It is a wrapper to printOneLink.
      * Uses info stored in $menuConfig.
      */
-    public function printMenu() {
-
+    public function printMenu()
+    {
         // iterate trough each item and display it
         foreach ($this->menuConfig as $m) {
             PrintHTML::printOneLink($m, $this->viewName);
@@ -71,14 +93,23 @@ final class Menu
      * Singleton.
      * @access public
      * @return Menu
+     * @throws Exception
      */
-    public static function MakeMenu($viewName) : Menu
+    public static function MakeMenu(File $file, $viewName) : Menu
     {
-        static $inst = null;
-        if ($inst === null) {
-            $inst = new Menu($viewName);
+        if (self::$instance === null) {
+            self::$instance = new Menu($file, $viewName);
         }
 
-        return $inst;
+        return self::$instance;
+    }
+
+    public function __destruct()
+    {
+        unset($this->file);
+        unset($this->menuConfig);
+        unset($this->viewName);
+
+        self::$instance = null;
     }
 }
