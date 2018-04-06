@@ -3,16 +3,15 @@
  * Tests AuthenticateUser Class.
  */
 
-require_once("../../../config.php");
-require_once("../AuthenticateUser.php");
-require_once ("UtilityTest.php");
-require_once ("../../Logger.php");
+require_once ("../../config.php");
+require_once ("../UtilityTest.php");
+require_once (USER_SESSION_PATH . "/AuthenticateUser.php");
+require_once (LIBRARY_PATH . "/Logger.php");
 
 use PHPUnit\Framework\TestCase;
 
 class AuthenticateUserTest extends TestCase
 {
-
     use UtilityTest;
 
     protected $http;
@@ -26,8 +25,6 @@ class AuthenticateUserTest extends TestCase
      */
     protected function setUp()
     {
-        parent::setUp();
-
         // Mock user, simulates user retrieval from
         // back end services
         $this->user = new StdClass;
@@ -38,7 +35,12 @@ class AuthenticateUserTest extends TestCase
             ->setMethods(array('setJsonData', 'getJsonData', 'send')) //tells mock builder which methods should be mocked
             ->getMock();
 
-        $this->nav = $this->createMock(NavigateToLocation::class);
+        try {
+            $this->nav = $this->createMock(NavigateToLocation::class);
+        } catch (ReflectionException $e) {
+            echo $e->getMessage();
+        }
+
         $this->nav->method('navigate');
     }
 

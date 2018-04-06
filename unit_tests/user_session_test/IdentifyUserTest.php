@@ -3,16 +3,15 @@
  * Tests IdentifyUser Class.
  */
 
-require_once("../../../config.php");
-require_once("../IdentifyUser.php");
-require_once ("UtilityTest.php");
-require_once ("../../Logger.php");
+require_once ("../../config.php");
+require_once ("../UtilityTest.php");
+require_once (USER_SESSION_PATH . "/IdentifyUser.php");
+require_once (LIBRARY_PATH . "/Logger.php");
 
 use PHPUnit\Framework\TestCase;
 
 class IdentifyUserTest extends TestCase
 {
-
     use UtilityTest;
 
     protected $http;
@@ -26,8 +25,6 @@ class IdentifyUserTest extends TestCase
      */
     protected function setUp()
     {
-        parent::setUp();
-
         // Mock user, simulates user retrieval from
         // back end services
         $this->user = new StdClass;
@@ -43,7 +40,11 @@ class IdentifyUserTest extends TestCase
             ->getMock();
 
         // Create a stub for the CookieSetter Class class.
-        $this->cookie = $this->createMock(CookieSetter::class);
+        try {
+            $this->cookie = $this->createMock(CookieSetter::class);
+        } catch (ReflectionException $e) {
+            echo $e->getMessage();
+        }
 
         $this->cookie->method('gethash')
             ->willReturn("mcsiljcincklsdncvklsdvisdn");

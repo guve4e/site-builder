@@ -62,4 +62,9 @@ class PageBuilderTest extends TestCase
 
         PageBuilder::MakePage($this->mockFile, $_GET);
     }
+
+    protected function tearDown()
+    {
+        $_GET = array();
+    }
 }

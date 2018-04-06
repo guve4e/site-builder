@@ -2,14 +2,14 @@
 /**
  * Tests CookieSetter Class.
  */
-require_once("../CookieSetter.php");
-require_once ("UtilityTest.php");
+require_once ("../../config.php");
+require_once ("../UtilityTest.php");
+require_once (USER_SESSION_PATH . "/CookieSetter.php");
 
 use PHPUnit\Framework\TestCase;
 
-class CookieTest extends TestCase
+class CookieSetterTest extends TestCase
 {
-
     use UtilityTest;
 
     /**
@@ -17,8 +17,6 @@ class CookieTest extends TestCase
      */
     protected function setUp()
     {
-        parent::setUp();
-
         $_SERVER['REMOTE_ADDR'] = "REMOTE_ADDR";
         $_SERVER['HTTP_USER_AGENT'] = "HTTP_USER_AGENT";
         $_SERVER['HTTP_ACCEPT'] = "HTTP_ACCEPT";
@@ -29,16 +27,17 @@ class CookieTest extends TestCase
     {
         // Arrange
         // Create a stub for the CookieSetter Class class.
-        $stub = $this->createMock(CookieSetter::class);
+        try {
+            $stub = $this->createMock(CookieSetter::class);
+        } catch (ReflectionException $e) {
+            echo $e->getMessage();
+        }
 
         // Configure the stub.
         $stub->method('setCookie')
             ->willReturn("SomeHash");
 
-        // Act
-
         // Assert
-
         $this->assertSame( "SomeHash", $stub->setCookie());
     }
 
