@@ -224,10 +224,9 @@ final class View
     public function build()
     {
         // include the view
-        if ($this->file->fileExists($this->viewPath))
-            require($this->viewPath);
-        else
+        if (!$this->file->fileExists($this->viewPath))
             throw new Exception("View can not be build {$this->viewPath} does not exist!");
+        require($this->viewPath);
     }
 
     /**

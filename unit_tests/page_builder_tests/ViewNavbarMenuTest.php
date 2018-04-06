@@ -3,10 +3,11 @@
  * TODO Test $viewKey
  *
  */
-require_once ("../config.php");
-require_once ("UtilityTest.php");
-require_once ("../library/build_page/View.php");
-require_once ("../library/build_page/Menu.php");
+require_once("../../config.php");
+require_once("../UtilityTest.php");
+require_once("../../library/build_page/View.php");
+require_once("../../library/build_page/Menu.php");
+require_once("../../library/build_page/Navbar.php");
 
 use PHPUnit\Framework\TestCase;
 
@@ -69,17 +70,18 @@ class ViewNavbarMenuTest extends TestCase
 
     public function testProperConstructionOnMenu()
     {
-
         try {
             // Act
-            $menu = Menu::MakeMenu($this->mockFile, 'some_view');
+            $menu = Menu::MakeMenu($this->mockFile, 'some_menu');
+
+            // Careful here we brake encapsulation using reflection
+            $actualMenuConfig = $this->getProperty($menu, "menuConfig");
         } catch (Exception $e) {
             echo $e->getMessage();
         }
 
         // Assert
-        $this->assertTrue(true);
-
+        $this->assertEquals(['body_class_style' => 'some_style', 'title' => 'some_title'], $actualMenuConfig);
         // Clean
         $menu->__destruct();
     }
@@ -87,7 +89,34 @@ class ViewNavbarMenuTest extends TestCase
     /**
      * @expectedException  Exception
      */
-    public function testMenuMustThrowExceptionIfFileDoesNotExists() {
+    public function testMenuMustThrowExceptionIfFileDoesNotExists()
+    {
+        Menu::MakeMenu(new File(), "some_view");
+    }
+
+    public function testProperConstructionOnNavbar()
+    {
+        try {
+            // Act
+            $menu = Navbar::MakeNavbar($this->mockFile, 'some_body_class');
+
+            // Careful here we brake encapsulation using reflection
+            $actualBodyClass = $this->getProperty($menu, "bodyClass");
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        // Assert
+        $this->assertEquals("some_body_class", $actualBodyClass);
+        // Clean
+        $menu->__destruct();
+    }
+
+    /**
+     * @expectedException  Exception
+     */
+    public function testNavbarMustThrowExceptionIfFileDoesNotExists()
+    {
         Menu::MakeMenu(new File(), "some_view");
     }
 }

@@ -70,10 +70,9 @@ final class Menu
         $menuPath = MENU_PATH . '/sidebar_main.php';
 
         // include the menu
-        if ($this->file->fileExists($menuPath))
-            include($menuPath);
-        else
+        if (!$this->file->fileExists($menuPath))
             throw new Exception("Menu can not be build '{$menuPath}' does not exist!");
+        include($menuPath);
     }
 
     /**
@@ -92,6 +91,8 @@ final class Menu
     /**
      * Singleton.
      * @access public
+     * @param File $file
+     * @param $viewName
      * @return Menu
      * @throws Exception
      */

@@ -76,7 +76,7 @@ final class PrintHTML
     }
 
     /**
-     * Print Page Styles
+     * Print PageBuilder Styles
      */
     public static function printListStyles($csslist)
     {
@@ -99,7 +99,7 @@ final class PrintHTML
     }
 
     /**
-     * Print Page Scripts
+     * Print PageBuilder Scripts
      */
     public static function printListScripts($jslist)
     {

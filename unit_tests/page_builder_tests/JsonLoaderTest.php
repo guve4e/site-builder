@@ -3,12 +3,12 @@
  * Tests CookieSetter Class.
  */
 
-require_once("../config.php");
-require_once("../library/build_page/json/JsonLoader.php");
-require_once("../library/build_page/json/SiteConfigurationLoaderLoader.php");
-require_once("../library/build_page/json/ViewConfigurationLoaderLoader.php");
-require_once("../library/build_page/json/MenuConfigurationLoaderLoader.php");
-require_once ("UtilityTest.php");
+require_once("../../config.php");
+require_once("../../library/build_page/json/JsonLoader.php");
+require_once("../../library/build_page/json/SiteConfigurationLoaderLoader.php");
+require_once("../../library/build_page/json/ViewConfigurationLoaderLoader.php");
+require_once("../../library/build_page/json/MenuConfigurationLoaderLoader.php");
+require_once("../UtilityTest.php");
 
 use PHPUnit\Framework\TestCase;
 

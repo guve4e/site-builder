@@ -3,17 +3,30 @@ require_once ("View.php");
 require_once ("Navbar.php");
 require_once ("Menu.php");
 require_once ("PrintHTML.php");
-require_once (CONSTRUCTOR_PATH . "/json/SiteConfiguration.php");
+require_once (BUILD_PATH . "/json/SiteConfigurationLoaderLoader.php");
+
 /**
  *
  */
-class Page
+final class PageBuilder
 {
+    /**
+     * @var string
+     * Represents the name of the _GET
+     * super global key;
+     * Ex:
+     * $_GET['page'] = "home"
+     * It represents 'page' string literal.
+     * It can be seen in URL as query string
+     * ?page=home, if its value is 'page'
+     */
+    private $getSuperglobalKeyName = "page";
+
     /**
      * @var string
      * Name of a view.
      */
-    private $viewName= "home";
+    private $viewName = "home";
 
     /**
      * @var object
@@ -46,15 +59,29 @@ class Page
     private $pageTitle;
 
     /**
+     * @var object
+     * Provides file system
+     * functionality
+     */
+    private $file;
+
+    /**
+     * @var static Singleton
+     */
+    private static $instance;
+
+    /**
      * Loads information about the site
      * store it in siteConfig object
      * at this point siteConfig contains all
      * the information needed to print the page.
+     * @param File $file
+     * @throws Exception
      */
-    private function loadSiteConfig()
+    private function loadSiteConfig(File $file)
     {
         // get site configuration
-        $siteConfig = new SiteConfigurationLoader();
+        $siteConfig = new SiteConfigurationLoader($file);
         $this->pageConfig = $siteConfig->getData();
     }
 
@@ -68,25 +95,28 @@ class Page
     }
 
     /**
-     * Page constructor.
+     * PageBuilder constructor.
+     * @param File $file
      * @param array $get
-     * @param $user
      * @throws Exception
-     * @return void
      */
-    private function __construct(array $get)
+    private function __construct(File $file, array $get)
     {
-        if(!isset($get))
-            throw new Exception("Unable to construct the page");
+        if(!isset($get) || !isset($file))
+            throw new Exception("Unable to construct the page wrong parameters in PageBuilder constructor!");
 
-        if(isset($get['page']))
-            $this->viewName = $get['page'];
+        if(!isset($get[$this->getSuperglobalKeyName]))
+            throw new Exception("{$this->getSuperglobalKeyName} key is not found in _GET");
 
-        $this->view = View::MakeView($this->viewName);
-        $this->menu = Menu::MakeMenu($this->view->getViewName());
-        $this->navbar = Navbar::MakeNavbar($this->view->getViewBodyClass());
+        $this->viewName = $get[$this->getSuperglobalKeyName];
 
-        $this->loadSiteConfig();
+        $this->file = $file;
+
+        $this->view = View::MakeView($file, $this->viewName);
+        $this->menu = Menu::MakeMenu($file, $this->view->getViewName());
+        $this->navbar = Navbar::MakeNavbar($file, $this->view->getViewBodyClass());
+
+        $this->loadSiteConfig($file);
 
         $this->loadPageTitle();
     }
@@ -95,6 +125,7 @@ class Page
      * Print Site styles and
      * View styles.
      * Referenced from "index.php".
+     * @throws Exception
      */
     public function printStyles()
     {
@@ -107,6 +138,7 @@ class Page
      * Includes HTML for the navbar, menu and
      * the view.
      * Referenced from "index.php".
+     * @throws Exception
      */
     public function build()
     {
@@ -119,6 +151,7 @@ class Page
      * Print Site JS scripts and
      * View JS scripts.
      * Referenced from "index.php".
+     * @throws Exception
      */
     public function printScripts()
     {
@@ -128,18 +161,22 @@ class Page
 
     /**
      * Every view has a "script.php"
-     * file containg a javascript
+     * file congaing a javascript
      * extending the functionality
      * of the view. This method includes
      * the "script.php" file at the bottom
      * of the view.
      * Referenced from "index.php".
+     * @throws Exception
      */
     public function loadJavaScript()
     {
+        $javaScriptPath = $this->view->getViewJSPath();
+
         // load page javascript at the bottom
-        if (file_exists($this->view->getViewJSPath()))
-            include($this->view->getViewJSPath());
+        if (!$this->file->fileExists($javaScriptPath))
+            throw new Exception("Page can not be build  JS Path '{$javaScriptPath}' does not exist!");
+        include($this->view->getViewJSPath());
     }
 
     /**
@@ -163,16 +200,31 @@ class Page
     /**
      * Singleton.
      * @access public
-     * @return Page
+     * @param File $file object
+     * @param array $get $_GET super-global
+     * @return PageBuilder
+     * @throws Exception
      */
-    public static function MakePage($get) : Page
+    public static function MakePage(File $file, array $get) : PageBuilder
     {
-        static $inst = null;
-        if ($inst === null) {
-            $inst = new Page($get);
+        if (self::$instance === null) {
+            self::$instance = new PageBuilder($file, $get);
         }
 
-        return $inst;
+        return self::$instance;
+    }
+
+    public function __destruct()
+    {
+        unset($this->file);
+        unset($this->viewName);
+        unset($this->view);
+        unset($this->menu);
+        unset($this->navbar);
+        unset($this->pageConfig);
+        unset($this->pageTitle);
+
+        self::$instance = null;
     }
 
     /**
@@ -181,7 +233,6 @@ class Page
      */
     public function getBodyClass()
     {
-        $bodyClass =  $this->view->getViewBodyClass();
-        return $bodyClass;
+        return  $this->view->getViewBodyClass();
     }
 }
