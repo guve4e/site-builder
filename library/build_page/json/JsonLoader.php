@@ -3,9 +3,9 @@
 /**
  * Loads json configuration file
  */
-require_once ("File.php");
+require_once (UTILITY_PATH . "/File.php");
 
-class JsonLoader
+final class JsonLoader
 {
     /**
      * @var mixed

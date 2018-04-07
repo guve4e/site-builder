@@ -11,6 +11,12 @@ defined("ROOT_PATH")
 defined("LIBRARY_PATH")
     or define("LIBRARY_PATH", realpath(dirname(__FILE__) . '/library'));
 
+defined("UTILITY_PATH")
+    or define("UTILITY_PATH", realpath(dirname(__FILE__) . '/library/utility'));
+
+defined("JSON_LOADER_PATH")
+or define("JSON_LOADER_PATH", realpath(dirname(__FILE__) . '/library/build_page/json'));
+
 defined("MENU_PATH")
     or define("MENU_PATH", realpath(dirname(__FILE__) . '/template/menu'));
 

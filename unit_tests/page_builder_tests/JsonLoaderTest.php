@@ -3,12 +3,12 @@
  * Tests CookieSetter Class.
  */
 
-require_once("../../config.php");
-require_once("../../library/build_page/json/JsonLoader.php");
-require_once("../../library/build_page/json/SiteConfigurationLoaderLoader.php");
-require_once("../../library/build_page/json/ViewConfigurationLoaderLoader.php");
-require_once("../../library/build_page/json/MenuConfigurationLoaderLoader.php");
-require_once("../UtilityTest.php");
+require_once ("../../config.php");
+require_once ("../UtilityTest.php");
+require_once (JSON_LOADER_PATH . "/JsonLoader.php");
+require_once (JSON_LOADER_PATH . "/SiteConfigurationLoaderLoader.php");
+require_once (JSON_LOADER_PATH . "/ViewConfigurationLoaderLoader.php");
+require_once (JSON_LOADER_PATH . "/MenuConfigurationLoaderLoader.php");
 
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +21,8 @@ class JsonLoaderTest extends TestCase
     /**
      * Create test subject before test
      */
-    protected function setUp() {
+    protected function setUp()
+    {
         // Create a stub for the JsonLoader class
         $this->mockFile = $this->getMockBuilder(File::class)
             ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
@@ -37,7 +38,8 @@ class JsonLoaderTest extends TestCase
             ->willReturn([ 'key'=>'value' ]);
     }
 
-    public function testLoadJsonWhenFileExists() {
+    public function testLoadJsonWhenFileExists()
+    {
         try {
 
             // Act
@@ -52,7 +54,8 @@ class JsonLoaderTest extends TestCase
         }
     }
 
-    public function testSiteConfigurationLoader() {
+    public function testSiteConfigurationLoader()
+    {
         try {
             // Act
             $jsonLoader = new SiteConfigurationLoader($this->mockFile);
@@ -66,7 +69,8 @@ class JsonLoaderTest extends TestCase
         }
     }
 
-    public function testViewConfigurationLoader() {
+    public function testViewConfigurationLoader()
+    {
         try {
             // Act
             $jsonLoader = new ViewConfigurationLoader($this->mockFile, "home");
@@ -80,7 +84,8 @@ class JsonLoaderTest extends TestCase
         }
     }
 
-    public function testMenuConfigurationLoader() {
+    public function testMenuConfigurationLoader()
+    {
         try {
             // Act
             $jsonLoader = new MenuConfigurationLoader($this->mockFile);
@@ -97,12 +102,8 @@ class JsonLoaderTest extends TestCase
     /**
      * @expectedException  Exception
      */
-    public function testLoadJsonMustThrowExceptionIfFileDoesNotExists() {
-        new JsonLoader(new File(), "path/to/file");
-    }
-
-    protected function tearDown()
+    public function testLoadJsonMustThrowExceptionIfFileDoesNotExists()
     {
-
+        new JsonLoader(new File(), "path/to/file");
     }
 }
