@@ -134,6 +134,7 @@ final class ServiceForm
     {
         $this->validateAttributes($get, $fields);
 
+        // Now we know that _GET is proper
         $this->view = $get['view'];
         $this->subView = $get["subView"];
         $this->serviceName = $get['from'];
