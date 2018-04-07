@@ -9,14 +9,15 @@ class File {
     /**
      * Encodes the string provided as Json.
      * @param string string representation of file content.
+     * @param bool $arr
      * @return array json
      *
      * @throws Exception
      */
-    public function jsonDecode(string $fileContent) : array
+    public function jsonDecode(string $fileContent, bool $arr = true) : array
     {
         // decode the info in json
-        $res = json_decode($fileContent, true);
+        $res = json_decode($fileContent, $arr);
         // check for successful decode
         if ($res === false) throw new Exception("json_decode failed");
         // return the json

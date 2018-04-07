@@ -22,7 +22,7 @@ final class ServiceConfig
      * All the information
      * extracted from the
      * json file is stored
-     * in this josn object
+     * in this json object
      */
     private $json;
 
@@ -81,18 +81,32 @@ final class ServiceConfig
     private $pathFail;
 
     /**
+     * @var string
+     * The name of the service.
+     */
+    private $serviceName;
+
+    /**
+     * @var object
+     * Provides file system
+     * functionality
+     */
+    private $file;
+
+    /**
      * Construct the right path
      * to the json config file
      *
      * @param $serviceForm: object of type ServiceForm
      * @throws Exception
      */
-    private function constructPath($serviceForm)
+    private function constructPath(ServiceForm $serviceForm)
     {
         $this->path =  VIEW_PATH . "/" . $serviceForm->getView() . "/" . $serviceForm->getServiceName() .
             "/" . $serviceForm->getSubView() . ".json";
         // check if file exist
-        if(!file_exists($this->path)) throw new Exception("File " . $this->path . "json does not exist!");
+        if(!$this->file->fileExists($this->path))
+            throw new Exception("File " . $this->path . "json does not exist!");
     }
 
     /**
@@ -104,8 +118,6 @@ final class ServiceConfig
      */
     private function validateParameter($serviceForm)
     {
-        if(!isset($serviceForm))
-            throw new Exception("The attribute is not set appropriately in ServiceConfig");
 
         $this->view = $serviceForm->getView();
         $this->subView = $serviceForm->getSubView();
@@ -115,16 +127,16 @@ final class ServiceConfig
 
     /**
      * Loads the json config file
+     * @throws Exception
      */
     private function loadJson()
     {
         // get info from json
-        $string = file_get_contents($this->path);
+        $string = $this->file->loadFileContent($this->path);
 
         // the second parameter returns an array
         // instead of object
-        // which is faster ? TODO!!! for performance
-        $this->json = json_decode($string, true);
+        $this->json = $this->file->jsonDecode($string, true);
     }
 
     /**
@@ -185,9 +197,15 @@ final class ServiceConfig
     /**
      * ServiceConfig constructor.
      * @param $serviceForm
+     * @throws Exception
      */
-    public function __construct($serviceForm)
+    public function __construct(File $file, ServiceForm $serviceForm)
     {
+        if(!isset($file) || !isset($serviceForm))
+            throw new Exception("Bad parameters in ServiceConfig Constructor!");
+
+        $this->file = $file;
+
         $this->validateParameter($serviceForm);
         $this->constructParameter($serviceForm);
         $this->constructPath($serviceForm);

@@ -16,7 +16,7 @@ class ServiceFormTest extends TestCase
     use UtilityTest;
 
     private $info;
-    
+
     protected function setUp()
     {
         // Arrange

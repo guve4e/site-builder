@@ -4,6 +4,7 @@ require_once("../../config.php");
 require_once("../UtilityTest.php");
 require_once (LIBRARY_PATH . "/service/ServiceConfig.php");
 require_once (LIBRARY_PATH . "/service/ServiceForm.php");
+require_once (UTILITY_PATH . "/File.php");
 
 use PHPUnit\Framework\TestCase;
 
@@ -16,6 +17,7 @@ class ServiceConfigTest extends TestCase
     use UtilityTest;
 
     private $info;
+    private $mockFile;
 
     /**
      * Create test subject before test
@@ -30,16 +32,33 @@ class ServiceConfigTest extends TestCase
         $_GET['paramName'] = "product";
         $_GET['paramValue'] = 2;
 
-        $serviceForm = new ServiceForm($_GET, $_POST);
-        $this->info = new ServiceConfig($serviceForm);
-    }
+        $expectedJson = [
+            "method" => "DELETE",
+            "headers" => [
+                "key" => "value",
+                "key2" => "value2",
+                "key3" => "value3"
+            ],
+            "content_type" => "application/json",
+            "service" => "someservice",
+            "navigate_next" => true,
+            "path_success" => "./?page=shoppingcart",
+            "path_fail" => "./?page=home"
+        ];
 
-    /**
-     * @expectedException Exception
-     */
-    public function testConstructionWhenParamIsNotSetExpectedException()
-    {
-        $this->info = new ServiceConfig(null, "shoppingcart", "del_product");
+        // Create a stub for the JsonLoader class
+        $this->mockFile = $this->getMockBuilder(File::class)
+            ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
+            ->getMock();
+
+        $this->mockFile->method('fileExists')
+            ->willReturn(true);
+
+        $this->mockFile->method('loadFileContent')
+            ->willReturn("{ 'key'=>'value' }");
+
+        $this->mockFile->method('jsonDecode')
+            ->willReturn($expectedJson);
     }
 
     /**
@@ -48,40 +67,22 @@ class ServiceConfigTest extends TestCase
     public function testProperSettingUp()
     {
         // Arrange
-        $expectedJson = [
-                "method" => "DELETE",
-                "headers" => [
-                        "key" => "value",
-                        "key2" => "value2",
-                        "key3" => "value3"
-                    ],
-                "content_type" => "application/json",
-                "service" => "someservice",
-                "path_success" => "./?page=shoppingcart",
-                "path_fail" => "./?page=shoppingcart"
-            ];
 
-        $expectedPath = VIEW_PATH . "/shoppingcart/cart/del_product.json";
-
-        //$expectedJson = print_r($expectedJson);
-
-        // Act
-        $path = $this->getProperty($this->info,"path");
-        $json = $this->getProperty($this->info,"json");
-
-        $method = $this->getProperty($this->info,"method");
-        $headers = $this->getProperty($this->info,"headers");
-        $content_type = $this->getProperty($this->info,"content_type");
-        $path_success  = $this->getProperty($this->info,"path_success");
-        $path_fail = $this->getProperty($this->info,"path_fail");
+        try {
+            $serviceForm = new ServiceForm($_GET, $_POST);
+            $info = new ServiceConfig($this->mockFile, $serviceForm);
+        } catch (Exception $e) {
+        }
 
         // Assert
-        //$this->assertSame($this->arraysAreSimilar($expectedJson, $json));
-        $this->assertSame("DELETE", $method);
-        $this->assertSame(["key" => "value", "key2" => "value2", "key3" => "value3" ], $headers);
-        $this->assertSame("application/json", $content_type);
-        $this->assertSame("./?page=shoppingcart&product=2", $path_success);
-        $this->assertSame("./?page=shoppingcart&product=2", $path_fail);
-        $this->assertSame($expectedPath, $path);
+        $this->assertEquals(true, $info->isNavigable());
+        $this->assertEquals("cart", $info->getServiceName());
+        $this->assertEquals("application/json", $info->getContentType());
+        $this->assertEquals(["key"=>"value", "key2"=>"value2", "key3"=>"value3",], $info->getHeaders());
+        $this->assertEquals("DELETE", $info->getMethod());
+        //TODO why add product=2 to path success and fail?
+        $this->assertEquals("./?page=home&product=2", $info->getPathFail());
+        $this->assertEquals("./?page=shoppingcart&product=2", $info->getPathSuccess());
+
     }
 }
