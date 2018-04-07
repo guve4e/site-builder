@@ -35,6 +35,7 @@ class File {
     }
 
     /**
+     * Wrapper over file_get_contents
      * @return string
      */
     public function loadFileContent(string $fileName) : string
@@ -43,5 +44,19 @@ class File {
         $stringContent = file_get_contents($fileName);
 
         return $stringContent;
+    }
+
+    /**
+     * Wrapper over file_put_contents
+     * @throws Exception
+     */
+    public function writeFileContent(string $fileName, string $message, $flags) : int
+    {
+        // open file and write contents
+        $res = file_put_contents($fileName, $message, $flags);
+
+        if ($res === false) throw new Exception("file_put_contents failed");
+        // return the status
+        return $res;
     }
 }
