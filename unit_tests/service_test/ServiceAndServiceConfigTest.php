@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @group service-group
  */
-class ServiceConfigTest extends TestCase
+class ServiceAndServiceConfigTest extends TestCase
 {
     use UtilityTest;
 
@@ -80,9 +80,47 @@ class ServiceConfigTest extends TestCase
         $this->assertEquals("application/json", $info->getContentType());
         $this->assertEquals(["key"=>"value", "key2"=>"value2", "key3"=>"value3",], $info->getHeaders());
         $this->assertEquals("DELETE", $info->getMethod());
+
         //TODO why add product=2 to path success and fail?
         $this->assertEquals("./?page=home&product=2", $info->getPathFail());
         $this->assertEquals("./?page=shoppingcart&product=2", $info->getPathSuccess());
 
+    }
+
+    public function setUpWithNoParameter()
+    {
+        // Arrange
+        try {
+            $serviceForm = new ServiceForm($_GET,$_POST);
+            $serviceConfig = new ServiceConfig(new File(), $serviceForm);
+            $this->service = new Service($serviceConfig, $serviceForm);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $this->assertTrue(false);
+    }
+
+    public function setUpWithParameter()
+    {
+        // Arrange
+        $_GET['requestParam'] = 123;
+
+        try {
+            $serviceForm = new ServiceForm($_GET,$_POST);
+            $serviceConfig = new ServiceConfig(new File(), $serviceForm);
+            $this->service = new Service($serviceConfig, $serviceForm);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $this->assertTrue(false);
+    }
+    
+    public function tearDown()
+    {
+        $_GET = array();
+        $_POST = array();
+        $_SESSION = array();
     }
 }

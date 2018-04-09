@@ -21,10 +21,11 @@ final class Service
     private $serviceForm;
 
     /**
+     * TODO load it from config file
      * @var string
      * session username
      */
-    private $sessionName = "crystalpure_user";
+    private $sessionName = "some_website_user";
 
     /**
      * @var mixed
