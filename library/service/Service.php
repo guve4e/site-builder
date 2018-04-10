@@ -42,11 +42,10 @@ final class Service
      */
     private function validateAttributes($serviceConfig, $serviceForm)
     {
-
         if(!isset($serviceConfig) || !isset($serviceForm))
-            throw new Exception("Parameters Not set in Service");
+            throw new Exception("Parameters Not set in Service!");
         if(!isset($_SESSION[$this->sessionName]))
-            throw new Exception("SESSION is not set");
+            throw new Exception("SESSION is not set!");
     }
     
     /**

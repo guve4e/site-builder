@@ -4,19 +4,13 @@ require_once("../../config.php");
 require_once("../UtilityTest.php");
 require_once (LIBRARY_PATH . "/service/ServiceConfig.php");
 require_once (LIBRARY_PATH . "/service/ServiceForm.php");
+require_once (LIBRARY_PATH . "/service/Service.php");
 require_once (UTILITY_PATH . "/File.php");
 
 use PHPUnit\Framework\TestCase;
 
-/**
- *
- * @group service-group
- */
 class ServiceAndServiceConfigTest extends TestCase
 {
-    use UtilityTest;
-
-    private $info;
     private $mockFile;
 
     /**
@@ -46,6 +40,11 @@ class ServiceAndServiceConfigTest extends TestCase
             "path_fail" => "./?page=home"
         ];
 
+        // Set up Session
+        $tmp = new StdClass;
+        $tmp->u_id = "aji2jdnjwec8i1ji3njiwqefjw0efd";
+        $_SESSION["some_website_user"] = $tmp;
+
         // Create a stub for the JsonLoader class
         $this->mockFile = $this->getMockBuilder(File::class)
             ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
@@ -61,9 +60,6 @@ class ServiceAndServiceConfigTest extends TestCase
             ->willReturn($expectedJson);
     }
 
-    /**
-     * Test proper setting of members
-     */
     public function testProperSettingUp()
     {
         // Arrange
@@ -84,39 +80,46 @@ class ServiceAndServiceConfigTest extends TestCase
         //TODO why add product=2 to path success and fail?
         $this->assertEquals("./?page=home&product=2", $info->getPathFail());
         $this->assertEquals("./?page=shoppingcart&product=2", $info->getPathSuccess());
-
     }
 
-    public function setUpWithNoParameter()
+    public function testWithNoParameter()
     {
-        // Arrange
+        $service = null;
+        // Act
         try {
             $serviceForm = new ServiceForm($_GET,$_POST);
-            $serviceConfig = new ServiceConfig(new File(), $serviceForm);
-            $this->service = new Service($serviceConfig, $serviceForm);
+            $serviceConfig = new ServiceConfig($this->mockFile, $serviceForm);
+            $service = new Service($serviceConfig, $serviceForm);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
 
-        $this->assertTrue(false);
+        // Assert
+        $this->assertEquals("aji2jdnjwec8i1ji3njiwqefjw0efd", $service->getParameter());
+        $this->assertEquals($serviceConfig, $service->getServiceConfig());
+        $this->assertEquals($serviceForm, $service->getServiceForm());
     }
 
-    public function setUpWithParameter()
+    public function testWithParameter()
     {
         // Arrange
         $_GET['requestParam'] = 123;
 
+        // Act
         try {
             $serviceForm = new ServiceForm($_GET,$_POST);
-            $serviceConfig = new ServiceConfig(new File(), $serviceForm);
-            $this->service = new Service($serviceConfig, $serviceForm);
+            $serviceConfig = new ServiceConfig($this->mockFile, $serviceForm);
+            $service = new Service($serviceConfig, $serviceForm);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
 
-        $this->assertTrue(false);
+        // Assert
+        $this->assertEquals(123, $service->getParameter());
+        $this->assertEquals($serviceConfig, $service->getServiceConfig());
+        $this->assertEquals($serviceForm, $service->getServiceForm());
     }
-    
+
     public function tearDown()
     {
         $_GET = array();
