@@ -27,6 +27,7 @@ class File {
     /**
      * Encodes string data as JSON.
      * @param string $data data to be encoded
+     * @param int $optionFlags
      * @return string JSON string
      * @throws Exception
      */
@@ -52,6 +53,7 @@ class File {
 
     /**
      * Wrapper over file_get_contents
+     * @param string $fileName
      * @return string
      */
     public function loadFileContent(string $fileName) : string
@@ -64,6 +66,10 @@ class File {
 
     /**
      * Wrapper over file_put_contents
+     * @param string $fileName
+     * @param string $message
+     * @param $flags
+     * @return int
      * @throws Exception
      */
     public function writeFileContent(string $fileName, string $message, $flags) : int
@@ -117,7 +123,6 @@ class File {
      */
     public function endOfFile($fileDescriptor)
     {
-        echo ("A ");
         return feof($fileDescriptor);
     }
 

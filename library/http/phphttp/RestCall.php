@@ -1,8 +1,8 @@
 <?php
 
-require_once ("CurlCall.php");
-require_once ("SocketCall.php");
-require_once (UTILITY_PATH . "/File.php");
+require_once("CurlCall.php");
+require_once("SocketCall.php");
+require_once(UTILITY_PATH . "/File.php");
 
 class RestCall
 {

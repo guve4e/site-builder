@@ -1,5 +1,5 @@
 <?php
-require_once("phphttp/phphttp/RestCall.php");
+require_once("phphttp/RestCall.php");
 
 /**
  * Wrapper around RestCall

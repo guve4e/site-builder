@@ -1,9 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once ("../../../../config.php");
-require_once ("../phphttp/RestCall.php");
-require_once ("UtilityTest.php");
+require_once ("../../config.php");
+require_once (HTTP_PATH . "/phphttp/RestCall.php");
 require_once (UTILITY_PATH . "/File.php");
 
 class RestResponseTest extends TestCase
