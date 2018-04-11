@@ -1,6 +1,6 @@
 <?php
 require_once ("PrintHTML.php");
-require_once(BUILD_PATH . "/json/ViewConfigurationLoaderLoader.php");
+require_once(BUILD_PATH . "/json/ViewConfigurationLoader.php");
 /**
  *
  */
@@ -18,7 +18,7 @@ final class View
      * @var string
      * The name of the page.
      * Ex: If the page file
-     * is home.php,
+     * is view.php,
      * $pageName is "home".
      */
     private $viewName = "";

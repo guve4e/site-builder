@@ -25,6 +25,7 @@ final class PageBuilder
     /**
      * @var string
      * Name of a view.
+     * Initially it goes to home page.
      */
     private $viewName = "home";
 
@@ -105,10 +106,9 @@ final class PageBuilder
         if(!isset($get) || !isset($file))
             throw new Exception("Unable to construct the page wrong parameters in PageBuilder constructor!");
 
-        if(!isset($get[$this->getSuperglobalKeyName]))
-            throw new Exception("{$this->getSuperglobalKeyName} key is not found in _GET");
-
-        $this->viewName = $get[$this->getSuperglobalKeyName];
+        // When page is loaded for first time _GET is empty
+        if(isset($get[$this->getSuperglobalKeyName]))
+            $this->viewName = $get[$this->getSuperglobalKeyName];
 
         $this->file = $file;
 

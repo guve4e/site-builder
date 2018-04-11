@@ -40,6 +40,35 @@ class MenuConfigurationLoader
         $this->filePath = MENU_PATH  . "/" . $this->nameOfJson . ".json";
     }
 
+    /**
+     * Checks if given array is Multidimensional.
+     * @param array $array
+     * @return true/false
+     */
+    private function isMultiDimensionalArray(array $array)
+    {
+        $rv = array_filter($array, 'is_array');
+        if (count($rv) > 0) return true;
+        return false;
+    }
+
+    /**
+     * Validates the configuration file.
+     * @throws Exception
+     */
+    private function validateJson()
+    {
+        $infoMenuArray = $this->jsonLoader->getData();
+
+        if (!$this->isMultiDimensionalArray($infoMenuArray))
+            throw new Exception("Wrong Menu Configuration File");
+
+        foreach($infoMenuArray as $link)
+        {
+            if (!isset($link['title']) || !isset($link['id']) || !isset($link['icon']))
+                throw new Exception("Wrong Menu Configuration File");
+        }
+    }
 
     /**
      * SiteConfiguration constructor.
@@ -53,6 +82,9 @@ class MenuConfigurationLoader
         $this->constructFilePath();
 
         $this->jsonLoader = new JsonLoader($file, $this->filePath);
+
+        // validate that we have the right json file
+        $this->validateJson();
     }
 
     /**

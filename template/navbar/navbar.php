@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <header>
     <nav>
         <h3>Navbar</h3>

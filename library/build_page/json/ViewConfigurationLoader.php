@@ -52,6 +52,18 @@ class ViewConfigurationLoader
     }
 
     /**
+     * Validates the configuration file.
+     * @throws Exception
+     */
+    private function validateJson()
+    {
+        $info = $this->jsonLoader->getData();
+
+        if (!isset($info['body_class_style']) || !isset($info['title']) || !isset($info['styles']) ||  !isset($info['scripts']))
+            throw new Exception("Wrong View Configuration File");
+    }
+
+    /**
      * ViewConfigurationLoader constructor.
      * @throws Exception
      */
@@ -65,6 +77,9 @@ class ViewConfigurationLoader
 
         // use json loader
         $this->jsonLoader = new JsonLoader($this->file, $this->filePath);
+
+        // validate that we have the right json file
+        $this->validateJson();
     }
 
     /**

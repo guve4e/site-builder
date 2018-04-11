@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="be7476e7-de0a-40f8-9c63-e78b14d46107" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/library/user_session/Chrono.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/menu/menu.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template/views/home/view.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/guve4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/guve4.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/build_page/PageBuilder.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/build_page/PageBuilder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/build_page/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/build_page/View.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/build_page/json/JsonLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/build_page/json/JsonLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/build_page/json/MenuConfigurationLoaderLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/build_page/json/MenuConfigurationLoaderLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/library/build_page/json/ViewConfigurationLoaderLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/library/build_page/json/ViewConfigurationLoader.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/root/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/root/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/menu/menu.php" beforeDir="false" afterPath="$PROJECT_DIR$/template/menu/menu.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/navbar/navbar.php" beforeDir="false" afterPath="$PROJECT_DIR$/template/navbar/navbar.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/views/view_one/page.json" beforeDir="false" afterPath="$PROJECT_DIR$/template/views/home/page.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/template/views/view_one/view_one.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/site_builder$RestResponseTest_testRestResponseClassNotSuccessful.xml" NAME="RestResponseTest.testRestResponseClassNotSuccessful Coverage Results" MODIFIED="1523462423972" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="PhpCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="ViewConfigurationLoader.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/library/build_page/json/ViewConfigurationLoader.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="485">
+              <caret line="80" column="7" selection-start-line="80" selection-start-column="7" selection-end-line="81" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JsonLoaderTest.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestCase.php" pinned="false" current-in-tab="false">
+        <entry file="phar://$PROJECT_DIR$/unit_tests/configuration/phpunit.phar/phpunit/Framework/TestCase.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="563">
+              <caret line="1152" selection-start-line="1152" selection-end-line="1152" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MenuConfigurationLoaderLoader.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/library/build_page/json/MenuConfigurationLoaderLoader.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="297">
+              <caret line="87" selection-start-line="87" selection-end-line="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/template/menu/menu.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="76">
+              <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>menuConfig</find>
+      <find>serviceName</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/unit_tests/JsonLoaderTest.php" />
+        <option value="$PROJECT_DIR$/library/build_page/Page.php" />
+        <option value="$PROJECT_DIR$/library/user_session/IdentifyUser.php" />
+        <option value="$PROJECT_DIR$/library/user_session/UnitTests/IdentifyUserTest.php" />
+        <option value="$PROJECT_DIR$/unit_tests/ViewTest.php" />
+        <option value="$PROJECT_DIR$/library/build_page/Navbar.php" />
+        <option value="$PROJECT_DIR$/unit_tests/PageTest.php" />
+        <option value="$PROJECT_DIR$/unit_tests/ViewNavbarMenuTest.php" />
+        <option value="$PROJECT_DIR$/library/build_page/Menu.php" />
+        <option value="$PROJECT_DIR$/unit_tests/PageBuilderTest.php" />
+        <option value="$PROJECT_DIR$/unit_tests/page_builder_tests/ViewNavbarMenuTest.php" />
+        <option value="$PROJECT_DIR$/unit_tests/user_session_test/CookieSetterTest.php" />
+        <option value="$PROJECT_DIR$/config.php" />
+        <option value="$PROJECT_DIR$/unit_tests/page_builder_tests/PageBuilderTest.php" />
+        <option value="$PROJECT_DIR$/unit_tests/user_session_test/AuthenticateUserTest.php" />
+        <option value="$PROJECT_DIR$/library/utility/Logger.php" />
+        <option value="$PROJECT_DIR$/unit_tests/utility_test/LoggerTest.php" />
+        <option value="$PROJECT_DIR$/library/user_session/SessionHelper.php" />
+        <option value="$PROJECT_DIR$/unit_tests/user_session_test/IdentifyUserTest.php" />
+        <option value="$PROJECT_DIR$/library/service/ServiceForm.php" />
+        <option value="$PROJECT_DIR$/unit_tests/service_test/ServiceFormTest.php" />
+        <option value="$PROJECT_DIR$/library/service/ServiceConfig.php" />
+        <option value="$PROJECT_DIR$/unit_tests/service_test/ServiceConfigTest.php" />
+        <option value="$PROJECT_DIR$/unit_tests/service_test/ServiceTest.php" />
+        <option value="$PROJECT_DIR$/library/service/Service.php" />
+        <option value="$PROJECT_DIR$/unit_tests/service_test/ServiceAndServiceConfigTest.php" />
+        <option value="$PROJECT_DIR$/root/httpfactory.php" />
+        <option value="$PROJECT_DIR$/library/http/phphttp/phphttp/IHttpRequest.php" />
+        <option value="$PROJECT_DIR$/library/http/phphttp/phphttp/AHttpRequest.php" />
+        <option value="$PROJECT_DIR$/library/http/phphttp/phphttp/CurlCall.php" />
+        <option value="$PROJECT_DIR$/library/http/phphttp/phphttp/SocketCall.php" />
+        <option value="$PROJECT_DIR$/library/http/phphttp/phphttp/RestCall.php" />
+        <option value="$PROJECT_DIR$/library/http/phphttp/unit-tests/RestResponseTest.php" />
+        <option value="$PROJECT_DIR$/library/http/phphttp/unit-tests/RestCallTest.php" />
+        <option value="$PROJECT_DIR$/library/http/phphttp/phphttp/File.php" />
+        <option value="$PROJECT_DIR$/library/utility/File.php" />
+        <option value="$PROJECT_DIR$/unit_tests/http_test/RestResponseTest.php" />
+        <option value="$PROJECT_DIR$/library/http/PhpHttpAdapter.php" />
+        <option value="$PROJECT_DIR$/unit_tests/http_test/RestCallTest.php" />
+        <option value="$PROJECT_DIR$/template/menu/menu.php" />
+        <option value="$PROJECT_DIR$/library/user_session/Chrono.php" />
+        <option value="$PROJECT_DIR$/root/index.php" />
+        <option value="$PROJECT_DIR$/library/build_page/PageBuilder.php" />
+        <option value="$PROJECT_DIR$/template/views/home/home.php" />
+        <option value="$PROJECT_DIR$/library/build_page/View.php" />
+        <option value="$PROJECT_DIR$/library/build_page/json/JsonLoader.php" />
+        <option value="$PROJECT_DIR$/template/views/home/page.json" />
+        <option value="$PROJECT_DIR$/template/navbar/navbar.php" />
+        <option value="$PROJECT_DIR$/library/build_page/json/ViewConfigurationLoader.php" />
+        <option value="$PROJECT_DIR$/library/build_page/json/MenuConfigurationLoaderLoader.php" />
+        <option value="$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="PhpServers">
+    <servers>
+      <server host="localhost" id="87e14bd5-0daa-4cfa-8a6c-30d351361583" name="localhost" />
+    </servers>
+  </component>
+  <component name="PhpWebServerValidation" path_to_validation_script="C:\Users\guve4\www\site-builder" selected_validation_type="LOCAL" web_path_to_validation_script="http://127.0.0.1/" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1620" />
+    <option name="width" value="1392" />
+    <option name="height" value="1959" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="site-builder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="site-builder" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="site-builder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="site-builder" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="library" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="site-builder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="site-builder" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="library" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="build_page" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="site-builder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="site-builder" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="library" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="build_page" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="json" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="site-builder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="site-builder" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="template" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="site-builder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="site-builder" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="template" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="menu" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="site-builder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="site-builder" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="unit_tests" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="site-builder" type="b2602c69:ProjectViewProjectNode" />
+              <item name="site-builder" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="unit_tests" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="page_builder_tests" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Constants" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\guve4\www\site-builder\library\http\phphttp" />
+      <recent name="C:\Users\guve4\www\site-builder\library\utility" />
+      <recent name="C:\Users\guve4\www\site-builder\unit_tests" />
+      <recent name="C:\Users\guve4\www\site-builder\unit_tests\page_builder_tests" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\site-builder\template\views\home" />
+      <recent name="C:\Users\guve4\www\site-builder\library\user_session" />
+      <recent name="C:\Users\guve4\www\site-builder\template\menu" />
+      <recent name="C:\Users\guve4\www\site-builder\unit_tests" />
+      <recent name="C:\Users\guve4\www\site-builder\library\http\phphttp\phphttp" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="PHPUnit.JsonLoaderTest">
+    <configuration name="JsonLoaderTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="JsonLoaderTest" file="$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php" scope="Class" />
+    </configuration>
+    <configuration name="JsonLoaderTest.testMenuConfigurationLoader" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="JsonLoaderTest" file="$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php" method="testMenuConfigurationLoader" scope="Method" />
+    </configuration>
+    <configuration name="JsonLoaderTest.testMenuConfigurationLoaderWhenContentLoadedIsNotMultidimensionalArray" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="JsonLoaderTest" file="$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php" method="testMenuConfigurationLoaderWhenContentLoadedIsNotMultidimensionalArray" scope="Method" />
+    </configuration>
+    <configuration name="JsonLoaderTest.testViewConfigurationLoader" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="JsonLoaderTest" file="$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php" method="testViewConfigurationLoader" scope="Method" />
+    </configuration>
+    <configuration name="JsonLoaderTest.testViewConfigurationLoaderWhenWrongJsonMustThrowException" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner class="JsonLoaderTest" file="$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php" method="testViewConfigurationLoaderWhenWrongJsonMustThrowException" scope="Method" />
+    </configuration>
+    <list>
+      <item itemvalue="PHPUnit.JsonLoaderTest" />
+      <item itemvalue="PHPUnit.JsonLoaderTest.testViewConfigurationLoader" />
+      <item itemvalue="PHPUnit.JsonLoaderTest.testViewConfigurationLoaderWhenWrongJsonMustThrowException" />
+      <item itemvalue="PHPUnit.JsonLoaderTest.testMenuConfigurationLoader" />
+      <item itemvalue="PHPUnit.JsonLoaderTest.testMenuConfigurationLoaderWhenContentLoadedIsNotMultidimensionalArray" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="PHPUnit.JsonLoaderTest" />
+        <item itemvalue="PHPUnit.JsonLoaderTest.testMenuConfigurationLoader" />
+        <item itemvalue="PHPUnit.JsonLoaderTest.testMenuConfigurationLoaderWhenContentLoadedIsNotMultidimensionalArray" />
+        <item itemvalue="PHPUnit.JsonLoaderTest.testViewConfigurationLoaderWhenWrongJsonMustThrowException" />
+        <item itemvalue="PHPUnit.JsonLoaderTest.testViewConfigurationLoader" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="be7476e7-de0a-40f8-9c63-e78b14d46107" name="Default" comment="" />
+      <created>1522877672749</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1522877672749</updated>
+      <workItem from="1522877676028" duration="2266000" />
+      <workItem from="1522966221517" duration="1425000" />
+      <workItem from="1522967772971" duration="1182000" />
+      <workItem from="1522969401545" duration="31120000" />
+      <workItem from="1523118176858" duration="1966000" />
+      <workItem from="1523293535733" duration="968000" />
+      <workItem from="1523294738624" duration="1783000" />
+      <workItem from="1523304075477" duration="1723000" />
+      <workItem from="1523372937029" duration="2044000" />
+      <workItem from="1523397450454" duration="17560000" />
+      <workItem from="1523459306767" duration="1815000" />
+      <workItem from="1523461363428" duration="3768000" />
+      <workItem from="1523466850824" duration="5872000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TestHistory">
+    <history-entry file="JsonLoaderTest_testMenuConfigurationLoader - 2018.04.11 at 14h 46m 30s.xml">
+      <configuration name="JsonLoaderTest.testMenuConfigurationLoader" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JsonLoaderTest_testMenuConfigurationLoader - 2018.04.11 at 14h 49m 42s.xml">
+      <configuration name="JsonLoaderTest.testMenuConfigurationLoader" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JsonLoaderTest_testMenuConfigurationLoader - 2018.04.11 at 14h 50m 00s.xml">
+      <configuration name="JsonLoaderTest.testMenuConfigurationLoader" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JsonLoaderTest_testMenuConfigurationLoaderWhenContentLoadedIsNotMultidimensionalArray - 2018.04.11 at 14h 51m 47s.xml">
+      <configuration name="JsonLoaderTest.testMenuConfigurationLoaderWhenContentLoadedIsNotMultidimensionalArray" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JsonLoaderTest_testMenuConfigurationLoaderWhenContentLoadedIsNotMultidimensionalArray - 2018.04.11 at 14h 51m 51s.xml">
+      <configuration name="JsonLoaderTest.testMenuConfigurationLoaderWhenContentLoadedIsNotMultidimensionalArray" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JsonLoaderTest_testMenuConfigurationLoader - 2018.04.11 at 14h 53m 12s.xml">
+      <configuration name="JsonLoaderTest.testMenuConfigurationLoader" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JsonLoaderTest_testMenuConfigurationLoader - 2018.04.11 at 14h 53m 36s.xml">
+      <configuration name="JsonLoaderTest.testMenuConfigurationLoader" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JsonLoaderTest_testMenuConfigurationLoader - 2018.04.11 at 14h 54m 00s.xml">
+      <configuration name="JsonLoaderTest.testMenuConfigurationLoader" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JsonLoaderTest - 2018.04.11 at 14h 54m 11s.xml">
+      <configuration name="JsonLoaderTest" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+    <history-entry file="JsonLoaderTest - 2018.04.11 at 14h 55m 51s.xml">
+      <configuration name="JsonLoaderTest" configurationId="PHPUnitRunConfigurationType" />
+    </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="73492000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1728" height="1127" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32996973" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.31382442" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.33231708" />
+      <window_info anchor="bottom" id="Terminal" order="9" weight="0.32996973" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18562874" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32896066" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.34510595" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="3" side_tool="true" />
+    </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18502994" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32996973" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32996973" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.31382442" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32996973" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3481332" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/unit_tests/service_test/ServiceFormTest.php</url>
+          <line>33</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/unit_tests/user_session_test/CookieSetterTest.php</url>
+          <line>29</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="126" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/library/user_session/Chrono.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="19" lean-forward="true" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="28" column="26" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/service/ServiceForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2033">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/service_test/ServiceTest.php" />
+    <entry file="phar://$PROJECT_DIR$/unit_tests/configuration/phpunit.phar/phpunit/Framework/TestSuiteIterator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/user_session_test/CookieSetterTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-352">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/service_test/ServiceFormTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="23" column="42" lean-forward="true" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/user_session_test/IdentifyUserTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="phar://$PROJECT_DIR$/unit_tests/configuration/phpunit.phar/phpunit/TextUI/TestRunner.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="646" selection-start-line="646" selection-end-line="646" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="phar://$PROJECT_DIR$/unit_tests/configuration/phpunit.phar/phpunit/Framework/TestSuite.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="772" selection-start-line="772" selection-end-line="772" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/page_builder_tests/ViewNavbarMenuTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/service_test/ServiceAndServiceConfigTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="6" column="53" selection-start-line="6" selection-start-column="53" selection-end-line="6" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/httpfactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/service/Service.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/service/ServiceConfig.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="216" selection-start-line="216" selection-end-line="216" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="phar://$PROJECT_DIR$/unit_tests/configuration/phpunit.phar/phpunit/Framework/TestResult.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="905">
+          <caret line="905" selection-start-line="905" selection-end-line="905" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/build_page/Menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="589">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/page_builder_tests/PageBuilderTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="29" column="32" lean-forward="true" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="phar://$PROJECT_DIR$/unit_tests/configuration/phpunit.phar/phpunit/Framework/Assert.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9424">
+          <caret line="555" selection-start-line="555" selection-end-line="555" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/unit-tests/RestResponseTest.php" />
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/unit-tests/RestCallTest.php" />
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/File.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="121" column="19" selection-start-line="121" selection-start-column="19" selection-end-line="121" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/IHttpRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1026">
+          <caret line="60" column="7" selection-end-line="96" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/README.md" />
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/test.php" />
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/SocketCall.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/RestResponse.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="905">
+          <caret line="121" selection-start-line="121" selection-end-line="121" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/CurlCall.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="42" column="26" selection-start-line="42" selection-start-column="26" selection-end-line="42" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/RestCall.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="96" column="5" selection-end-line="132" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/http/phphttp/AHttpRequest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="905">
+          <caret line="184" selection-start-line="184" selection-end-line="184" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/http/PhpHttpAdapter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/http_test/RestResponseTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/utility_test/LoggerTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/http_test/RestCallTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="68" column="1" lean-forward="true" selection-start-line="68" selection-start-column="1" selection-end-line="68" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/menu/menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="28" column="26" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/user_session/Chrono.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="361">
+          <caret line="19" column="19" selection-start-line="19" selection-start-column="19" selection-end-line="19" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/utility/File.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/navbar/navbar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/build_page/View.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="210" column="12" selection-start-line="210" selection-start-column="12" selection-end-line="210" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/views/home/page.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/views/home/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/config.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/build_page/PageBuilder.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="114" column="36" selection-start-line="114" selection-start-column="28" selection-end-line="114" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/build_page/json/JsonLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1368">
+          <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/build_page/json/ViewConfigurationLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="485">
+          <caret line="80" column="7" selection-start-line="80" selection-start-column="7" selection-end-line="81" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template/menu/menu.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="13" lean-forward="true" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/build_page/json/MenuConfigurationLoaderLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="87" selection-start-line="87" selection-end-line="87" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="phar://$PROJECT_DIR$/unit_tests/configuration/phpunit.phar/phpunit/Framework/TestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="1152" selection-start-line="1152" selection-end-line="1152" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/unit_tests/page_builder_tests/JsonLoaderTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

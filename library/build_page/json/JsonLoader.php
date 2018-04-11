@@ -38,8 +38,11 @@ final class JsonLoader
     public function loadJsonFile() : array
     {
         $stringFileContent = $this->file->loadFileContent($this->fileName);
-        $json = $this->file->jsonDecode($stringFileContent);
 
+        if ($stringFileContent == "")
+            throw new Exception("Empty Configuration File: {$this->fileName}");
+
+        $json = $this->file->jsonDecode($stringFileContent);
         return $json;
     }
 
