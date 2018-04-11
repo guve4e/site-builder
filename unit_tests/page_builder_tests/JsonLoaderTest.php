@@ -15,9 +15,6 @@ class JsonLoaderTest extends TestCase
 {
     protected $mockFile;
 
-    /**
-     * Create test subject before test
-     */
     protected function setUp()
     {
         // Create a stub for the JsonLoader class
@@ -38,7 +35,6 @@ class JsonLoaderTest extends TestCase
     public function testLoadJsonWhenFileExists()
     {
         try {
-
             // Act
             $jsonLoader = new JsonLoader($this->mockFile, "path/to/file");
 
@@ -53,23 +49,114 @@ class JsonLoaderTest extends TestCase
 
     public function testSiteConfigurationLoader()
     {
+        // Arrange
+        $siteJson = [
+            "title" => "Site Title",
+
+            "styles" => [
+                [
+                    "rel" => "stylesheet",
+                    "type" => "",
+                    "src" => "bower",
+                    "path" => "/uikit/css/",
+                    "name" => "uikit.almost-flat",
+                    "media"=> "all",
+                    "min" => true
+                ],
+                [
+                    "rel" => "stylesheet",
+                    "type" => "",
+                    "src" => "",
+                    "path" => "assets/icons/flags/",
+                    "name" => "flags",
+                    "media" => "all",
+                    "min" => true
+                ]
+            ],
+            "scripts" => [
+                [
+                    "src" => "",
+                    "path" => "assets/js/",
+                    "name" => "common",
+                    "min" => false
+                ],
+                [
+                    "src" => "",
+                    "path" => "assets/js/",
+                    "name" => "uikit_custom",
+                    "min" => true
+                ]
+            ]
+        ];
+
+        // Create a stub for the JsonLoader class
+        $mockFile = $this->getMockBuilder(File::class)
+            ->setMethods(array('fileExists', 'jsonDecode'))
+            ->getMock();
+
+        $mockFile->method('fileExists')
+            ->willReturn(true);
+
+        $mockFile->method('jsonDecode')
+            ->willReturn($siteJson);
+
         try {
             // Act
-            $jsonLoader = new SiteConfigurationLoader($this->mockFile);
+            $jsonLoader = new SiteConfigurationLoader($mockFile);
 
             // Assert
             $actualData = $jsonLoader->getData();
 
-            $this->assertEquals([ 'key'=>'value' ], $actualData);
+            $this->assertEquals($siteJson, $actualData);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
 
+    /**
+     * @expectedException Exception
+     */
+    public function testSiteConfigurationLoaderMustThrowExceptionWhenWrongConfig()
+    {
+        // Arrange
+        $siteJsonMissingStyles = [
+            "title" => "Site Title",
+
+            "scripts" => [
+                [
+                    "src" => "",
+                    "path" => "assets/js/",
+                    "name" => "common",
+                    "min" => false
+                ],
+                [
+                    "src" => "",
+                    "path" => "assets/js/",
+                    "name" => "uikit_custom",
+                    "min" => true
+                ]
+            ]
+        ];
+
+        // Create a stub for the JsonLoader class
+        $mockFile = $this->getMockBuilder(File::class)
+            ->setMethods(array('fileExists', 'jsonDecode'))
+            ->getMock();
+
+        $mockFile->method('fileExists')
+            ->willReturn(true);
+
+        $mockFile->method('jsonDecode')
+            ->willReturn($siteJsonMissingStyles);
+
+        // Act
+        new SiteConfigurationLoader($mockFile);
+    }
+
     public function testViewConfigurationLoader()
     {
         // Arrange
-        $viewJson = [
+        $siteJson = [
             "view" => "page_home",
             "title" => "Home",
             "body_class_style"=> "",
@@ -86,7 +173,7 @@ class JsonLoaderTest extends TestCase
             ->willReturn(true);
 
         $mockFile->method('jsonDecode')
-            ->willReturn($viewJson);
+            ->willReturn($siteJson);
 
         try {
             // Act
@@ -95,7 +182,7 @@ class JsonLoaderTest extends TestCase
             // Assert
             $actualData = $jsonLoader->getData();
 
-            $this->assertEquals($viewJson, $actualData);
+            $this->assertEquals($siteJson, $actualData);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -194,7 +281,6 @@ class JsonLoaderTest extends TestCase
 
         new MenuConfigurationLoader($mockFile);
     }
-
 
     /**
      * @expectedException  Exception

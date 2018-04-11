@@ -43,6 +43,33 @@ class SiteConfigurationLoader
     }
 
     /**
+     * Checks if given array is Multidimensional.
+     * @param array $array
+     * @return true/false
+     */
+    private function isMultiDimensionalArray(array $array)
+    {
+        $rv = array_filter($array, 'is_array');
+        if (count($rv) > 0) return true;
+        return false;
+    }
+
+    /**
+     * Validates the configuration file.
+     * @throws Exception
+     */
+    private function validateJson()
+    {
+        $infoMenuArray = $this->jsonLoader->getData();
+
+        if (!$this->isMultiDimensionalArray($infoMenuArray))
+            throw new Exception("Wrong Site Configuration File Not Multidimensional Array");
+
+        if (!isset($infoMenuArray['title']) || !isset($infoMenuArray['styles']) || !isset($infoMenuArray['scripts']))
+            throw new Exception("Wrong Site Configuration File");
+    }
+
+    /**
      * SiteConfigurationLoader constructor.
      * @throws Exception
      */
@@ -53,6 +80,9 @@ class SiteConfigurationLoader
         $this->constructFilePath();
         // use json loader
         $this->jsonLoader = new JsonLoader($this->file, $this->filePath);
+
+        // validate that we have the right json file
+        $this->validateJson();
     }
 
     /**
