@@ -1,13 +1,11 @@
 <?php
 
 /**
- * Simple Data Class
- * to represent a Rest Response.
+ * Raw socket HTTP Request
  * @version     2.1.0
  * @category    class
  * @license     GNU Public License <http://www.gnu.org/licenses/gpl-3.0.txt>
  */
-
 
 class SocketCall extends AHttpRequest
 {
@@ -48,6 +46,13 @@ class SocketCall extends AHttpRequest
      * @var int
      */
     private $socketTimeout = 30;
+
+    /**
+     * @var object
+     * Provides file system
+     * functionality
+     */
+    private $file;
 
     /**
      * Extracts http code from header.
@@ -105,8 +110,14 @@ class SocketCall extends AHttpRequest
 
     /**
      * SocketCall constructor.
+     * @throws Exception
      */
-    public function __construct() {
+    public function __construct($file) {
+
+        if (!isset($file))
+            throw new Exception("Bad parameter in SocketCall constructor!");
+
+        $this->file = $file;
         $this->restResponse = new RestResponse();
     }
 
@@ -121,10 +132,11 @@ class SocketCall extends AHttpRequest
 
     /**
      * Static constructor / factory
+     * @throws Exception
      */
-    public static function create() : SocketCall
+    public static function create(File $file = null) : SocketCall
     {
-        $instance = new self();
+        $instance = new self($file);
         return $instance;
     }
 
@@ -165,26 +177,24 @@ class SocketCall extends AHttpRequest
     {
         $this->startTime = $this->takeTime();
 
-        $fp = fsockopen($this->host, $this->port, $errno, $errstr, $this->socketTimeout);
-
-        if (!$fp) throw new Exception("$errstr {$errno}\n");
+        $fp = $this->file->socket($this->host, $this->port, $this->socketTimeout);
 
         $headerFields = $this->makeInitialHeaderFields();
 
-        fwrite($fp, $headerFields);
+        $this->file->write($fp, $headerFields);
 
         if ($this->isWaitingForResponse)
         {
             $response = "";
 
             // Wait for the response
-            // ans collect it.
-            while (!feof($fp))
-                $response .= fgets($fp, 4096);
+            // and collect it.
+            while (!$this->file->endOfFile($fp))
+                $response .= $this->file->getLine($fp, 4096);
 
             $this->endTime = $this->takeTime();
 
-            fclose($fp);
+            $this->file->close($fp);
 
             $this->responseRaw = $response;
             $this->retrieveRestResponseInfo($response);
@@ -206,11 +216,10 @@ class SocketCall extends AHttpRequest
     /**
      * Gives back the response
      * form the server as JSON object.
-     * @return \PHPUnit\Util\Json
      */
     public function getResponseAsJson()
     {
-        return json_encode($this->responseRaw);
+        return $this->file->jsonEncode($this->restResponse->getBody());
     }
 
     /**

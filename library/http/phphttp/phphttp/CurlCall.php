@@ -5,7 +5,7 @@ require_once("RestResponse.php");
 
 /**
  * CurlCall is more user friendly wrapper over
- * crul.
+ * curl.
  *
  * @version     2.1.0
  * @category    class
@@ -16,6 +16,7 @@ class CurlCall extends AHttpRequest
 {
     /**
      * RestCall constructor.
+     * @throws Exception
      */
     function __construct() {
         // check if php_curl is installed
@@ -25,8 +26,9 @@ class CurlCall extends AHttpRequest
 
     /**
      * Static constructor / factory
+     * @throws Exception
      */
-    public static function create() : CurlCall
+    public static function create(File $file = null) : CurlCall
     {
         $instance = new self();
         return $instance;

@@ -1,7 +1,8 @@
 <?php
 
-require_once("CurlCall.php");
-require_once("SocketCall.php");
+require_once ("CurlCall.php");
+require_once ("SocketCall.php");
+require_once (UTILITY_PATH . "/File.php");
 
 class RestCall
 {
@@ -15,7 +16,7 @@ class RestCall
      * @param string $restCallType
      * @throws Exception
      */
-    public function __construct(string $restCallType)
+    public function __construct(string $restCallType, File $file)
     {
         switch ($restCallType)
         {
@@ -23,7 +24,7 @@ class RestCall
                 $this->strategy = new CurlCall();
                 break;
             case "Socket":
-                $this->strategy = new SocketCall();
+                $this->strategy = new SocketCall($file);
                 break;
         }
     }
@@ -92,7 +93,7 @@ class RestCall
      * @throws Exception
      */
     public function send() {
-       return $this->strategy->send();
+       $this->strategy->send();
     }
 
     /**

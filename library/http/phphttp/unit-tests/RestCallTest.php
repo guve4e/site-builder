@@ -1,170 +1,73 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once("../phphttp/RestCall.php");
-require_once("UtilityTest.php");
+require_once ("../../../../config.php");
+require_once ("../phphttp/RestCall.php");
+require_once ("UtilityTest.php");
+require_once (UTILITY_PATH . "/File.php");
 
-class RestCallCurlTest extends TestCase
+class RestCallTest extends TestCase
 {
     use UtilityTest;
 
-    /**
-     * @var
-     */
-    protected $rest;
+    private $mockConnection;
 
     /**
      * Create test subject before test
      */
     protected function setUp()
     {
-        // create instance
-        $this->rest = new RestCall("Curl");
+        $httpResponse = "HTTP/1.1 200 OK" . "\r\n" .
+                        "Date: Mon, 27 Jul 2009 12:28:53 GMT" . "\r\n" .
+                        "Server: Apache/2.2.14 (Win32)" . "\r\n" .
+                        "Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT" . "\r\n" .
+                        "Content-Length: 88" . "\r\n" .
+                        "Content-Type: text/html" . "\r\n" .
+                        "Connection: Closed" . "\r\n\r\n" .
+                        "{ 'key' => 'value', 'title' => 'some_title' }";
+
+        // Create a stub for the JsonLoader class
+        $this->mockConnection = $this->getMockBuilder(File::class)
+            ->setMethods(array('fileExists', 'close', 'getLine', 'endOfFile', 'socket', 'write'))
+            ->getMock();
+
+        $this->mockConnection->method('fileExists')
+            ->willReturn(true);
+
+        $this->mockConnection->method('getLine')
+            ->will($this->onConsecutiveCalls($httpResponse, false)); // break the loop
+
+        $this->mockConnection->expects($this->at(2))
+            ->method('endOfFile')
+            ->with(null)
+            ->willReturn(false);
+
+        $this->mockConnection->expects($this->at(4))
+            ->method('endOfFile')
+            ->with(null)
+            ->willReturn(true);
     }
 
-
-
-    /**
-     *
-     */
-    public function testSetUrl()
+    public function testSocketCall()
     {
         // Arrange
-        $this->rest->setUrl("http://example.com/test/index.php");
+        $expectedString = json_encode("{ 'key' => 'value', 'title' => 'some_title' }");
 
-        $url = $this->getProperty($this->rest, "url");
+        try {
+            $restCall = new RestCall("Socket", $this->mockConnection);
+            $restCall->setUrl("http://webapi.ddns.net/index.php/mockcontroller/1001");
+            $restCall->setContentType("application/json");
+            $restCall->setMethod("POST");
+            $restCall->addBody(["a" => 'b']);
+            $restCall->send();
+            $responseAsJson = $restCall->getResponseAsJson();
+            $responseAsString = $restCall->getResponseAsString();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
 
-        $this->assertEquals($url, "http://example.com/test/index.php");
-    }
-
-    /**
-     * @expectedException Exception
-     */
-    public function testSetUrlTypeThrowsException()
-    {
-        // Arrange
-        $this->rest->setUrl(null);
-    }
-
-    /**
-     * Test Proper setting of content type
-     */
-    public function testSetContentType()
-    {
-        // Arrange
-        $this->rest->setContentType("application/json");
-
-        // Act
-        $contentType1 = "application/json";
-
-        $contentType2 = $this->getProperty($this->rest, "content_type");
-
-        // Assert
-        $this->assertEquals($contentType1, $contentType2);
-    }
-
-    /**
-     * @expectedException Exception
-     */
-    public function testSetContentTypeThrowsException()
-    {
-        // Arrange
-        $this->rest->setContentType(null);
-    }
-
-    /**
-     * Test Proper setting of content type
-     */
-    public function testSetMethod()
-    {
-        // Arrange
-        $this->rest->setMethod("POST");
-
-        // Act
-        $method = $this->getProperty($this->rest, "method");
-
-        // Assert
-        $this->assertEquals($method, "POST");
-    }
-
-    /**
-     * @expectedException Exception
-     */
-    public function testSetMethodThrowsException()
-    {
-        // Arrange
-        $this->rest->setMethod(null);
-    }
-
-    /**
-     *
-     */
-    public function testSetJsonData()
-    {
-        // Arrange
-        $json_data1 = [
-            "key" => "value",
-            "num" => 123
-        ];
-
-        // Act
-        $this->rest->setJsonData($json_data1);
-        $json_data2 = $this->getProperty($this->rest, "json_data");
-
-        //Assert
-        $this->assertEquals(json_encode($json_data1), $json_data2);
-    }
-
-    /**
-     * @expectedException Exception
-     */
-    public function testSetJsonDataThrowsException()
-    {
-        // Arrange
-        $this->rest->setJsonData(null);
-    }
-
-    /**
-     *
-     */
-    public function testMakeheaders()
-    {
-
-        // make headers
-        $headers = [
-            "a" => "b",
-            "c" => "d"
-        ];
-
-        // set headers
-        $this->rest->setHeaders($headers);
-
-        $headers1 = $this->getProperty($this->rest, "headers");
-
-        $headers2 = [
-            0 => "a: b",
-            1 => "c: d"
-        ];
-
-        // Assert
-        $this->assertEquals($headers1, $headers2);
-    }
-
-    /**
-     * @expectedException Exception
-     */
-    public function testMakeheadersThrowsException()
-    {
-        // Arrange
-        $this->rest->setHeaders(null);
-    }
-
-    /**
-     *
-     */
-    public function onNotSuccessfulTest(Throwable $t)
-    {
-        parent::onNotSuccessfulTest($t); // TODO: Change the autogenerated stub
+        $this->assertEquals($expectedString, $responseAsJson);
+        $this->assertEquals("{ 'key' => 'value', 'title' => 'some_title' }", $responseAsString);
     }
 }
 
