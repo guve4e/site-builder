@@ -66,14 +66,28 @@ class PhpHttpAdapter {
     private $success;
 
     /**
+     * httpphp object
+     * used to send HTTP
+     * requests to back-end services.
+     * @var
+     */
+    private $restCall;
+
+    /**
      * Get Mock URL
      * @return string as a path
+     * @throws Exception
      */
     private function mockServiceUrl() : string
     {
         global $config;
         $path = $config['service']['base-local']; // get path from config file
-        return $path . "/" . $this->serviceName . ".json";
+        $path .= "/" . $this->serviceName . ".json";
+
+        if (!file_exists($path))
+            throw new Exception("Mock Service Does not Exist!");
+
+        return $path;
     }
 
     /**
@@ -108,64 +122,64 @@ class PhpHttpAdapter {
         $this->url = $url;
     }
 
-    /**
-     * @return RestCall
-     * @throws Exception
-     */
-    private function constructRestCall()
+    private function determineSuccess(RestResponse $res)
     {
-        return new RestCall("Curl", new File());
+        // TODO
+        $this->success = true;
+
+//        if (!isset($res) || !$res->isSuccessful())
+//            $this->success = false;
+//
+//
+//        if (!isset($this->jsonData->success))
+//            $this->success = false;
+//        else
+//            $this->success = $this->jsonData->success;
+//
     }
 
     /**
      * Sends the Request.
      *
      * Wrapper aground RestRequest::http_send
-     * @return string
+     * @return RestResponse
+     * @throws Exception
      */
-    private function http_send()
+    private function httpSend() : RestResponse
     {
+        $this->restCall->setUrl($this->url)
+            ->setContentType($this->contentType)
+            ->setMethod($this->method);
 
-        $restCall = $this->constructRestCall();
-        $restCall->setUrl($this->url);
-        $restCall->setContentType($this->contentType);
-        $restCall->setMethod($this->method);
-
+        // If client didn't specify body
         if (!is_null($this->jsonData))
-            $restCall->setJsonData($this->jsonData);
+            $this->restCall->addBody($this->jsonData);
 
         // security header
         $headers = [
             "ApiToken" => $this->api_token
         ];
 
-        $restCall->setHeaders($headers);
-
-//        Logger::log_http_send($this->method,$this->contentType,$this->url,$this->jsonData);
-
-        // make the call
-        $request = $restCall->send();
-
-        $this->jsonData = json_decode($request->getBody());
-
-        // Log the data received
-//        Logger::log_http_receive($request);
-
+        $this->restCall->setHeaders($headers);
+        $this->restCall->send();
+        $request = $this->restCall->getResponseWithInfo();
 
         $this->determineSuccess($request);
-
 
         return $request;
     }
 
-
-
     /**
-     * @return mixed
+     * PhpHttpAdapter constructor.
+     * @param RestCall $restCall
+     * @throws Exception
      */
-    public function getJsonData()
+    public function __construct(RestCall $restCall)
     {
-        return $this->jsonData;
+        if(!isset($restCall))
+            throw new Exception("Bad parameter in PhpHttpAdapter!");
+
+        $this->restCall = $restCall;
     }
 
     /**
@@ -226,29 +240,19 @@ class PhpHttpAdapter {
         return $this->success;
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     public function send()
     {
         $this->configureContentType($this->method);
         $this->constructUrl();
-        $this->http_send();
+        $response = $this->httpSend();
 
         if ($this->success)
-            return $this->jsonData;
+            return json_encode($response->getBody());
         else
             throw new Exception("Unsuccessfull API Call!");
-    }
-
-    private function determineSuccess(RestResponse $res)
-    {
-        $this->success = true;
-
-        if (!isset($res) || !$res->isSuccessful())
-            $this->success = false;
-
-
-        if (!isset($this->jsonData->success))
-            $this->success = false;
-        else
-            $this->success = $this->jsonData->success;
     }
 }

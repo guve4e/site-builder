@@ -42,7 +42,7 @@ defined("BUILD_PATH")
     or define("BUILD_PATH", realpath(dirname(__FILE__) . '/library/build-page'));
 
 defined("USER_SESSION_PATH")
-    or define("USER_SESSION_PATH", realpath(dirname(__FILE__) . '/library/user_session'));
+    or define("USER_SESSION_PATH", realpath(dirname(__FILE__) . '/library/user-session'));
 
 defined("HTTP_PATH")
     or define("HTTP_PATH", realpath(dirname(__FILE__) . '/library/http'));

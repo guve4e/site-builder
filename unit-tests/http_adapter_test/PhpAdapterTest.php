@@ -10,36 +10,30 @@ class PhpAdapterTest extends TestCase
 {
     private $mockConnection;
 
+    private $restCall;
+
     protected function setUp()
     {
-        $httpResponse = "HTTP/1.1 200 OK" . "\r\n" .
-                        "Date: Mon, 27 Jul 2009 12:28:53 GMT" . "\r\n" .
-                        "Server: Apache/2.2.14 (Win32)" . "\r\n" .
-                        "Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT" . "\r\n" .
-                        "Content-Length: 88" . "\r\n" .
-                        "Content-Type: text/html" . "\r\n" .
-                        "Connection: Closed" . "\r\n\r\n" .
-                        "{ 'key' => 'value', 'title' => 'some_title' }";
-
         // Create a stub for the JsonLoader class
-        $this->mockFile = $this->getMockBuilder(RestCall::class)
-            ->setMethods(array('send', 'jsonDecode', 'loadFileContent'))
+        $this->restCall = $this->getMockBuilder(RestCall::class)
+            ->setConstructorArgs(["Curl", new File])
+            ->setMethods(['send', 'getResponseWithInfo'])
             ->getMock();
 
-        $this->mockFile->method('getResponseAsJson')
-            ->willReturn(["key" => "Value"]);
+        try {
+            $restResponse = new RestResponse();
+            $restResponse->setBody("{ 'key' => 'value', 'title' => 'some_title' }")
+                ->setHttpCode(200)
+                ->setTime(124835, 124838);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
 
-
-        // Create a stub for the JsonLoader class
-        $this->mockConnection = $this->getMockBuilder(PhpAdapterTest::class)
-            ->setMethods(array('constructRestCall'))
-            ->getMock();
-
-        $this->mockConnection->method('constructRestCall')
-            ->willReturn($this->mockFile);
+        $this->restCall->method('getResponseWithInfo')
+            ->willReturn($restResponse);
     }
 
-    public function testSocketCall()
+    public function tesPhpHttpAdapterCall()
     {
         // Arrange
         $expectedString = json_encode("{ 'key' => 'value', 'title' => 'some_title' }");
@@ -47,18 +41,18 @@ class PhpAdapterTest extends TestCase
         try {
 
             // get info from web-api
-            $rc = new PhpHttpAdapter();
+            $rc = new PhpHttpAdapter($this->restCall);
             $rc->setServiceName('Products')
                 ->setMethod('GET');
 
-            $productsRaw = $rc->send();
+            $response = $rc->send();
+
 
         } catch (Exception $e) {
             echo $e->getMessage();
         }
 
-//        $this->assertEquals($expectedString, $responseAsJson);
-//        $this->assertEquals("{ 'key' => 'value', 'title' => 'some_title' }", $responseAsString);
+        $this->assertEquals($expectedString, $response);
     }
 }
 

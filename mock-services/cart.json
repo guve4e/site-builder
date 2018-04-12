@@ -1,0 +1,17 @@
+{
+  "product_count" : 3,
+  "products" : [
+    {
+      "name" : "product1",
+      "price" : 12.4
+    },
+    {
+      "name" : "product2",
+      "price" : 4.56
+    },
+    {
+      "name" : "product3",
+      "price" : 15.4
+    }
+  ]
+}
