@@ -6,7 +6,7 @@
 
 session_start();
 
-require_once("../config.php");
+require_once ("../config.php");
 require_once (USER_SESSION_PATH . "/Chrono.php");
 require_once (BUILD_PATH . "/PageBuilder.php");
 

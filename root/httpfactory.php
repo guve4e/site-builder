@@ -3,9 +3,9 @@ session_start();
 require_once ("../config.php");
 require_once (UTILITY_PATH . '/Logger.php');
 require_once (HTTP_PATH . '/PhpHttpAdapter.php');
-require_once (LIBRARY_PATH. "/service/ServiceForm.php");
-require_once (LIBRARY_PATH. "/service/ServiceConfig.php");
-require_once (LIBRARY_PATH. "/service/Service.php");
+require_once(LIBRARY_PATH . "/services/ServiceForm.php");
+require_once(LIBRARY_PATH . "/services/ServiceConfig.php");
+require_once(LIBRARY_PATH . "/services/Service.php");
 
 $info = function () {
     try {// gather information

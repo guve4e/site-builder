@@ -110,6 +110,7 @@ class SocketCall extends AHttpRequest
 
     /**
      * SocketCall constructor.
+     * @param $file
      * @throws Exception
      */
     public function __construct($file) {

@@ -2,7 +2,7 @@
 
 require_once("../../config.php");
 require_once("../UtilityTest.php");
-require_once(LIBRARY_PATH . "/build_page/PageBuilder.php");
+require_once(LIBRARY_PATH . "/build-page/PageBuilder.php");
 require_once(UTILITY_PATH . "/File.php");
 
 use PHPUnit\Framework\TestCase;

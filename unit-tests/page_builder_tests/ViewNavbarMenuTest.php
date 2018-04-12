@@ -5,9 +5,9 @@
  */
 require_once("../../config.php");
 require_once("../UtilityTest.php");
-require_once("../../library/build_page/View.php");
-require_once("../../library/build_page/Menu.php");
-require_once("../../library/build_page/Navbar.php");
+require_once("../../library/build-page/View.php");
+require_once("../../library/build-page/Menu.php");
+require_once("../../library/build-page/Navbar.php");
 
 use PHPUnit\Framework\TestCase;
 

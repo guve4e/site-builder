@@ -27,7 +27,7 @@ final class ServiceForm
 
     /**
      * @var string
-     * The name of the service,
+     * The name of the services,
      * the request will be send
      */
     private $serviceName;
@@ -141,7 +141,11 @@ final class ServiceForm
         $this->fields = $fields;
 
         // optional attributes initialization
+
+        // Check if there is a query string parameter
         $this->setQueryStringParameter($get);
+
+        // check if there is a request parameter
         $this->setRequestParameter($get);
     }
 

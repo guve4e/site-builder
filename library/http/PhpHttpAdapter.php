@@ -1,9 +1,13 @@
 <?php
-require_once("phphttp/RestCall.php");
+
+require_once ("phphttp/RestCall.php");
 
 /**
- * Wrapper around RestCall
+ * Wrapper around RestCall.
+ * Hides unnecessary information from
+ * client: content type, base url, etc.
  */
+
 class PhpHttpAdapter {
 
     /**
@@ -76,9 +80,10 @@ class PhpHttpAdapter {
      * @param $method
      * @throws Exception
      */
-    private function retrieveContentType(string $method)
+    private function configureContentType(string $method)
     {
         if(!isset($method)) throw new Exception("Method not set!");
+
         if($method == "GET")
             $this->contentType = "application/x-www-form-urlencoded";
         else
@@ -87,15 +92,13 @@ class PhpHttpAdapter {
 
     /**
      * Constructs the URL used for RestCall
-     * @return string
      */
     private function constructUrl()
     {
-
         if ($this->isMock) return $this->mockServiceUrl();
 
         global $config;
-        $base = $config['service']['base'];
+        $base = $config['services']['base'];
 
         $url = $base . "/" . $this->serviceName;
 
@@ -103,6 +106,15 @@ class PhpHttpAdapter {
             $url .= "/" . $this->parameter;
 
         $this->url = $url;
+    }
+
+    /**
+     * @return RestCall
+     * @throws Exception
+     */
+    private function constructRestCall()
+    {
+        return new RestCall("Curl", new File());
     }
 
     /**
@@ -114,12 +126,13 @@ class PhpHttpAdapter {
     private function http_send()
     {
 
-        $restCall = new RestCall("Curl");
+        $restCall = $this->constructRestCall();
         $restCall->setUrl($this->url);
         $restCall->setContentType($this->contentType);
         $restCall->setMethod($this->method);
 
-        if (!is_null($this->jsonData)) $restCall->setJsonData($this->jsonData);
+        if (!is_null($this->jsonData))
+            $restCall->setJsonData($this->jsonData);
 
         // security header
         $headers = [
@@ -128,7 +141,7 @@ class PhpHttpAdapter {
 
         $restCall->setHeaders($headers);
 
-        Logger::log_http_send($this->method,$this->contentType,$this->url,$this->jsonData);
+//        Logger::log_http_send($this->method,$this->contentType,$this->url,$this->jsonData);
 
         // make the call
         $request = $restCall->send();
@@ -136,7 +149,7 @@ class PhpHttpAdapter {
         $this->jsonData = json_decode($request->getBody());
 
         // Log the data received
-        Logger::log_http_receive($request);
+//        Logger::log_http_receive($request);
 
 
         $this->determineSuccess($request);
@@ -144,6 +157,8 @@ class PhpHttpAdapter {
 
         return $request;
     }
+
+
 
     /**
      * @return mixed
@@ -213,7 +228,7 @@ class PhpHttpAdapter {
 
     public function send()
     {
-        $this->retrieveContentType($this->method);
+        $this->configureContentType($this->method);
         $this->constructUrl();
         $this->http_send();
 
