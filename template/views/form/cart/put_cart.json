@@ -1,0 +1,11 @@
+{
+  "method" : "PUT",
+  "headers" : {
+
+  },
+  "content_type" : "application/json",
+  "service" : "cart",
+  "navigate_next": true,
+  "path_success" : "./?page=shoppingcart",
+  "path_fail" : "./?page=shoppingcart"
+}

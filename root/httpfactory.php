@@ -8,40 +8,46 @@ require_once (LIBRARY_PATH. "/service/ServiceConfig.php");
 require_once (LIBRARY_PATH. "/service/Service.php");
 
 $info = function () {
-    // gather information
-    $serviceForm = new ServiceForm($_GET, $_POST);
-    $serviceConfig = new ServiceConfig(new File(), $serviceForm);
-    $service = new Service($serviceConfig, $serviceForm);
-    return $service;
+    try {// gather information
+        $serviceForm = new ServiceForm($_GET, $_POST);
+        $serviceConfig = new ServiceConfig(new File(), $serviceForm);
+        $service = new Service($serviceConfig, $serviceForm);
+        return $service;
+    } catch (Exception $e) {
+        echo $e->getMessage();
+    }
 };
 
 // make a call
 $service = $info();
 
-$http = new PhpHttpAdapter();
-$http->setServiceName($service->getServiceConfig()->getServiceName())
-    ->setParameter($service->getParameter())
-    ->setMethod($service->getServiceConfig()->getMethod())
-    ->setJsonData($service->getServiceForm()->getFields());
-
-try {
-    $res = $http->send();
-} catch (Exception $e) {
-    //TODO What here?
-}
-
-if($service->getServiceConfig()->isNavigable())
+if (!is_null($service))
 {
-    // if response is not successful
+    $http = new PhpHttpAdapter();
+    $http->setServiceName($service->getServiceConfig()->getServiceName())
+        ->setParameter($service->getParameter())
+        ->setMethod($service->getServiceConfig()->getMethod())
+        ->setJsonData($service->getServiceForm()->getFields());
 
-    if ($http->isSuccessful()) {
-        header("Location: " .  $service->getServiceConfig()->getPathSuccess());
+    try {
+        $res = $http->send();
+    } catch (Exception $e) {
+        //TODO What here?
+    }
 
-    } else { // if response is successful
+    if($service->getServiceConfig()->isNavigable())
+    {
+        // if response is not successful
 
-        // Log it first
-        // TODO
-        header("Location: " . $service->getServiceConfig()->getPathFail());
-        exit();
+        if ($http->isSuccessful()) {
+            header("Location: " .  $service->getServiceConfig()->getPathSuccess());
+
+        } else { // if response is successful
+
+            // Log it first
+            // TODO
+            header("Location: " . $service->getServiceConfig()->getPathFail());
+            exit();
+        }
     }
 }
