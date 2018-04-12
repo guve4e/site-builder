@@ -2,5 +2,5 @@
 ?>
 
 <div>
-    <h4>Home View</h4>
+    <h4 align="center">Home View</h4>
 </div>

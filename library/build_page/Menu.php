@@ -67,7 +67,7 @@ final class Menu
      */
     public function build()
     {
-        $menuPath = MENU_PATH . '/sidebar_main.php';
+        $menuPath = MENU_PATH . '/menu.php';
 
         // include the menu
         if (!$this->file->fileExists($menuPath))

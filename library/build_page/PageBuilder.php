@@ -174,9 +174,8 @@ final class PageBuilder
         $javaScriptPath = $this->view->getViewJSPath();
 
         // load page javascript at the bottom
-        if (!$this->file->fileExists($javaScriptPath))
-            throw new Exception("Page can not be build  JS Path '{$javaScriptPath}' does not exist!");
-        include($this->view->getViewJSPath());
+        if ($this->file->fileExists($javaScriptPath))
+            include($this->view->getViewJSPath());
     }
 
     /**

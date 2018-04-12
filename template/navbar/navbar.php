@@ -4,6 +4,6 @@
 
 <header>
     <nav>
-        <h3>Navbar</h3>
+        <h3 align="center">Navbar</h3>
     </nav>
 </header>
