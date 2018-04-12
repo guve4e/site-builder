@@ -1,6 +1,6 @@
 {
-  "view": "page_products",
-  "title": "Products",
+  "view": "page_cart",
+  "title": "Cart",
   "body_class_style": "",
   "styles": [
 

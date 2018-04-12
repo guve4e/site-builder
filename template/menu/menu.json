@@ -8,5 +8,20 @@
     "title": "Products",
     "id": "products",
     "icon": "E8CB"
+  },
+  {
+    "title": "Account",
+    "id": "account",
+    "icon": "E8C9"
+  },
+  {
+    "title": "Cart",
+    "id": "cart",
+    "icon": "E8C4"
+  },
+  {
+    "title": "Form",
+    "id": "form",
+    "icon": "E8C2"
   }
 ]
