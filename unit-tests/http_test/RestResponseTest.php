@@ -38,6 +38,36 @@ class RestResponseTest extends TestCase
         $this->assertEquals(["time" => 10.0, "code"=>200, "success"=>true], $restResponse->getInfo());
         $this->assertEquals(true, $restResponse->isSuccessful());
     }
+
+    public function testRestResponseGetBodyAsJson()
+    {
+        $expectedJson = json_decode("{ \"key\": \"value\" }");
+
+        $restResponse = new RestResponse();
+        try {
+            $restResponse->setBody("{ \"key\": \"value\" }")
+                ->setHttpCode(200)
+                ->setTime(124835, 124845);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $this->assertEquals($expectedJson, $restResponse->getBodyAsJson());
+    }
+
+    public function testRestResponseGetBodyAsArray()
+    {
+        $restResponse = new RestResponse();
+        try {
+            $restResponse->setBody("{ \"key\": \"value\" }")
+                ->setHttpCode(200)
+                ->setTime(124835, 124845);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $this->assertEquals(["key" => "value"], $restResponse->getBodyAsArray());
+    }
 }
 
 
