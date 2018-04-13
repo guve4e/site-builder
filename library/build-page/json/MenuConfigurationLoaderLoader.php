@@ -71,7 +71,7 @@ class MenuConfigurationLoader
     }
 
     /**
-     * SiteConfiguration constructor.
+     * LoadSiteConfiguration constructor.
      * @throws Exception
      */
     public function __construct(File $file)

@@ -1,5 +1,5 @@
 <?php
-require_once (BUILD_PATH . "/json/JsonLoader.php");
+require_once(BUILD_PATH . "/json/JsonLoader.php");
 
 /**
  * Loads site configuration json file.

@@ -3,7 +3,7 @@
 /**
  * Loads json configuration file
  */
-require_once (UTILITY_PATH . "/File.php");
+require_once(UTILITY_PATH . "/File.php");
 
 final class JsonLoader
 {

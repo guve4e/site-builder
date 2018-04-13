@@ -4,7 +4,7 @@
  */
 
 require_once ("../../config.php");
-require_once (JSON_LOADER_PATH . "/JsonLoader.php");
+require_once(JSON_LOADER_PATH . "/JsonLoader.php");
 require_once (JSON_LOADER_PATH . "/SiteConfigurationLoaderLoader.php");
 require_once(JSON_LOADER_PATH . "/ViewConfigurationLoader.php");
 require_once (JSON_LOADER_PATH . "/MenuConfigurationLoaderLoader.php");
