@@ -5,11 +5,14 @@
 
 $config = [
     "debug" => true,
-    "auth" => [
-        "session_key" => "some_website_user",
-        "session_time" => 0
+    "session" => [
+        "key" => "some_website_user",
+        "time" => 0
     ],
-    "cookie_time" => 7,
+    "cookie" => [
+        "name" => "some_website_cookie",
+        "time" => 7
+    ],
     "services" => [
         "url-domain" => "http://localhost",
         "base" => "http://webapi.ddns.net/index.php",

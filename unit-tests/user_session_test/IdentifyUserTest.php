@@ -36,7 +36,8 @@ class IdentifyUserTest extends TestCase
 
         // Create a stub for the PhpHttpAdapter class
         $this->http = $this->getMockBuilder(PhpHttpAdapter::class)
-            ->setMethods(array('setJsonData', 'getJsonData', 'send')) //tells mock builder which methods should be mocked
+            ->setConstructorArgs([new RestCall("Curl", new File)])
+            ->setMethods(array('setJsonData', 'send')) //tells mock builder which methods should be mocked
             ->getMock();
 
         // Create a stub for the CookieSetter Class class.
@@ -67,7 +68,7 @@ class IdentifyUserTest extends TestCase
             $this->cookie->method('getCookieName')
                 ->willReturn("some_website_user");
 
-            $this->http->method('getJsonData')
+            $this->http->method('send')
                 ->willReturn($this->user);
 
             $identifyUser = IdentifyUser::IdentifyUser($this->cookie, $this->http);

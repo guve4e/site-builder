@@ -1,5 +1,5 @@
 <?php
-require_once("IdentifiedUser.php");
+require_once ("IdentifyUser.php");
 /**
  * Represents a session with the client.
  * It loads a session key from config file,
@@ -11,12 +11,24 @@ require_once("IdentifiedUser.php");
  * from backend services). If it does not, the user
  * is identified.
  */
-class Session
+class UserSession
 {
     /**
      * @var string
      */
     private $sessionKey = null;
+
+    /**
+     * @var string
+     * The name of the cookie.
+     */
+    private $cookieName = "";
+
+    /**
+     * @var integer
+     * The time cookie needs to be active.
+     */
+    private $cookieTime;
 
     /**
      * Loads session key from
@@ -30,22 +42,44 @@ class Session
         global $config;
 
         // set the session key
-        $this->sessionKey = $config['auth']['session_key'];
+        $this->sessionKey = $config['session']['key'];
+
         // check
         if (is_null($this->sessionKey))
             throw new Exception("CAN'T read config file!");
     }
 
     /**
+     * Loads the name of the cookie
+     * from config.php file.
+     * @throws Exception
+     */
+    private function loadCookieInfo()
+    {
+        // get info from the config file
+        global $config;
+
+        // set the cookie name and time
+        $this->cookieName = $config['cookie']['name'];
+        $this->cookieTime = $config['cookie']['time'];
+
+        // check
+        if (is_null($this->cookieName) || is_null($this->cookieTime))
+            throw new Exception("CAN'T read config file!");
+    }
+
+    /**
      * Checks if user is authenticated.
      * If she is not, it makes an object
-     * of crystalpure identified user.
+     * of identified user.
      * @throws Exception
      */
     private function makeUser()
     {
         if(!$this->isUserAuthenticated())
-            IdentifyUser::IdentifyUser(new CookieSetter("some_website_cookie", 7), new PhpHttpAdapter());
+            IdentifyUser::IdentifyUser(
+                new CookieSetter($this->cookieName, $this->cookieTime),
+                new PhpHttpAdapter(new RestCall("Curl", new File)));
     }
 
     /**
@@ -68,6 +102,7 @@ class Session
     private function __construct()
     {
         $this->loadSessionKey();
+        $this->loadCookieInfo();
         $this->makeUser();
     }
 
@@ -79,6 +114,7 @@ class Session
      * @return user: Either the user is
      * identified or authenticated.
      * If not any of those, assert.
+     * @static
      * @throws Exception
      */
     public static function getUserFromSession()
@@ -110,13 +146,14 @@ class Session
     /**
      * Singleton.
      * @access public
-     * @return Session
+     * @return UserSession
+     * @throws Exception
      */
-    public static function Session() : Session
+    public static function Session() : UserSession
     {
         static $inst = null;
         if ($inst === null) {
-            $inst = new Session();
+            $inst = new UserSession();
         }
 
         return $inst;

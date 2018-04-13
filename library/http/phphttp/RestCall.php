@@ -13,7 +13,7 @@ class RestCall
 
     /**
      * RestCall constructor.
-     * @param string $restCallType
+     * @param string $restCallType Rest Call Type Curl vs Socket
      * @throws Exception
      */
     public function __construct(string $restCallType, File $file)

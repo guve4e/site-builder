@@ -8,21 +8,21 @@ session_start();
 
 require_once ("../config.php");
 require_once (USER_SESSION_PATH . "/Chrono.php");
+require_once (USER_SESSION_PATH . "/UserSession.php");
 require_once (HTTP_PATH . "/PhpHttpAdapter.php");
 require_once (BUILD_PATH . "/PageBuilder.php");
 
 Chrono::checkTimer();
 
 try {
+    // make session with the user
+    $session = UserSession::Session();
 
-//    $session = Session::Session();
     // construct the page
     $site = PageBuilder::MakePage(new File(), $_GET);
 
 } catch (Exception $e) {
-    $msg =  'Caught exception: ' . $e->getMessage() . "\n";
-    echo $msg;
-    die();
+    die('Caught exception: ' . $e->getMessage() . "\n");
 }
 
 ?>
@@ -70,9 +70,7 @@ try {
         // something went wrong
         // user should not continue
         // if page is not constructed
-        $msg =  'Caught exception: ' . $e->getMessage() . "\n";
-        echo $msg;
-        die();
+        die('Caught exception: ' . $e->getMessage() . "\n");
     }
 
     ?>

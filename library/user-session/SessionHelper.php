@@ -14,6 +14,8 @@ trait SessionHelper
     /**
      * Saves user object into $_SESSION
      * super-global.
+     * @param $sessionToken
+     * @param object $user
      * @throws Exception
      */
     protected function saveUserInSession($sessionToken, object $user)

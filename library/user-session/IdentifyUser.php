@@ -29,6 +29,7 @@ class IdentifyUser
     private $cookieSetter;
 
     /**
+     *
      * @var string
      * Hash produced for each
      * identified user.
@@ -58,6 +59,7 @@ class IdentifyUser
     /**
      * Identify constructor.
      * @param CookieSetter $cookieSetter
+     * @param PhpHttpAdapter $http
      * @throws Exception
      */
     private function __construct(CookieSetter $cookieSetter, PhpHttpAdapter $http)
@@ -87,14 +89,7 @@ class IdentifyUser
         $this->http->setMethod('GET')
             ->setParameter($this->userHash);
 
-        $this->http->send();
-        $user = $this->http->getJsonData();
-
-        // check for proper user
-        // if user is not set abort
-        // there is no need to continue
-        if (!isset($user))
-            throw new Exception("User is Null!!! Bad API CALL!!!");
+        $user = $this->http->send();
 
         return $user;
     }
@@ -164,7 +159,6 @@ class IdentifyUser
         {
             $this->setUser();
             // get hash from cookie
-
 
             $this->userHash = $_COOKIE[$this->cookieSetter->getCookieName()];
         }
