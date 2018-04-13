@@ -167,7 +167,7 @@ class IdentifyUser
         $this->user = $this->retrieveUser();
 
         // save to session
-        $this->saveUserInSession($this->cookieSetter->getCookieName(), $this->user);
+        $this->saveUserInSession($this->user);
     }
 
     /**

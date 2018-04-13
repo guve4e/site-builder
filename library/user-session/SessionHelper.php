@@ -18,8 +18,13 @@ trait SessionHelper
      * @param object $user
      * @throws Exception
      */
-    protected function saveUserInSession($sessionToken, object $user)
+    protected function saveUserInSession(object $user)
     {
+        global $config;
+        $sessionToken = $config["session"]["key"];
+
+        if (is_null($sessionToken)) throw new Exception("Couldn't read the config file!");
+
         // save info in session
         $_SESSION[$sessionToken] = $user;
         $logger = new Logger(new File());

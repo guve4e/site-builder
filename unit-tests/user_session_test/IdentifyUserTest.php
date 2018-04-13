@@ -34,14 +34,13 @@ class IdentifyUserTest extends TestCase
         $_SERVER['HTTP_USER_AGENT'] = "HTTP_USER_AGENT";
         $_SERVER['HTTP_ACCEPT'] = "HTTP_ACCEPT";
 
-        // Create a stub for the PhpHttpAdapter class
-        $this->http = $this->getMockBuilder(PhpHttpAdapter::class)
-            ->setConstructorArgs([new RestCall("Curl", new File)])
-            ->setMethods(array('setJsonData', 'send')) //tells mock builder which methods should be mocked
-            ->getMock();
 
-        // Create a stub for the CookieSetter Class class.
         try {
+            $this->http = $this->getMockBuilder(PhpHttpAdapter::class)
+                ->setConstructorArgs([new RestCall("Curl", new File)])
+                ->setMethods(array('setJsonData', 'send')) //tells mock builder which methods should be mocked
+                ->getMock();
+
             $this->cookie = $this->createMock(CookieSetter::class);
         } catch (ReflectionException $e) {
             echo $e->getMessage();
@@ -104,7 +103,7 @@ class IdentifyUserTest extends TestCase
             $this->cookie->method('getCookieName')
                 ->willReturn("some_website_user");
 
-            $this->http->method('getJsonData')
+            $this->http->method('send')
                 ->willReturn($this->user);
 
             // Act
