@@ -220,7 +220,7 @@ class SocketCall extends AHttpRequest
      */
     public function getResponseAsJson()
     {
-        return $this->file->jsonEncode($this->restResponse->getBody());
+        return $this->file->jsonDecode($this->restResponse->getBodyRaw());
     }
 
     /**

@@ -13,7 +13,7 @@ $config = [
     "services" => [
         "url-domain" => "http://localhost",
         "base" => "http://webapi.ddns.net/index.php",
-        "base-local" => "http://localhost/crystalpure/mock-services"
+        "base-local" => "http://localhost/site-builder/mock-services"
     ],
     "production" => false,
     "bower_url"  => 'vendor'

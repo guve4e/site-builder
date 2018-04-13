@@ -8,21 +8,23 @@ require_once (UTILITY_PATH . "/File.php");
 
 class PhpAdapterTest extends TestCase
 {
-    private $mockConnection;
-
     private $restCall;
+
+    private $jsonString;
 
     protected function setUp()
     {
-        // Create a stub for the JsonLoader class
         $this->restCall = $this->getMockBuilder(RestCall::class)
             ->setConstructorArgs(["Curl", new File])
             ->setMethods(['send', 'getResponseWithInfo'])
             ->getMock();
 
         try {
+
+            $this->jsonString = "{ \"data\": { \"controller\": \"Test\", \"method\": \"GET\", \"id\": \"1001\" }, \"key\": \"value\" }";
+
             $restResponse = new RestResponse();
-            $restResponse->setBody("{ 'key' => 'value', 'title' => 'some_title' }")
+            $restResponse->setBody($this->jsonString)
                 ->setHttpCode(200)
                 ->setTime(124835, 124838);
         } catch (Exception $e) {
@@ -33,25 +35,23 @@ class PhpAdapterTest extends TestCase
             ->willReturn($restResponse);
     }
 
-    public function tesPhpHttpAdapterCall()
+    public function testPhpHttpAdapterCall()
     {
         // Arrange
-        $expectedString = json_encode("{ 'key' => 'value', 'title' => 'some_title' }");
+        $expectedString = json_decode($this->jsonString);
 
         try {
-
-            // get info from web-api
+            // Act
             $rc = new PhpHttpAdapter($this->restCall);
             $rc->setServiceName('Products')
                 ->setMethod('GET');
 
             $response = $rc->send();
 
-
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-
+        // Assert
         $this->assertEquals($expectedString, $response);
     }
 }

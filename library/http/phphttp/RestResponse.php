@@ -33,10 +33,17 @@ class RestResponse
     private $timeSpent;
 
     /**
+     * @var object
+     * Provides file system
+     * functionality
+     */
+    private $file;
+
+    /**
      * RestResponse constructor.
      */
     public function __construct() {
-
+        $this->file = new File();
     }
 
     /**
@@ -63,7 +70,7 @@ class RestResponse
      * @return RestResponse
      * @throws Exception
      */
-    public function setTime(float $startTime, float $endTime ) : RestResponse
+    public function setTime(float $startTime, float $endTime) : RestResponse
     {
         if (!isset($startTime) || !isset($endTime))
             throw new Exception("Null Time!");
@@ -105,9 +112,27 @@ class RestResponse
      * Raw string.
      * Note, not json_encoded
      */
-    public function getBody() : string
+    public function getBodyRaw() : string
     {
         return $this->body;
+    }
+
+    /**
+     * Gives the body as an array.
+     * @return array representation of object .
+     */
+    public function getBodyAsArray() : array
+    {
+        return $this->file->jsonDecode($this->body);
+    }
+
+    /**
+     * Gives the body as an JSON object.
+     * @return object as JSON .
+     */
+    public function getBodyAsJson() : object
+    {
+        return $this->file->jsonDecode($this->body, false);
     }
 
     /**
@@ -123,5 +148,13 @@ class RestResponse
             "time" => $this->timeSpent,
             "success" => $this->isSuccessful()
         ];
+    }
+
+    public function __destruct()
+    {
+        unset($this->body);
+        unset($this->file);
+        unset($this->http_code);
+        unset($this->timeSpent);
     }
 }

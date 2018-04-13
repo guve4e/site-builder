@@ -81,11 +81,8 @@ class PhpHttpAdapter {
     private function mockServiceUrl() : string
     {
         global $config;
-        $path = $config['service']['base-local']; // get path from config file
+        $path = $config['services']['base-local']; // get path from config file
         $path .= "/" . $this->serviceName . ".json";
-
-        if (!file_exists($path))
-            throw new Exception("Mock Service Does not Exist!");
 
         return $path;
     }
@@ -106,20 +103,25 @@ class PhpHttpAdapter {
 
     /**
      * Constructs the URL used for RestCall
+     * @throws Exception
      */
     private function constructUrl()
     {
-        if ($this->isMock) return $this->mockServiceUrl();
+        if (!$this->isMock)
+        {
+            global $config;
+            $base = $config['services']['base'];
 
-        global $config;
-        $base = $config['services']['base'];
+            $url = $base . "/" . $this->serviceName;
 
-        $url = $base . "/" . $this->serviceName;
+            if(isset($this->parameter))
+                $url .= "/" . $this->parameter;
 
-        if(isset($this->parameter))
-            $url .= "/" . $this->parameter;
+            $this->url = $url;
 
-        $this->url = $url;
+        } else {
+            $this->url = $this->mockServiceUrl();
+        }
     }
 
     private function determineSuccess(RestResponse $res)
@@ -241,7 +243,7 @@ class PhpHttpAdapter {
     }
 
     /**
-     * @return string
+     * @return object
      * @throws Exception
      */
     public function send()
@@ -251,8 +253,8 @@ class PhpHttpAdapter {
         $response = $this->httpSend();
 
         if ($this->success)
-            return json_encode($response->getBody());
+            return $response->getBodyAsJson();
         else
-            throw new Exception("Unsuccessfull API Call!");
+            throw new Exception("Unsuccessful API Call!");
     }
 }

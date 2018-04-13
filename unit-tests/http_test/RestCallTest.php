@@ -25,11 +25,14 @@ class RestCallTest extends TestCase
 
         // Create a stub for the JsonLoader class
         $this->mockConnection = $this->getMockBuilder(File::class)
-            ->setMethods(array('fileExists', 'close', 'getLine', 'endOfFile', 'socket', 'write'))
+            ->setMethods(array('fileExists', 'close', 'getLine', 'endOfFile', 'socket', 'write', 'jsonDecode'))
             ->getMock();
 
         $this->mockConnection->method('fileExists')
             ->willReturn(true);
+
+        $this->mockConnection->method('jsonDecode')
+            ->willReturn(["key" => "value", "title" => "some_title"]);
 
         $this->mockConnection->method('getLine')
             ->will($this->onConsecutiveCalls($httpResponse, false)); // break the loop
@@ -48,8 +51,6 @@ class RestCallTest extends TestCase
     public function testSocketCall()
     {
         // Arrange
-        $expectedString = json_encode("{ 'key' => 'value', 'title' => 'some_title' }");
-
         try {
             $restCall = new RestCall("Socket", $this->mockConnection);
             $restCall->setUrl("http://webapi.ddns.net/index.php/mockcontroller/1001");
@@ -63,8 +64,26 @@ class RestCallTest extends TestCase
             echo $e->getMessage();
         }
 
-        $this->assertEquals($expectedString, $responseAsJson);
+        $this->assertEquals(["key" => "value", "title" => "some_title"], $responseAsJson);
         $this->assertEquals("{ 'key' => 'value', 'title' => 'some_title' }", $responseAsString);
+    }
+
+    public function testSocketCallWhenResponseWithInfo()
+    {
+        // Arrange
+        try {
+            $restCall = new RestCall("Socket", $this->mockConnection);
+            $restCall->setUrl("http://webapi.ddns.net/index.php/mockcontroller/1001");
+            $restCall->setContentType("application/json");
+            $restCall->setMethod("POST");
+            $restCall->addBody(["a" => 'b']);
+            $restCall->send();
+            $restResponse = $restCall->getResponseWithInfo();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $this->assertEquals(["key" => "value", "title" => "some_title"], $restResponse->getBodyRaw());
     }
 }
 
