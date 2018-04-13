@@ -30,12 +30,14 @@ class AuthenticateUserTest extends TestCase
         $this->user = new StdClass;
         $this->user->name = "Some Name";
 
-        // Create a stub for the PhpHttpAdapter class
-        $this->http = $this->getMockBuilder(PhpHttpAdapter::class)
-            ->setMethods(array('setJsonData', 'getJsonData', 'send')) //tells mock builder which methods should be mocked
-            ->getMock();
-
         try {
+
+            // Create a stub for the PhpHttpAdapter class
+            $this->http = $this->getMockBuilder(PhpHttpAdapter::class)
+                ->setConstructorArgs([new RestCall("Curl", new File)])
+                ->setMethods(array('setJsonData', 'getJsonData', 'send')) //tells mock builder which methods should be mocked
+                ->getMock();
+
             $this->nav = $this->createMock(NavigateToLocation::class);
         } catch (ReflectionException $e) {
             echo $e->getMessage();
@@ -54,7 +56,6 @@ class AuthenticateUserTest extends TestCase
         $_POST['login_username'] = "username";
         $_POST['login_password']= "password";
 
-
         try {
 
             $this->http->method('getJsonData')
@@ -62,15 +63,15 @@ class AuthenticateUserTest extends TestCase
             // Act
             $authenticateObject = AuthenticateUser::Authenticate($_GET, $_POST, $this->http, $this->nav);
 
-            // Assert
-            $this->assertEquals(["authenticated_user" => $this->user], $_SESSION);
-
-            // Clean
-            $authenticateObject->__destruct();
-
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
+        // Assert
+        $this->assertEquals(["authenticated_user" => $this->user], $_SESSION);
+
+        // Clean
+        $authenticateObject->__destruct();
     }
 
     /**
@@ -118,15 +119,15 @@ class AuthenticateUserTest extends TestCase
             // Act
             $authenticateObject = AuthenticateUser::Authenticate($_GET, $_POST, $this->http, $this->nav);
 
-            // Assert
-            $this->assertEquals(["authenticated_user" => $this->user], $_SESSION);
-
-            // Clean
-            $authenticateObject->__destruct();
-
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
+        // Assert
+        $this->assertEquals(["authenticated_user" => $this->user], $_SESSION);
+
+        // Clean
+        $authenticateObject->__destruct();
     }
 
     public function testAuthenticateNewUserWhenFailsAuthentication() {
@@ -148,16 +149,15 @@ class AuthenticateUserTest extends TestCase
 
             // Act
             $authenticateObject = AuthenticateUser::Authenticate($_GET, $_POST, $this->http, $this->nav);
-
-            // Assert
-            $this->assertEquals([], $_SESSION);
-
-            // Clean
-            $authenticateObject->__destruct();
-
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
+        // Assert
+        $this->assertEquals([], $_SESSION);
+
+        // Clean
+        $authenticateObject->__destruct();
     }
 
     protected function tearDown()

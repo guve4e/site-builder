@@ -2,9 +2,12 @@
 // start session
 session_start();
 
+require_once ("../config.php");
+require_once (USER_SESSION_PATH . "/AuthenticateUser.php");
+
 try
 {
-    AuthenticateUser::Authenticate($_GET, $_POST);
+    AuthenticateUser::Authenticate(new PhpHttpAdapter(new RestCall("Curl", new File)), $_POST);
 
 } catch (Exception $e) {
 

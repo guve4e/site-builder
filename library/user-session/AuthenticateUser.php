@@ -109,8 +109,9 @@ class AuthenticateUser
      * then it navigates to fail or success
      * place.
      *
-     * @param $user: object, representing User.
+     * @param $user : object, representing User.
      * Retrieved form back-end services.
+     * @throws Exception
      */
     private function loadUserInSession($user)
     {
@@ -118,7 +119,7 @@ class AuthenticateUser
         if ($user) { // if authenticated
             // TODO user unnecessary
             $this->user = $user;
-            $this->saveUserInsession("authenticated_user", $user);
+            $this->saveUserInsession($user);
         }
     }
 

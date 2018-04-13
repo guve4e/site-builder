@@ -87,7 +87,9 @@ class IdentifyUser
 
         // set method
         $this->http->setMethod('GET')
-            ->setParameter($this->userHash);
+            ->setServiceName('user')
+            ->setParameter($this->userHash)
+            ->setMock();
 
         $user = $this->http->send();
 

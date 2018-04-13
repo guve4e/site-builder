@@ -73,10 +73,11 @@ class CurlCall extends AHttpRequest
             $this->endTime = $this->takeTime();
 
             $info = curl_getinfo($curl);
-            $resError =  json_last_error();
 
-            if($resError != 0)
-                throw new Exception("Exception in curl!");
+            //TODO  refactor
+//            $resError =  json_last_error();
+//            if($resError != 0)
+//                throw new Exception("Exception in curl!");
 
             $this->retrieveRestResponseInfo($response, $info);
 
