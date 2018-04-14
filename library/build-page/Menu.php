@@ -1,7 +1,7 @@
 <?php
 
 require_once (BUILD_PATH . "/Menu.php");
-require_once(BUILD_PATH . "/json/MenuConfigurationLoader.php");
+require_once (CONFIGURATION_PATH . "/MenuConfigurationLoader.php");
 
 /**
  *

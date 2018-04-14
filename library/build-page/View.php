@@ -1,6 +1,6 @@
 <?php
 require_once ("PrintHTML.php");
-require_once(BUILD_PATH . "/json/ViewConfigurationLoader.php");
+require_once (CONFIGURATION_PATH . "/ViewConfigurationLoader.php");
 /**
  *
  */

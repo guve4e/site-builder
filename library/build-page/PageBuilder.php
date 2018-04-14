@@ -3,7 +3,7 @@ require_once ("View.php");
 require_once ("Navbar.php");
 require_once ("Menu.php");
 require_once ("PrintHTML.php");
-require_once(BUILD_PATH . "/json/SiteConfigurationLoader.php");
+require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
 
 /**
  *

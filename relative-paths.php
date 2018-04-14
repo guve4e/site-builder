@@ -17,7 +17,10 @@ defined("JSON_LOADER_PATH")
     or define("JSON_LOADER_PATH", realpath(dirname(__FILE__) . '/library/utility'));
 
 defined("SITE_CONFIGURATION_PATH")
-or define("SITE_CONFIGURATION_PATH", realpath(dirname(__FILE__) . '/config.json'));
+    or define("SITE_CONFIGURATION_PATH", realpath(dirname(__FILE__) . '/config.json'));
+
+defined("CONFIGURATION_PATH")
+    or define("CONFIGURATION_PATH", realpath(dirname(__FILE__) . '/library/configuration'));
 
 defined("MENU_PATH")
     or define("MENU_PATH", realpath(dirname(__FILE__) . '/template/menu'));
