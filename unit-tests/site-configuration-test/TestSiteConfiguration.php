@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../config.php");
+require_once("../../relative-paths.php");
 require_once("../UtilityTest.php");
 require_once(LIBRARY_PATH . "/configuration/SiteConfiguration.php");
 
@@ -40,21 +40,19 @@ class TestSiteConfiguration extends TestCase
 
         $this->siteConfigurationJson = json_decode($json);
 
-
         // Create a stub for the JsonLoader class
         $this->mockJsonLoader = $this->getMockBuilder(JsonLoader::class)
-            ->setMethods(['getData'])
+            ->setMethods(['getDataAsJson'])
             ->getMock();
 
-        $this->mockJsonLoader->method('getData')
+        $this->mockJsonLoader->method('getDataAsJson')
             ->willReturn($this->siteConfigurationJson);
     }
 
     public function testLoadSiteConfiguration()
     {
         try {
-            $conf = SiteConfiguration::LoadSiteConfiguration($this->mockJsonLoader);
-            $actualConfiguration = $conf->GetSiteConfiguration();
+            $actualConfiguration = SiteConfiguration::LoadSiteConfiguration($this->mockJsonLoader);
         } catch (Exception $e) {
             echo $e->getMessage();
         }

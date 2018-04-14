@@ -1,5 +1,5 @@
 <?php
-require_once(BUILD_PATH . "/json/JsonLoader.php");
+require_once(UTILITY_PATH . "/JsonLoader.php");
 
 /**
  * Loads site configuration json file.
@@ -65,7 +65,8 @@ class SiteConfigurationLoader
         if (!$this->isMultiDimensionalArray($infoMenuArray))
             throw new Exception("Wrong Site Configuration File Not Multidimensional Array");
 
-        if (!isset($infoMenuArray['title']) || !isset($infoMenuArray['styles']) || !isset($infoMenuArray['scripts']))
+        // TODO REFACTOR IN SEPERATE FUNCTION WITH INFO WHAT IS WRONG
+        if (!array_key_exists('title', $infoMenuArray) || !array_key_exists('styles', $infoMenuArray) || !array_key_exists('scripts', $infoMenuArray))
             throw new Exception("Wrong Site Configuration File");
     }
 

@@ -31,41 +31,22 @@ class UserSession
     private $cookieTime;
 
     /**
+     * @var SiteConfiguration
+     * Provides
+     */
+    private $configuration;
+
+    /**
      * Loads session key from
-     * config.php file.
+     * relative-paths.php file.
      *
      * @throws Exception
      */
-    private function loadSessionKey()
+    private function loadSessionConfiguration()
     {
-        // get info from the config file
-        global $config;
-
-        // set the session key
-        $this->sessionKey = $config['session']['key'];
-
-        // check
-        if (is_null($this->sessionKey))
-            throw new Exception("CAN'T read config file!");
-    }
-
-    /**
-     * Loads the name of the cookie
-     * from config.php file.
-     * @throws Exception
-     */
-    private function loadCookieInfo()
-    {
-        // get info from the config file
-        global $config;
-
-        // set the cookie name and time
-        $this->cookieName = $config['cookie']['name'];
-        $this->cookieTime = $config['cookie']['time'];
-
-        // check
-        if (is_null($this->cookieName) || is_null($this->cookieTime))
-            throw new Exception("CAN'T read config file!");
+        $this->sessionKey = $this->configuration->session->key;
+        $this->cookieName = $this->configuration->cookie->name;
+        $this->cookieTime = $this->configuration->cookie->time;
     }
 
     /**
@@ -77,9 +58,11 @@ class UserSession
     private function makeUser()
     {
         if(!$this->isUserAuthenticated())
-            IdentifyUser::IdentifyUser(
-                new CookieSetter($this->cookieName, $this->cookieTime),
-                new PhpHttpAdapter(new RestCall("Curl", new File)));
+        {
+            $cookieSetter = new CookieSetter($this->cookieName, $this->cookieTime);
+            $http = new PhpHttpAdapter(new RestCall("Curl", new File), $this->configuration);
+            IdentifyUser::IdentifyUser($cookieSetter, $http);
+        }
     }
 
     /**
@@ -99,10 +82,15 @@ class UserSession
      *
      * @throws Exception
      */
-    private function __construct()
+    private function __construct(StdClass $configuration)
     {
-        $this->loadSessionKey();
-        $this->loadCookieInfo();
+
+        if (!isset($configuration))
+            throw new Exception("Bad parameter in UserSession constructor!");
+
+        $this->configuration = $configuration;
+
+        $this->loadSessionConfiguration();
         $this->makeUser();
     }
 
@@ -146,14 +134,15 @@ class UserSession
     /**
      * Singleton.
      * @access public
+     * @param StdClass $configuration
      * @return UserSession
      * @throws Exception
      */
-    public static function Session() : UserSession
+    public static function Session(StdClass $configuration) : UserSession
     {
         static $inst = null;
         if ($inst === null) {
-            $inst = new UserSession();
+            $inst = new UserSession($configuration);
         }
 
         return $inst;

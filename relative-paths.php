@@ -3,25 +3,6 @@
  * Configuration file
  */
 
-$config = [
-    "debug" => true,
-    "session" => [
-        "key" => "some_website_user",
-        "time" => 0
-    ],
-    "cookie" => [
-        "name" => "some_website_cookie",
-        "time" => 7
-    ],
-    "services" => [
-        "url-domain" => "http://localhost",
-        "base" => "http://webapi.ddns.net/index.php",
-        "base-local" => "http://localhost/site-builder/mock-services"
-    ],
-    "production" => false,
-    "bower_url"  => 'vendor'
-];
-
 /* define some constant paths (server dependent) */
 defined("ROOT_PATH")
     or define("ROOT_PATH", realpath(dirname(__FILE__) ));
@@ -33,7 +14,10 @@ defined("UTILITY_PATH")
     or define("UTILITY_PATH", realpath(dirname(__FILE__) . '/library/utility'));
 
 defined("JSON_LOADER_PATH")
-    or define("JSON_LOADER_PATH", realpath(dirname(__FILE__) . '/library/build-page/json'));
+    or define("JSON_LOADER_PATH", realpath(dirname(__FILE__) . '/library/utility'));
+
+defined("SITE_CONFIGURATION_PATH")
+or define("SITE_CONFIGURATION_PATH", realpath(dirname(__FILE__) . '/config.json'));
 
 defined("MENU_PATH")
     or define("MENU_PATH", realpath(dirname(__FILE__) . '/template/menu'));

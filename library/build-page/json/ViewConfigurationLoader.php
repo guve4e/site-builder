@@ -1,5 +1,5 @@
 <?php
-require_once(BUILD_PATH . "/json/JsonLoader.php");
+require_once(UTILITY_PATH . "/JsonLoader.php");
 
 /**
  * Loads PageBuilder json configuration

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once ("../config.php");
+require_once("../relative-paths.php");
 require_once (UTILITY_PATH . '/Logger.php');
 require_once (HTTP_PATH . '/PhpHttpAdapter.php');
 require_once(LIBRARY_PATH . "/services/ServiceForm.php");

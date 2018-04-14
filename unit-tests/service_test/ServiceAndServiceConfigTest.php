@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../config.php");
+require_once("../../relative-paths.php");
 require_once("../UtilityTest.php");
 require_once(LIBRARY_PATH . "/services/ServiceConfig.php");
 require_once(LIBRARY_PATH . "/services/ServiceForm.php");

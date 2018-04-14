@@ -1,73 +1,11 @@
 <?php
 
 /**
- * Class Session
- */
-final class Session {
-    /**
-     * @var string
-     * Session Key
-     * Ex: $_SESSION['session_key'] = value
-     */
-    public $key;
-
-    /**
-     * @var integer
-     * Time expiration in days
-     */
-    public $time;
-}
-
-/**
- * Class Cookie
- */
-final class Cookie {
-    /**
-     * @var string
-     * Cookie Name
-     * Ex: $_COOKIE["cooke_name"] = value
-     */
-    public $name;
-
-    /**
-     * @var integer
-     * Time expiration in days
-     */
-    public $time;
-}
-
-/**
- * Class Services
- */
-final class Services {
-    /**
-     * @var string
-     * URL Domain.
-     */
-    public $urlDomain;
-    /**
-     * @var
-     * URL Base Server
-     */
-    public $urlBaseRemote;
-    /**
-     * @var
-     * URL Base Local
-     */
-    public $urlBaseLocal;
-}
-
-/**
  * Loads configuration.
  */
 final class SiteConfiguration
 {
-
-    private $session;
-    private $cookie;
-    private $services;
-    private $jsonLoader;
-    private $config;
+    private static $config;
 
     /**
      * @var static Singleton
@@ -84,12 +22,12 @@ final class SiteConfiguration
         if (!isset($jsonLoader)) throw new Exception("Bad argument in SiteConfiguration Constructor!");
         $this->jsonLoader = $jsonLoader;
 
-        $jsonData = $jsonLoader->getData();
+        $jsonData = $jsonLoader->getDataAsJson();
         $this->validateConfigurationData($jsonData);
 
         // At this point we are sure
         // that we have good conf file
-        $this->config = $jsonData;
+        self::$config = $jsonData;
     }
 
     /**
@@ -99,18 +37,13 @@ final class SiteConfiguration
      * @return SiteConfiguration
      * @throws Exception
      */
-    public static function LoadSiteConfiguration(JsonLoader $jsonLoader) : SiteConfiguration
+    public static function LoadSiteConfiguration(JsonLoader $jsonLoader) : StdClass
     {
         if (self::$instance === null) {
             self::$instance = new SiteConfiguration($jsonLoader);
         }
 
-        return self::$instance;
-    }
-
-    public function GetSiteConfiguration() : object
-    {
-        return $this->config;
+        return self::$config;
     }
 
     /**

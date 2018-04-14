@@ -3,11 +3,11 @@
  * Tests CookieSetter Class.
  */
 
-require_once ("../../config.php");
-require_once(JSON_LOADER_PATH . "/JsonLoader.php");
-require_once (JSON_LOADER_PATH . "/SiteConfigurationLoaderLoader.php");
-require_once(JSON_LOADER_PATH . "/ViewConfigurationLoader.php");
-require_once (JSON_LOADER_PATH . "/MenuConfigurationLoaderLoader.php");
+require_once ("../../relative-paths.php");
+require_once (UTILITY_PATH . "/JsonLoader.php");
+require_once (BUILD_PATH . "/json/SiteConfigurationLoaderLoader.php");
+require_once (BUILD_PATH . "/json/ViewConfigurationLoader.php");
+require_once (BUILD_PATH . "/json/MenuConfigurationLoaderLoader.php");
 
 use PHPUnit\Framework\TestCase;
 
@@ -41,10 +41,26 @@ class JsonLoaderTest extends TestCase
             // Assert
             $actualData = $jsonLoader->getData();
 
-            $this->assertEquals([ 'key'=>'value' ], $actualData);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
+        $this->assertEquals([ 'key'=>'value' ], $actualData);
+    }
+
+    public function testLoadJsonWhenGetDataAsJson()
+    {
+        $expectedObject = json_decode(json_encode([ 'key'=>'value' ]));
+
+        try {
+            // Act
+            $jsonLoader = new JsonLoader($this->mockFile, "path/to/file");
+            $actualData = $jsonLoader->getDataAsJson();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $this->assertEquals($expectedObject, $actualData);
     }
 
     public function testSiteConfigurationLoader()
@@ -103,14 +119,12 @@ class JsonLoaderTest extends TestCase
         try {
             // Act
             $jsonLoader = new SiteConfigurationLoader($mockFile);
-
-            // Assert
             $actualData = $jsonLoader->getData();
-
-            $this->assertEquals($siteJson, $actualData);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
+        $this->assertEquals($siteJson, $actualData);
     }
 
     /**
@@ -178,14 +192,12 @@ class JsonLoaderTest extends TestCase
         try {
             // Act
             $jsonLoader = new ViewConfigurationLoader($mockFile, "home");
-
-            // Assert
             $actualData = $jsonLoader->getData();
-
-            $this->assertEquals($siteJson, $actualData);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
+        $this->assertEquals($siteJson, $actualData);
     }
 
     /**
@@ -246,14 +258,12 @@ class JsonLoaderTest extends TestCase
         try {
             // Act
             $jsonLoader = new MenuConfigurationLoader($mockFile);
-
-            // Assert
             $actualData = $jsonLoader->getData();
-
-            $this->assertEquals($menuJson, $actualData);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
+        $this->assertEquals($menuJson, $actualData);
     }
 
     /**

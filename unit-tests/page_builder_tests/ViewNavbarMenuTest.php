@@ -3,7 +3,7 @@
  * TODO Test $viewKey
  *
  */
-require_once("../../config.php");
+require_once("../../relative-paths.php");
 require_once("../UtilityTest.php");
 require_once("../../library/build-page/View.php");
 require_once("../../library/build-page/Menu.php");

@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once ("../../config.php");
+require_once("../../relative-paths.php");
 require_once (HTTP_PATH . "/phphttp/RestCall.php");
 require_once (UTILITY_PATH . "/File.php");
 
@@ -21,7 +21,7 @@ class RestCallTest extends TestCase
                         "Content-Length: 88" . "\r\n" .
                         "Content-Type: text/html" . "\r\n" .
                         "Connection: Closed" . "\r\n\r\n" .
-                        "{ 'key' => 'value', 'title' => 'some_title' }";
+                        "{ \"key\": \"value\" }";
 
         // Create a stub for the JsonLoader class
         $this->mockConnection = $this->getMockBuilder(File::class)
@@ -65,7 +65,7 @@ class RestCallTest extends TestCase
         }
 
         $this->assertEquals(["key" => "value", "title" => "some_title"], $responseAsJson);
-        $this->assertEquals("{ 'key' => 'value', 'title' => 'some_title' }", $responseAsString);
+        $this->assertEquals("{ \"key\": \"value\" }", $responseAsString);
     }
 
     public function testSocketCallWhenResponseWithInfo()
@@ -83,7 +83,7 @@ class RestCallTest extends TestCase
             echo $e->getMessage();
         }
 
-        $this->assertEquals(["key" => "value", "title" => "some_title"], $restResponse->getBodyRaw());
+        $this->assertEquals(["key" => "value", "title" => "some_title"], $restResponse->getBodyAsArray());
     }
 }
 

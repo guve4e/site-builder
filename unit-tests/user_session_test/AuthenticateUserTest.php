@@ -3,7 +3,7 @@
  * Tests AuthenticateUser Class.
  */
 
-require_once ("../../config.php");
+require_once("../../relative-paths.php");
 require_once ("../UtilityTest.php");
 require_once (USER_SESSION_PATH . "/AuthenticateUser.php");
 require_once (UTILITY_PATH . "/Logger.php");

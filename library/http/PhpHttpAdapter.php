@@ -74,14 +74,19 @@ class PhpHttpAdapter {
     private $restCall;
 
     /**
+     * @var StdClass
+     */
+    private $configuration;
+
+    /**
      * Get Mock URL
      * @return string as a path
      * @throws Exception
      */
     private function mockServiceUrl() : string
     {
-        global $config;
-        $path = $config['services']['base-local']; // get path from config file
+
+        $path = $this->configuration->services->url_base_local; // get path from config file
         $path .= "/" . $this->serviceName . ".json";
 
         return $path;
@@ -109,8 +114,7 @@ class PhpHttpAdapter {
     {
         if (!$this->isMock)
         {
-            global $config;
-            $base = $config['services']['base'];
+            $base = $this->configuration->services->url_base_local;
 
             $url = $base . "/" . $this->serviceName;
 
@@ -176,12 +180,13 @@ class PhpHttpAdapter {
      * @param RestCall $restCall
      * @throws Exception
      */
-    public function __construct(RestCall $restCall)
+    public function __construct(RestCall $restCall, StdClass $configuration)
     {
-        if(!isset($restCall))
+        if(!isset($restCall) || !isset($configuration))
             throw new Exception("Bad parameter in PhpHttpAdapter!");
 
         $this->restCall = $restCall;
+        $this->configuration = $configuration;
     }
 
     /**

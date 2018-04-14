@@ -6,7 +6,9 @@
 
 session_start();
 
-require_once ("../config.php");
+require_once ("../relative-paths.php");
+require_once (SITE_CONFIGURATION_PATH);
+require_once (LIBRARY_PATH . "/configuration/SiteConfiguration.php");
 require_once (USER_SESSION_PATH . "/Chrono.php");
 require_once (USER_SESSION_PATH . "/UserSession.php");
 require_once (HTTP_PATH . "/PhpHttpAdapter.php");
@@ -15,8 +17,12 @@ require_once (BUILD_PATH . "/PageBuilder.php");
 Chrono::checkTimer();
 
 try {
-    // make session with the user
-    $session = UserSession::Session();
+    // load configuration
+    $json = new JsonLoader(new File(),SITE_CONFIGURATION_PATH);
+    $configuration = SiteConfiguration::LoadSiteConfiguration($json);
+
+    // make Session with user
+    $session = UserSession::Session($configuration);
 
     // construct the page
     $site = PageBuilder::MakePage(new File(), $_GET);
@@ -49,8 +55,6 @@ try {
     <!--[if lte IE 9]>
     <script type="text/javascript" src=""></script>
     <script type="text/javascript" src=""></script>
-
-
     <![endif]-->
 
 </head>
@@ -67,9 +71,6 @@ try {
         Chrono::startTimer();
 
     } catch (Exception $e) {
-        // something went wrong
-        // user should not continue
-        // if page is not constructed
         die('Caught exception: ' . $e->getMessage() . "\n");
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once("../../config.php");
+require_once("../../relative-paths.php");
 require_once("../UtilityTest.php");
 require_once(LIBRARY_PATH . "/build-page/PageBuilder.php");
 require_once(UTILITY_PATH . "/File.php");
@@ -33,8 +33,69 @@ class PageBuilderTest extends TestCase
         $this->mockFile->method('loadFileContent')
             ->willReturn("{ 'body_class_style'=>'some_style', 'title'=>'some_title' }");
 
-        $this->mockFile->method('jsonDecode')
-            ->willReturn(['body_class_style' => 'some_style', 'title' => 'some_title']);
+        $this->mockFile->expects($this->at(3))
+            ->method('jsonDecode')
+            ->willReturn([
+                'body_class_style' => 'some_style',
+                'title' => 'some_title',
+                'styles' => [],
+                'scripts' => []
+            ]);
+
+        $this->mockFile->expects($this->at(6))
+            ->method('jsonDecode')
+            ->willReturn([
+                [
+                    "title" => "Home",
+                    "id" => "home",
+                    "icon" => "E871"
+                ],
+                [
+                    "title" => "Products",
+                    "id" => "products",
+                    "icon" => "E8CB"
+                ]
+            ]);
+
+        $this->mockFile->expects($this->at(9))
+            ->method('jsonDecode')
+            ->willReturn([
+                "title" => "Site Title",
+                "styles" => [
+                    [
+                        "rel" => "stylesheet",
+                        "type" => "",
+                        "src" => "bower",
+                        "path" => "/uikit/css/",
+                        "name" => "uikit.almost-flat",
+                        "media" => "all",
+                        "min" => true
+                    ],
+                    [
+                        "rel" => "stylesheet",
+                        "type" => "",
+                        "src" => "bower",
+                        "path" => "/uikit/css/themes/",
+                        "name" => "uikit.themes_combined-flat",
+                        "media" => "all",
+                        "min" => true
+                    ]
+                ],
+                "scripts" => [
+                    [
+                        "src" => "",
+                        "path" => "assets/js/",
+                        "name" => "common",
+                        "min" => false
+                    ],
+                    [
+                        "src" => "",
+                        "path" => "assets/js/",
+                        "name" => "admin_common",
+                        "min" => true
+                    ]
+    ]
+            ]);
     }
 
     public function testProperCreation()
@@ -51,18 +112,7 @@ class PageBuilderTest extends TestCase
         // Clean
         $this->page->__destruct();
     }
-
-    /**
-     * @expectedException  Exception
-     */
-    public function testPageBuilderMustThrowExceptionWhenWrongGETSuperglobal()
-    {
-        $_GET = array();
-        $_GET['key'] = "value";
-
-        PageBuilder::MakePage($this->mockFile, $_GET);
-    }
-
+    
     protected function tearDown()
     {
         $_GET = array();

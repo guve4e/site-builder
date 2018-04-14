@@ -1,19 +1,44 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once ("../../config.php");
+require_once("../../relative-paths.php");
 require_once (HTTP_PATH . "/phphttp/RestCall.php");
 require_once (LIBRARY_PATH . "/http/PhpHttpAdapter.php");
+require_once (LIBRARY_PATH . "/configuration/SiteConfiguration.php");
 require_once (UTILITY_PATH . "/File.php");
 
 class PhpAdapterTest extends TestCase
 {
     private $restCall;
 
+    private $siteConfigurationJson;
+
     private $jsonString;
 
     protected function setUp()
     {
+        $jsonArray = [
+            "debug" => true,
+            "session" => [
+                "key" => "some_website_user",
+                "time" => 0
+            ],
+            "cookie" => [
+                "name" => "some_website_cookie",
+                "time" => 7
+            ],
+            "services" => [
+                "url_domain" => "http://localhost",
+                "url_base_remote" => "http://webapi.ddns.net/index.php",
+                "url_base_local" => "http://localhost/site-builder/mock-services"
+            ],
+            "production" => false,
+            "bower_url"  => 'vendor'
+        ];
+
+        $json = json_encode($jsonArray);
+        $this->siteConfigurationJson = json_decode($json);
+
         $this->restCall = $this->getMockBuilder(RestCall::class)
             ->setConstructorArgs(["Curl", new File])
             ->setMethods(['send', 'getResponseWithInfo'])
@@ -42,7 +67,7 @@ class PhpAdapterTest extends TestCase
 
         try {
             // Act
-            $rc = new PhpHttpAdapter($this->restCall);
+            $rc = new PhpHttpAdapter($this->restCall, $this->siteConfigurationJson);
             $rc->setServiceName('Products')
                 ->setMethod('GET');
 

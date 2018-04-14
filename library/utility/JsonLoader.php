@@ -79,4 +79,14 @@ final class JsonLoader
     {
         return $this->data;
     }
+
+    /**
+     * Getter.
+     * @return mixed
+     */
+    public function getDataAsJson() : object
+    {
+        $objectData = json_decode(json_encode($this->data));
+        return $objectData;
+    }
 }

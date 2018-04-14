@@ -1,6 +1,6 @@
 <?php
 
-require_once ("../../config.php");
+require_once("../../relative-paths.php");
 require_once ("../UtilityTest.php");
 require_once (UTILITY_PATH . "/Logger.php");
 require_once (UTILITY_PATH. "/File.php");

@@ -2,7 +2,7 @@
 // start session
 session_start();
 
-require_once ("../config.php");
+require_once("../relative-paths.php");
 require_once (USER_SESSION_PATH . "/AuthenticateUser.php");
 
 try
