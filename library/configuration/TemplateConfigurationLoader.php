@@ -60,18 +60,19 @@ class TemplateConfigurationLoader
      */
     private function validateJson()
     {
-        $infoMenuArray = $this->jsonLoader->getData();
+        $infoTemplateArray = $this->jsonLoader->getData();
 
-        if (!$this->isMultiDimensionalArray($infoMenuArray))
+        if (!$this->isMultiDimensionalArray($infoTemplateArray))
             throw new Exception("Wrong Site Configuration File Not Multidimensional Array");
 
         // TODO REFACTOR IN SEPERATE FUNCTION WITH INFO WHAT IS WRONG
-        if (!array_key_exists('title', $infoMenuArray) || !array_key_exists('styles', $infoMenuArray) || !array_key_exists('scripts', $infoMenuArray))
+        if (!array_key_exists('title', $infoTemplateArray) || !array_key_exists('styles', $infoTemplateArray) || !array_key_exists('scripts', $infoTemplateArray))
             throw new Exception("Wrong Site Configuration File");
     }
 
     /**
      * TemplateConfigurationLoader constructor.
+     * @param File $file
      * @throws Exception
      */
     public function __construct(File $file)

@@ -8,7 +8,7 @@ session_start();
 
 require_once ("../relative-paths.php");
 require_once (SITE_CONFIGURATION_PATH);
-require_once (LIBRARY_PATH . "/configuration/SiteConfiguration.php");
+require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
 require_once (USER_SESSION_PATH . "/Chrono.php");
 require_once (USER_SESSION_PATH . "/UserSession.php");
 require_once (HTTP_PATH . "/PhpHttpAdapter.php");
@@ -18,8 +18,8 @@ Chrono::checkTimer();
 
 try {
     // load configuration
-    $json = new JsonLoader(new File(),SITE_CONFIGURATION_PATH);
-    $configuration = SiteConfiguration::LoadSiteConfiguration($json);
+    $jsonLoader = new SiteConfigurationLoader(new File());
+    $configuration = $jsonLoader->getData();
 
     // make Session with user
     $session = UserSession::Session($configuration);
