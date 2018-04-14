@@ -70,18 +70,32 @@ class SiteConfigurationLoader
     }
 
     /**
+     * @param $service
+     * @throws Exception
+     */
+    private function validateWebService($service)
+    {
+        $serviceObject = !isset($service);
+        $serviceName = !isset($service->name);
+        $urlBaseRemote = !isset($service->url_base_remote);
+        $urlBaseLocal = !isset($service->url_base_local);
+        // API token is not mandatory
+
+        if ($serviceObject || $serviceName || $urlBaseLocal || $urlBaseRemote)
+            throw new Exception("Bad Services Object in Config File!");
+    }
+
+    /**
      * @param $jsonData
      * @throws Exception
      */
-    private function validateServices($jsonData)
+    private function validateWebServices($jsonData)
     {
-        $service = !isset($jsonData->services);
-        $urlDomain = !isset($jsonData->services->url_domain);
-        $urlBaseRemote = !isset($jsonData->services->url_base_remote);
-        $urlBaseLocal = !isset($jsonData->services->url_base_local);
-
-        if ($service || $urlBaseLocal || $urlDomain || $urlBaseRemote)
-            throw new Exception("Bad Session Object in Config File!");
+        if ($jsonData != false)
+        {
+            foreach($jsonData->web_services as $service)
+                $this->validateWebService($service);
+        }
     }
 
     /**
@@ -92,7 +106,7 @@ class SiteConfigurationLoader
     {
         $jsonData = $this->jsonLoader->getDataAsJson();
 
-        $this->validateServices($jsonData);
+        $this->validateWebServices($jsonData);
         $this->validateCookie($jsonData  );
         $this->validateSession($jsonData);
 

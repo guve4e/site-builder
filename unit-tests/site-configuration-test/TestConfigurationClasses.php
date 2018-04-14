@@ -128,7 +128,7 @@ class JsonLoaderTest extends TestCase
                 "name" => "some_website_cookie",
                 "time" => 7
             ],
-            "services" => [
+            "web_services" => [
                 [
                     "name" => "webapi",
                     "url_base_remote" => "http://webapi.ddns.net/index.php",
