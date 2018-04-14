@@ -7,7 +7,6 @@
 session_start();
 
 require_once ("../relative-paths.php");
-require_once (SITE_CONFIGURATION_PATH);
 require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
 require_once (USER_SESSION_PATH . "/Chrono.php");
 require_once (USER_SESSION_PATH . "/UserSession.php");
