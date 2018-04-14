@@ -3,7 +3,7 @@ require_once ("View.php");
 require_once ("Navbar.php");
 require_once ("Menu.php");
 require_once ("PrintHTML.php");
-require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
+require_once(CONFIGURATION_PATH . "/TemplateConfigurationLoader.php");
 
 /**
  *
@@ -88,7 +88,7 @@ final class PageBuilder
     private function loadSiteConfig(File $file)
     {
         // get site configuration
-        $siteConfig = new SiteConfigurationLoader($file);
+        $siteConfig = new TemplateConfigurationLoader($file);
         $this->pageConfig = $siteConfig->getData();
     }
 

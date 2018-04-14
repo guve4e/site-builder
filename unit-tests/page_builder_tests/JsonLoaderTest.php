@@ -5,9 +5,9 @@
 
 require_once ("../../relative-paths.php");
 require_once (UTILITY_PATH . "/JsonLoader.php");
-require_once(CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
-require_once(CONFIGURATION_PATH . "/ViewConfigurationLoader.php");
-require_once(CONFIGURATION_PATH . "/MenuConfigurationLoader.php");
+require_once (CONFIGURATION_PATH . "/TemplateConfigurationLoader.php");
+require_once (CONFIGURATION_PATH . "/ViewConfigurationLoader.php");
+require_once (CONFIGURATION_PATH . "/MenuConfigurationLoader.php");
 
 use PHPUnit\Framework\TestCase;
 
@@ -63,7 +63,7 @@ class JsonLoaderTest extends TestCase
         $this->assertEquals($expectedObject, $actualData);
     }
 
-    public function testSiteConfigurationLoader()
+    public function testTemplateConfigurationLoader()
     {
         // Arrange
         $siteJson = [
@@ -118,7 +118,7 @@ class JsonLoaderTest extends TestCase
 
         try {
             // Act
-            $jsonLoader = new SiteConfigurationLoader($mockFile);
+            $jsonLoader = new TemplateConfigurationLoader($mockFile);
             $actualData = $jsonLoader->getData();
         } catch (Exception $e) {
             echo $e->getMessage();
@@ -130,7 +130,7 @@ class JsonLoaderTest extends TestCase
     /**
      * @expectedException Exception
      */
-    public function testSiteConfigurationLoaderMustThrowExceptionWhenWrongConfig()
+    public function testTemplateConfigurationLoaderMustThrowExceptionWhenWrongConfig()
     {
         // Arrange
         $siteJsonMissingStyles = [
@@ -164,7 +164,7 @@ class JsonLoaderTest extends TestCase
             ->willReturn($siteJsonMissingStyles);
 
         // Act
-        new SiteConfigurationLoader($mockFile);
+        new TemplateConfigurationLoader($mockFile);
     }
 
     public function testViewConfigurationLoader()

@@ -6,7 +6,7 @@ require_once(UTILITY_PATH . "/JsonLoader.php");
  * This file is located at:
  * "/template/config.json".
  */
-class SiteConfigurationLoader
+class TemplateConfigurationLoader
 {
     /**
      * @var string
@@ -71,7 +71,7 @@ class SiteConfigurationLoader
     }
 
     /**
-     * SiteConfigurationLoader constructor.
+     * TemplateConfigurationLoader constructor.
      * @throws Exception
      */
     public function __construct(File $file)
