@@ -87,7 +87,9 @@ class IdentifyUser
 
         // set method
         $this->http->setMethod('GET')
-            ->setParameter($this->userHash);
+            ->setParameter($this->userHash)
+            ->setServiceName("user")
+            ->setMock();
 
         $user = $this->http->send();
 
@@ -123,17 +125,17 @@ class IdentifyUser
     {
         if(!isset($this->http))
             throw new Exception("Http Adapter is not set");
-//
-//        // set up new cookie on
-//        // client's computer
-//        $this->cookieSetter->setCookie();
-//
-//        $data = $this->makeData();
-//        // set method
-//        $this->http->setMethod('POST')
-//            ->setJsonData($data);
-//        // send request
-//        $this->http->send();
+
+        // set up new cookie on
+        // client's computer
+        $this->cookieSetter->setCookie();
+
+        $data = $this->makeData();
+        // set method
+        $this->http->setMethod('POST')
+            ->setJsonData($data);
+        // send request
+        $this->http->send();
     }
 
     /**

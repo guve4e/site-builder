@@ -22,7 +22,6 @@ class PageBuilderTest extends TestCase
     {
         $_GET['page'] = 'home';
 
-        // Create a stub for the JsonLoader class
         $this->mockFile = $this->getMockBuilder(File::class)
             ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
             ->getMock();
@@ -112,7 +111,7 @@ class PageBuilderTest extends TestCase
         // Clean
         $this->page->__destruct();
     }
-    
+
     protected function tearDown()
     {
         $_GET = array();

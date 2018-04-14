@@ -34,7 +34,12 @@ class ViewNavbarMenuTest extends TestCase
             ->willReturn("{ 'body_class_style'=>'some_style', 'title'=>'some_title' }");
 
         $this->mockFile->method('jsonDecode')
-            ->willReturn(['body_class_style' => 'some_style', 'title' => 'some_title']);
+            ->willReturn([
+                'body_class_style' => 'some_style',
+                'title' => 'some_title',
+                'styles' => [],
+                'scripts' => []
+            ]);
     }
 
     public function testProperConstructionOnViewWhenVewHasNoKey()
@@ -70,9 +75,36 @@ class ViewNavbarMenuTest extends TestCase
 
     public function testProperConstructionOnMenu()
     {
+        // Arrange
+        $expectedArray = [
+            [
+                "title" => "Home",
+                "id" => "home",
+                "icon" => "E871"
+            ],
+            [
+                "title" => "Products",
+                "id" => "products",
+                "icon" => "E8CB"
+            ]
+        ];
+
+        $mockFile = $this->getMockBuilder(File::class)
+            ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
+            ->getMock();
+
+        $mockFile->method('fileExists')
+            ->willReturn(true);
+
+        $mockFile->method('loadFileContent')
+            ->willReturn("{ 'body_class_style'=>'some_style', 'title'=>'some_title' }");
+
+        $mockFile->method('jsonDecode')
+            ->willReturn($expectedArray);
+
         try {
             // Act
-            $menu = Menu::MakeMenu($this->mockFile, 'some_menu');
+            $menu = Menu::MakeMenu($mockFile, 'some_view');
 
             // Careful here we brake encapsulation using reflection
             $actualMenuConfig = $this->getProperty($menu, "menuConfig");
@@ -81,17 +113,9 @@ class ViewNavbarMenuTest extends TestCase
         }
 
         // Assert
-        $this->assertEquals(['body_class_style' => 'some_style', 'title' => 'some_title'], $actualMenuConfig);
+        $this->assertEquals($expectedArray, $actualMenuConfig);
         // Clean
         $menu->__destruct();
-    }
-
-    /**
-     * @expectedException  Exception
-     */
-    public function testMenuMustThrowExceptionIfFileDoesNotExists()
-    {
-        Menu::MakeMenu(new File(), "some_view");
     }
 
     public function testProperConstructionOnNavbar()
@@ -110,13 +134,5 @@ class ViewNavbarMenuTest extends TestCase
         $this->assertEquals("some_body_class", $actualBodyClass);
         // Clean
         $menu->__destruct();
-    }
-
-    /**
-     * @expectedException  Exception
-     */
-    public function testNavbarMustThrowExceptionIfFileDoesNotExists()
-    {
-        Menu::MakeMenu(new File(), "some_view");
     }
 }

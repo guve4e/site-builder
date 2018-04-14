@@ -3,7 +3,7 @@ require_once ("View.php");
 require_once ("Navbar.php");
 require_once ("Menu.php");
 require_once ("PrintHTML.php");
-require_once (BUILD_PATH . "/json/SiteConfigurationLoaderLoader.php");
+require_once(BUILD_PATH . "/json/SiteConfigurationLoader.php");
 
 /**
  *
@@ -52,6 +52,12 @@ final class PageBuilder
      * Loaded info from json file.
      */
     private $pageConfig;
+
+    /**
+     * @var object
+     * Loaded info from json file.
+     */
+    private $siteConfig = null;
 
     /**
      * @var string

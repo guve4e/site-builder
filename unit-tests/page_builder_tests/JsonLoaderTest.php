@@ -5,9 +5,9 @@
 
 require_once ("../../relative-paths.php");
 require_once (UTILITY_PATH . "/JsonLoader.php");
-require_once (BUILD_PATH . "/json/SiteConfigurationLoaderLoader.php");
+require_once(BUILD_PATH . "/json/SiteConfigurationLoader.php");
 require_once (BUILD_PATH . "/json/ViewConfigurationLoader.php");
-require_once (BUILD_PATH . "/json/MenuConfigurationLoaderLoader.php");
+require_once(BUILD_PATH . "/json/MenuConfigurationLoader.php");
 
 use PHPUnit\Framework\TestCase;
 

@@ -4,7 +4,7 @@ $productObject = "";
 
 try {
     // get info from web-api
-    $rc = new PhpHttpAdapter(new RestCall("Curl", new File()));
+    $rc = new PhpHttpAdapter(new RestCall("Curl", new File()), $configuration);
     $rc->setServiceName('cart')
         ->setMethod('GET')
         ->setMock();
