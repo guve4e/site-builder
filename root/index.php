@@ -60,7 +60,7 @@ try {
 </head>
     <body>
     <?php
-    /** construct the main page **/
+    /** construct the page **/
 
     try {
 

@@ -1,10 +1,10 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once("../../relative-paths.php");
+require_once ("../../relative-paths.php");
 require_once (HTTP_PATH . "/phphttp/RestCall.php");
 require_once (LIBRARY_PATH . "/http/PhpHttpAdapter.php");
-require_once (LIBRARY_PATH . "/configuration/SiteConfiguration.php");
+require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
 require_once (UTILITY_PATH . "/File.php");
 
 class PhpAdapterTest extends TestCase

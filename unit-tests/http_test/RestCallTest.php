@@ -83,7 +83,7 @@ class RestCallTest extends TestCase
             echo $e->getMessage();
         }
 
-        $this->assertEquals(["key" => "value", "title" => "some_title"], $restResponse->getBodyAsArray());
+        $this->assertEquals(["key" => "value"], $restResponse->getBodyAsArray());
     }
 }
 

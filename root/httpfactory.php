@@ -1,21 +1,25 @@
 <?php
 session_start();
-require_once("../relative-paths.php");
+
+require_once ("../relative-paths.php");
 require_once (UTILITY_PATH . '/Logger.php');
 require_once (HTTP_PATH . '/PhpHttpAdapter.php');
-require_once(LIBRARY_PATH . "/services/ServiceForm.php");
-require_once(LIBRARY_PATH . "/services/ServiceConfig.php");
-require_once(LIBRARY_PATH . "/services/Service.php");
+require_once (LIBRARY_PATH . "/services/ServiceForm.php");
+require_once (LIBRARY_PATH . "/services/ServiceConfig.php");
+require_once (LIBRARY_PATH . "/services/Service.php");
 
 $info = function () {
-    try {// gather information
+    try {
+        // gather information
         $serviceForm = new ServiceForm($_GET, $_POST);
         $serviceConfig = new ServiceConfig(new File(), $serviceForm);
         $service = new Service($serviceConfig, $serviceForm);
-        return $service;
     } catch (Exception $e) {
+
+        // TODO not really! Why the user should know about this?
         echo $e->getMessage();
     }
+    return $service;
 };
 
 // make a call

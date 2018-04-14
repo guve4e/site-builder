@@ -9,7 +9,7 @@
 require_once (UTILITY_PATH . "/Logger.php");
 require_once (UTILITY_PATH . "/File.php");
 require_once (UTILITY_PATH . "/JsonLoader.php");
-require_once (LIBRARY_PATH. "/configuration/SiteConfiguration.php");
+require_once (CONFIGURATION_PATH. "/SiteConfigurationLoader.php");
 
 trait SessionHelper
 {
@@ -22,9 +22,8 @@ trait SessionHelper
      */
     protected function saveUserInSession(object $user)
     {
-        // make session with the user
-        $json = new JsonLoader(new File(),SITE_CONFIGURATION_PATH);
-        $configuration = SiteConfiguration::LoadSiteConfiguration($json);
+        $jsonLoader = new SiteConfigurationLoader(new File());
+        $configuration = $jsonLoader->getData();
         $sessionToken = $configuration->session->key;
 
         // save info in session
