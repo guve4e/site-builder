@@ -129,9 +129,18 @@ class JsonLoaderTest extends TestCase
                 "time" => 7
             ],
             "services" => [
-                "url_domain" => "http://localhost",
-                "url_base_remote" => "http://webapi.ddns.net/index.php",
-                "url_base_local" => "http://localhost/site-builder/mock-services"
+                [
+                    "name" => "webapi",
+                    "url_base_remote" => "http://webapi.ddns.net/index.php",
+                    "url_base_local" => "http://localhost/site-builder/mock-services",
+                    "api_token" => "WRCdmach38E2*$%Ghdo@nf#cOBD4fd"
+                ],
+                [
+                    "name" => "some_webapi",
+                    "url_base_remote" => "http://some_webapi.ddns.net/index.php",
+                    "url_base_local" => "http://localhost/some-mock-services",
+                    "api_token" => "JININCN868767GUG&%#@*&%@#GUIG#"
+                ]
             ],
             "production" => false,
             "bower_url"  => 'vendor'
@@ -151,13 +160,9 @@ class JsonLoaderTest extends TestCase
         $mockFile->method('jsonDecode')
             ->willReturn($siteJson);
 
-        try {
-            // Act
-            $jsonLoader = new SiteConfigurationLoader($mockFile);
-            $actualData = $jsonLoader->getData();
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        // Act
+        $jsonLoader = new SiteConfigurationLoader($mockFile);
+        $actualData = $jsonLoader->getData();
 
         $this->assertEquals($expectedSiteConfigurationJson, $actualData);
     }
