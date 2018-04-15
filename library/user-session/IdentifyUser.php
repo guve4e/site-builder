@@ -39,7 +39,7 @@ class IdentifyUser
     /**
      * @var
      * User object retrieved
-     * from back end services.
+     * from back end form.
      */
     private $user;
 

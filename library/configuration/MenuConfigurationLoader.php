@@ -1,5 +1,5 @@
 <?php
-require_once(UTILITY_PATH . "/JsonLoader.php");
+require_once (UTILITY_PATH . "/JsonLoader.php");
 
 /**
  *

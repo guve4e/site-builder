@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: guve4
- * Date: 4/14/2018
- * Time: 4:43 PM
- */
 
 interface IDO
 {

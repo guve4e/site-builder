@@ -110,7 +110,7 @@ class AuthenticateUser
      * place.
      *
      * @param $user : object, representing User.
-     * Retrieved form back-end services.
+     * Retrieved form back-end form.
      * @throws Exception
      */
     private function loadUserInSession($user)
@@ -282,7 +282,7 @@ class AuthenticateUser
     {
         $this->http->setMethod('POST')
             ->setParameter('some_parameter')
-            ->setJsonData(["email" => $email, "name"=> $name, "password" => $password]);
+            ->setDataToSend(["email" => $email, "name"=> $name, "password" => $password]);
 
         $this->http->send();
         $user = $this->http->getJsonData();
@@ -302,7 +302,7 @@ class AuthenticateUser
 
         $this->http->setMethod('POST')
             ->setParameter('some_parameter')
-            ->setJsonData(["login" => $login, "password" => $password]);
+            ->setDataToSend(["login" => $login, "password" => $password]);
 
         $this->http->send();
         $user = $this->http->getJsonData();

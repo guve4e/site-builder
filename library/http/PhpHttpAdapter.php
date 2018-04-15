@@ -12,41 +12,36 @@ class PhpHttpAdapter {
 
     /**
      * @var string
-     * API token
-     */
-    private $api_token = "WRCdmach38E2*$%Ghdo@nf#cOBD4fd";
-
-    /**
-     * @var string
      * represent URL
      */
     private $url = null;
 
     /**
-     * @var
+     * @var string
+     * VERB
      */
     private $method;
 
     /**
-     * @var
+     * @var string
      * Controller Name
      */
-    private $serviceName;
+    private $controllerName;
 
     /**
-     * @var
-     * Controller get Parameter
+     * @var mixed
+     * Controller parameter
      */
     private $parameter;
 
     /**
      * If Rest Call is Mock or not
-     * @var
+     * @var boolean
      */
     private $isMock = false;
 
     /**
-     * @var
+     * @var mixed
      * Data to send
      */
     private $jsonData = null;
@@ -55,7 +50,7 @@ class PhpHttpAdapter {
      * @var
      * MIME type
      */
-    private $contentType = null;
+    private $contentType = "";
 
     /**
      * @var bool
@@ -68,31 +63,36 @@ class PhpHttpAdapter {
     /**
      * httpphp object
      * used to send HTTP
-     * requests to back-end services.
+     * requests to back-end form.
      * @var
      */
     private $restCall;
 
     /**
-     * @var StdClass
+     * @var array associative
      */
-    private $configuration;
+    private $webService = [];
 
     /**
-     * Get Mock URL
+     * @var array multidimensional
+     */
+    private $webServices = [];
+
+    /**
+     * Constructs Mock URL
      * @return string as a path
      * @throws Exception
      */
     private function mockServiceUrl() : string
     {
-
-        $path = $this->configuration->services->url_base_local; // get path from config file
-        $path .= "/" . $this->serviceName . ".json";
+        $path = $this->webService['url_base_local'];
+        $path .= "/" . $this->controllerName . ".json";
 
         return $path;
     }
 
     /**
+     * Figures out the content type.
      * @param $method
      * @throws Exception
      */
@@ -114,15 +114,13 @@ class PhpHttpAdapter {
     {
         if (!$this->isMock)
         {
-            $base = $this->configuration->services->url_base_local;
-
-            $url = $base . "/" . $this->serviceName;
+            $base = $this->webService['url_base_remote'];
+            $url = $base . "/" . $this->controllerName;
 
             if(isset($this->parameter))
                 $url .= "/" . $this->parameter;
 
             $this->url = $url;
-
         } else {
             $this->url = $this->mockServiceUrl();
         }
@@ -163,7 +161,7 @@ class PhpHttpAdapter {
 
         // security header
         $headers = [
-            "ApiToken" => $this->api_token
+            "ApiToken" => $this->webService['api_token']
         ];
 
         $this->restCall->setHeaders($headers);
@@ -176,33 +174,66 @@ class PhpHttpAdapter {
     }
 
     /**
-     * PhpHttpAdapter constructor.
-     * @param RestCall $restCall
+     * @param array $arr
+     * @param $key
+     * @param $value
+     * @return array|bool|mixed
      * @throws Exception
      */
-    public function __construct(RestCall $restCall, StdClass $configuration)
+    private function searchInMultidimensionalArray(array $arr, $key, $value)
     {
-        if(!isset($restCall) || !isset($configuration))
-            throw new Exception("Bad parameter in PhpHttpAdapter!");
-
-        $this->restCall = $restCall;
-        $this->configuration = $configuration;
+       // base case
+        if (array_key_exists($key, $arr))
+        {
+            if ($arr[$key] == $value)
+                return $arr;
+        }
+        foreach($arr as $element)
+        {
+            if (is_array($element))
+            {
+                if ($this->searchInMultidimensionalArray($element, $key, $value))
+                    return $element;
+            }
+        }
+        // if not found return false
+        return false;
     }
 
     /**
-     *
-     * @return $this
+     * @param RestCall $restCall
+     * @return PhpHttpAdapter
+     * @throws Exception
      */
+    public function setRestCallType(RestCall $restCall)
+    {
+        if(!isset($restCall))
+            throw new Exception("Bad parameter in setRestCallType!");
+
+        $this->restCall = $restCall;
+        return $this;
+    }
+
+    /**
+     * @param StdClass $configuration
+     * @return PhpHttpAdapter
+     * @throws Exception
+     */
+    public function setWebServicesConfiguration(StdClass $configuration)
+    {
+        if(!isset($configuration))
+            throw new Exception("Bad parameter in setWebServicesConfiguration!");
+
+        $this->webServices = json_decode(json_encode($configuration->web_services), true);
+        return $this;
+    }
+
     public function setMock()
     {
         $this->isMock = true;
         return $this;
     }
 
-    /**
-     * @param mixed $parameter
-     * @return $this
-     */
     public function setParameter($parameter)
     {
         $this->parameter = $parameter;
@@ -210,32 +241,43 @@ class PhpHttpAdapter {
     }
 
     /**
-     * @param mixed $serviceName
+     * Sets Web Service Name
+     * @param string $name
      * @return $this
+     * @throws Exception
      */
-    public function setServiceName($serviceName)
+    public function setWebServiceName(string $name)
     {
-        $this->serviceName = $serviceName;
+        // first check if configuration is set up
+        if (empty($this->webService))
+            throw new Exception("You must specify a configuration first!");
+
+        // search fot web service with the provided name
+        $arr = $this->searchInMultidimensionalArray($this->webServices, "name" ,$name);
+
+        if (!$arr)
+            throw new Exception("There is no such web service in the configuration file!");
+
+        // if found assign it to property
+        $this->webService = $arr;
         return $this;
     }
 
-    /**
-     * @param mixed $method
-     * @return $this
-     */
-    public function setMethod($method)
+    public function setMethod(string $method)
     {
         $this->method = $method;
         return $this;
     }
 
-    /**
-     * @param mixed $json_data
-     * @return $this
-     */
-    public function setJsonData($json_data)
+    public function setDataToSend(array $json_data)
     {
         $this->jsonData = $json_data;
+        return $this;
+    }
+
+    public function setController(string $name)
+    {
+        $this->controllerName = $name;
         return $this;
     }
 

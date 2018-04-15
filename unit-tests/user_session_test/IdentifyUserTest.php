@@ -27,7 +27,7 @@ class IdentifyUserTest extends TestCase
     protected function setUp()
     {
         // Mock user, simulates user retrieval from
-        // back end services
+        // back end form
         $this->user = new StdClass;
         $this->user->name = "Some Name";
 

@@ -27,7 +27,7 @@ final class ServiceForm
 
     /**
      * @var string
-     * The name of the services,
+     * The name of the form,
      * the request will be send
      */
     private $serviceName;

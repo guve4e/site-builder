@@ -51,7 +51,7 @@ final class ServiceConfig
 
     /**
      * @var Boolean
-     * Does the services
+     * Does the form
      * needs to navigate to
      * next page or not
      */
@@ -82,7 +82,7 @@ final class ServiceConfig
 
     /**
      * @var string
-     * The name of the services.
+     * The name of the form.
      */
     private $serviceName;
 

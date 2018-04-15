@@ -1,19 +1,8 @@
 <?php
+require_once (DATA_RESOURCE_PATH . "/Product.php");
 
-$productObject = "";
-
-try {
-    // get info from web-api
-    $rc = new PhpHttpAdapter(new RestCall("Curl", new File()), $configuration);
-    $rc->setServiceName('cart')
-        ->setMethod('GET')
-        ->setMock();
-
-    $productObject = $rc->send();
-
-} catch (Exception $e) {
-    echo $e->getMessage();
-}
+$product = new Product();
+$productObject = $product->get(1234);
 
 ?>
 

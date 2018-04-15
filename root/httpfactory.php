@@ -4,9 +4,9 @@ session_start();
 require_once ("../relative-paths.php");
 require_once (UTILITY_PATH . '/Logger.php');
 require_once (HTTP_PATH . '/PhpHttpAdapter.php');
-require_once (LIBRARY_PATH . "/services/ServiceForm.php");
-require_once (LIBRARY_PATH . "/services/ServiceConfig.php");
-require_once (LIBRARY_PATH . "/services/Service.php");
+require_once (LIBRARY_PATH . "/form/ServiceForm.php");
+require_once (LIBRARY_PATH . "/form/ServiceConfig.php");
+require_once (LIBRARY_PATH . "/form/Service.php");
 
 $info = function () {
     try {
@@ -28,10 +28,10 @@ $service = $info();
 if (!is_null($service))
 {
     $http = new PhpHttpAdapter();
-    $http->setServiceName($service->getServiceConfig()->getServiceName())
+    $http->setWebServiceName($service->getServiceConfig()->getServiceName())
         ->setParameter($service->getParameter())
         ->setMethod($service->getServiceConfig()->getMethod())
-        ->setJsonData($service->getServiceForm()->getFields());
+        ->setDataToSend($service->getServiceForm()->getFields());
 
     try {
         $res = $http->send();

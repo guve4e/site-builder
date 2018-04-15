@@ -2,9 +2,9 @@
 
 require_once("../../relative-paths.php");
 require_once("../UtilityTest.php");
-require_once(LIBRARY_PATH . "/services/ServiceConfig.php");
-require_once(LIBRARY_PATH . "/services/ServiceForm.php");
-require_once(LIBRARY_PATH . "/services/Service.php");
+require_once(LIBRARY_PATH . "/form/ServiceConfig.php");
+require_once(LIBRARY_PATH . "/form/ServiceForm.php");
+require_once(LIBRARY_PATH . "/form/Service.php");
 require_once (UTILITY_PATH . "/File.php");
 
 use PHPUnit\Framework\TestCase;
@@ -34,7 +34,7 @@ class ServiceAndServiceConfigTest extends TestCase
                 "key3" => "value3"
             ],
             "content_type" => "application/json",
-            "services" => "someservice",
+            "form" => "someservice",
             "navigate_next" => true,
             "path_success" => "./?page=shoppingcart",
             "path_fail" => "./?page=home"

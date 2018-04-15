@@ -8,7 +8,7 @@
  * Checks $_SESSION super-global, if contains
  * value for 'authenticated_user'. If it does,
  * it makes Authenticated user (User is retrieved
- * from backend services). If it does not, the user
+ * from backend form). If it does not, the user
  * is identified.
  */
 

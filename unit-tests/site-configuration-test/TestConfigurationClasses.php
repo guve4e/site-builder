@@ -132,13 +132,13 @@ class JsonLoaderTest extends TestCase
                 [
                     "name" => "webapi",
                     "url_base_remote" => "http://webapi.ddns.net/index.php",
-                    "url_base_local" => "http://localhost/site-builder/mock-services",
+                    "url_base_local" => "http://localhost/site-builder/mock-form",
                     "api_token" => "WRCdmach38E2*$%Ghdo@nf#cOBD4fd"
                 ],
                 [
                     "name" => "some_webapi",
                     "url_base_remote" => "http://some_webapi.ddns.net/index.php",
-                    "url_base_local" => "http://localhost/some-mock-services",
+                    "url_base_local" => "http://localhost/some-mock-form",
                     "api_token" => "JININCN868767GUG&%#@*&%@#GUIG#"
                 ]
             ],

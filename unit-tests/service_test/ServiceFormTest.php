@@ -3,13 +3,13 @@
 
 require_once("../../relative-paths.php");
 require_once("../UtilityTest.php");
-require_once(LIBRARY_PATH . "/services/ServiceForm.php");
+require_once(LIBRARY_PATH . "/form/ServiceForm.php");
 
 use PHPUnit\Framework\TestCase;
 
 /**
  *
- * @group services-group
+ * @group form-group
  */
 class ServiceFormTest extends TestCase
 {
