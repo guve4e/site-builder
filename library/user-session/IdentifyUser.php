@@ -13,9 +13,9 @@
  */
 
 
-require_once("CookieSetter.php");
-require_once("SessionHelper.php");
-require_once(HTTP_PATH . "/PhpHttpAdapter.php");
+require_once ("CookieSetter.php");
+require_once ("SessionHelper.php");
+require_once (DATA_RESOURCE_PATH . "/User.php");
 
 class IdentifyUser
 {
@@ -37,12 +37,6 @@ class IdentifyUser
     private $userHash;
 
     /**
-     * @var object
-     * Used to send HTTP requests.
-     */
-    private $http;
-
-    /**
      * @var
      * User object retrieved
      * from back end services.
@@ -59,94 +53,56 @@ class IdentifyUser
     /**
      * Identify constructor.
      * @param CookieSetter $cookieSetter
-     * @param PhpHttpAdapter $http
      * @throws Exception
      */
-    private function __construct(CookieSetter $cookieSetter, PhpHttpAdapter $http)
+    private function __construct(CookieSetter $cookieSetter, User $user)
     {
-        // initialize CookieSetter Object
-        $this->cookieSetter = $cookieSetter;
+        if (!isset($cookieSetter) || !isset($user))
+            throw new Exception("Bad parameter in IdentifyUser constructor!");
 
-        // initialize RestCall object
-        $this->http = $http;
+        // initialize CookieSetter and User Object
+        $this->cookieSetter = $cookieSetter;
+        $this->user = $user;
 
         // identify user
         $this->identify();
     }
 
     /**
-     * Calls Web API
+     * Calls User DAO
      * to retrieve the user information.
-     *
      * @throws Exception
      */
     private function retrieveUser()
     {
-        if(!isset($this->http))
-            throw new Exception("Http Adapter is not set");
-
-        // set method
-        $this->http->setMethod('GET')
-            ->setParameter($this->userHash)
-            ->setServiceName("user")
-            ->setMock();
-
-        $user = $this->http->send();
-
-        return $user;
+        return $this->user->get($this->userHash);
     }
 
     /**
-     * Compacts an object, with member
-     * called hash. This info is needed
-     * for back end services to make
-     * new user.
-     * @throws Exception
-     */
-    private function makeData() : array
-    {
-        $hash =  $this->cookieSetter->getHash();
-        // check for proper hash
-        if(!isset($hash))
-            throw new Exception("Hash was not created");
-
-
-        return ["hash" => $this->cookieSetter->getHash()];
-    }
-
-    /**
-     * Calls Web API to make new User.
-     * Note, no parameter needed
-     * for this rest call.
+     * Calls User DAO to make new User.
      * @access private
      * @throws Exception
      */
     private function setUser()
     {
-        if(!isset($this->http))
-            throw new Exception("Http Adapter is not set");
-
         // set up new cookie on
         // client's computer
         $this->cookieSetter->setCookie();
 
-        $data = $this->makeData();
-        // set method
-        $this->http->setMethod('POST')
-            ->setJsonData($data);
-        // send request
-        $this->http->send();
+        // get the hash
+        $hash = $this->cookieSetter->getHash();
+        // create user
+        $this->user->create($hash);
     }
 
     /**
      * Checks $_COOKIE super-global for valid user.
      * If user is valid it calls retrieveUser(), to
-     * retrieve the already known user from back end
-     * services. User comes with user id and items in
-     * shopping cart. If user is not identified, setUser
+     * retrieve the already known user.
+     * If user is not identified, setUser
      * is called to make a new user with cookie and then
      * getUser is called  to retrieve info for the newly
-     * created user from back end services.
+     * created.
      *
      * @throws Exception
      */
@@ -161,13 +117,11 @@ class IdentifyUser
         {
             $this->setUser();
             // get hash from cookie
-
             $this->userHash = $_COOKIE[$this->cookieSetter->getCookieName()];
         }
 
         // retrieve user from web-api
         $this->user = $this->retrieveUser();
-
         // save to session
         $this->saveUserInSession($this->user);
     }
@@ -180,10 +134,10 @@ class IdentifyUser
      * @return IdentifyUser
      * @throws Exception
      */
-    public static function IdentifyUser(CookieSetter $cookieSetter, PhpHttpAdapter $http) : IdentifyUser
+    public static function IdentifyUser(CookieSetter $cookieSetter, User $user) : IdentifyUser
     {
         if (self::$instance === null) {
-            self::$instance = new IdentifyUser($cookieSetter, $http);
+            self::$instance = new IdentifyUser($cookieSetter, $user);
         }
 
         return self::$instance;

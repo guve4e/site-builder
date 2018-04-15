@@ -1,12 +1,13 @@
 <?php
-/*
- * Configuration file
- */
 
 /* define some constant paths (server dependent) */
+
 defined("ROOT_PATH")
     or define("ROOT_PATH", realpath(dirname(__FILE__) ));
-  
+
+defined("DATA_RESOURCE_PATH")
+    or define("DATA_RESOURCE_PATH", realpath(dirname(__FILE__) . '/data-resources'));
+
 defined("LIBRARY_PATH")
     or define("LIBRARY_PATH", realpath(dirname(__FILE__) . '/library'));
 

@@ -13,26 +13,26 @@ interface IDO
      * @param int $id
      * @return mixed
      */
-    public function get(int $id);
+    public function get($id);
 
     /**
      * Create resource.
      * @param int $id
      * @return mixed
      */
-    public function create(int $id);
+    public function create($id);
 
     /**
      * Update Resource.
      * @param int $id
      * @return mixed
      */
-    public function update(int $id);
+    public function update($id);
 
     /**
      * Delete Resource.
      * @param int $id
      * @return mixed
      */
-    public function delete(int $id);
+    public function delete($id);
 }

@@ -27,14 +27,24 @@ class PhpAdapterTest extends TestCase
                 "name" => "some_website_cookie",
                 "time" => 7
             ],
-            "services" => [
-                "url_domain" => "http://localhost",
-                "url_base_remote" => "http://webapi.ddns.net/index.php",
-                "url_base_local" => "http://localhost/site-builder/mock-services"
+            "web_services" => [
+                [
+                    "name" => "webapi",
+                    "url_base_remote" => "http://webapi.ddns.net/index.php",
+                    "url_base_local" => "http://localhost/site-builder/mock-services",
+                    "api_token" => "WRCdmach38E2*$%Ghdo@nf#cOBD4fd"
+                ],
+                [
+                    "name" => "some_webapi",
+                    "url_base_remote" => "http://some_webapi.ddns.net/index.php",
+                    "url_base_local" => "http://localhost/some-mock-services",
+                    "api_token" => "JININCN868767GUG&%#@*&%@#GUIG#"
+                ]
             ],
             "production" => false,
             "bower_url"  => 'vendor'
         ];
+
 
         $json = json_encode($jsonArray);
         $this->siteConfigurationJson = json_decode($json);

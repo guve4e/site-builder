@@ -1,5 +1,7 @@
 <?php
 
+require_once (LIBRARY_PATH . "/dao/IDO.php");
+
 class User implements IDO
 {
     /**
@@ -7,9 +9,12 @@ class User implements IDO
      * @param int $id
      * @return mixed
      */
-    public function get(int $id)
+    public function get($id)
     {
-        // TODO: Implement get() method.
+        $user = new StdClass;
+        $user->id = 1001;
+        $user->product_count = 12;
+        return $user;
     }
 
     /**
@@ -17,7 +22,7 @@ class User implements IDO
      * @param int $id
      * @return mixed
      */
-    public function create(int $id)
+    public function create($id)
     {
         // TODO: Implement create() method.
     }
@@ -27,7 +32,7 @@ class User implements IDO
      * @param int $id
      * @return mixed
      */
-    public function update(int $id)
+    public function update($id)
     {
         // TODO: Implement update() method.
     }
@@ -37,7 +42,7 @@ class User implements IDO
      * @param int $id
      * @return mixed
      */
-    public function delete(int $id)
+    public function delete($id)
     {
         // TODO: Implement delete() method.
     }

@@ -1,5 +1,5 @@
 <?php
-require_once ("IdentifyUser.php");
+
 /**
  * Represents a session with the client.
  * It loads a session key from config file,
@@ -11,7 +11,11 @@ require_once ("IdentifyUser.php");
  * from backend services). If it does not, the user
  * is identified.
  */
-class UserSession
+
+require_once ("IdentifyUser.php");
+require_once (DATA_RESOURCE_PATH . "/User.php");
+
+final class UserSession
 {
     /**
      * @var string
@@ -31,8 +35,8 @@ class UserSession
     private $cookieTime;
 
     /**
-     * @var SiteConfiguration
-     * Provides
+     * @var SiteConfigurationLoader
+     * Provides configuration details.
      */
     private $configuration;
 
@@ -60,8 +64,7 @@ class UserSession
         if(!$this->isUserAuthenticated())
         {
             $cookieSetter = new CookieSetter($this->cookieName, $this->cookieTime);
-            $http = new PhpHttpAdapter(new RestCall("Curl", new File), $this->configuration);
-            IdentifyUser::IdentifyUser($cookieSetter, $http);
+            IdentifyUser::IdentifyUser($cookieSetter, new User());
         }
     }
 
