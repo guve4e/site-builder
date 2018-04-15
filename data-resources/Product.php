@@ -5,7 +5,6 @@ require_once (HTTP_PATH . "/Http.php");
 
 class Product implements IDO
 {
-
     /**
      * Get resource.
      * @param int $id

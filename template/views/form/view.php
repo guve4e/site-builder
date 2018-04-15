@@ -7,7 +7,7 @@
     <h4 >Form View</h4>
 
     <form  id="checkout" method="post"
-           action="httpfactory.php?view=form&from=cart&subView=post_cart&paramName=<?php $user->U_ID ?>">
+           action="form-handler.php?view=form&from=cart&subView=post_cart&paramName=<?php $user->U_ID ?>">
 
         <!--*** Address ***-->
         <div>

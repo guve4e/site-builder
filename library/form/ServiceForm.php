@@ -3,7 +3,7 @@
 /**
  * Data class that abstracts the
  * low level detail of extracting information
- * from $_GET and $_POST send to httpfactory.php
+ * from $_GET and $_POST send to form-handler.php
  * Extract information from html form.
  */
 final class ServiceForm
