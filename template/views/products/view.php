@@ -1,9 +1,14 @@
 <?php
+
 require_once (DATA_RESOURCE_PATH . "/Product.php");
 
-$product = new Product();
-$productObject = $product->get(1234);
-
+try {
+    $product = new Product();
+    $productObject = $product->get(1234);
+} catch (Exception $e) {
+    die($e->getMessage());
+}
+var_dump($productObject);
 ?>
 
 <div>

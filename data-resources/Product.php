@@ -1,6 +1,7 @@
 <?php
 
 require_once (LIBRARY_PATH . "/dao/IDO.php");
+require_once (HTTP_PATH . "/Http.php");
 
 class Product implements IDO
 {
@@ -9,26 +10,19 @@ class Product implements IDO
      * Get resource.
      * @param int $id
      * @return mixed
+     * @throws Exception
      */
     public function get($id)
     {
-        return json_decode(json_encode([
-            "product_count"=> 3,
-            "products" => [
-                [
-                    "name" => "product1",
-                    "price" => 12.4
-                ],
-                [
-                    "name" => "product2",
-                    "price" => 4.56
-                ],
-                [
-                    "name" => "product3",
-                    "price" => 15.4
-                ]
-            ]
-        ]));
+        $r = new Http();
+        $res = $r->setWebService("webapi")
+            ->setService("cart")
+            ->setParameter($id)
+            ->setMethod("GET")
+            ->setMock()
+            ->send();
+
+        return $res;
     }
 
     /**

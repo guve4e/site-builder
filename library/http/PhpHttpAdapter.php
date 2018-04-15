@@ -249,7 +249,7 @@ class PhpHttpAdapter {
     public function setWebServiceName(string $name)
     {
         // first check if configuration is set up
-        if (empty($this->webService))
+        if (empty($this->webServices))
             throw new Exception("You must specify a configuration first!");
 
         // search fot web service with the provided name
