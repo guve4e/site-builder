@@ -1,0 +1,56 @@
+[
+  {
+    "entity": "cart",
+    "verbs": [
+      {
+        "verb": "create",
+        "service": "cart",
+        "navigate": false,
+        "path_success": "",
+        "path_fail": ""
+      },
+      {
+        "verb": "update",
+        "service": "cart",
+        "navigate": true,
+        "path_success": "./?page=shoppingcart",
+        "path_fail": "./?page=shoppingcart"
+      },
+      {
+        "verb": "delete",
+        "service": "cart",
+        "navigate": true,
+        "path_success": "./?page=shoppingcart",
+        "path_fail": "./?page=shoppingcart"
+      }
+    ]
+  },
+  {
+    "sub_view": "product",
+    "verbs": [
+      {
+        "verb": "create",
+        "service": "products",
+        "navigate": false,
+        "path_success": "",
+        "path_fail": ""
+      },
+      {
+        "verb": "products",
+        "service": "products",
+        "navigate": true,
+        "path_success": "./?page=products",
+        "path_fail": "./?page=products"
+      },
+      {
+        "verb": "delete",
+        "service": "products",
+        "navigate": true,
+        "path_success": "./?page=products",
+        "path_fail": "./?page=products"
+      }
+    ]
+  }
+]
+
+

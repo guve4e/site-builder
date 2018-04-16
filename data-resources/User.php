@@ -22,7 +22,7 @@ class User implements IDO
      * @param int $id
      * @return mixed
      */
-    public function create($id)
+    public function create($id, object $data)
     {
         // TODO: Implement create() method.
     }
@@ -32,7 +32,7 @@ class User implements IDO
      * @param int $id
      * @return mixed
      */
-    public function update($id)
+    public function update($id, object $data)
     {
         // TODO: Implement update() method.
     }
@@ -42,7 +42,7 @@ class User implements IDO
      * @param int $id
      * @return mixed
      */
-    public function delete($id)
+    public function delete($id, object $data)
     {
         // TODO: Implement delete() method.
     }

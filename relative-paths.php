@@ -47,6 +47,9 @@ defined("VIEW_PATH")
 defined("LOG_PATH")
     or define("LOG_PATH", realpath(dirname(__FILE__) . '/logs'));
 
+defined("MOCK_RESOURCES_PATH")
+    or define("MOCK_RESOURCES_PATH", realpath(dirname(__FILE__) . '/mock-services'));
+
 
 /**
 * Configure php.ini

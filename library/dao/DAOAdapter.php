@@ -35,6 +35,24 @@ class DAOAdapter
      */
     private $daoPath;
 
+
+    /**
+     * Validates if the super-globals $_GET and $_POST
+     * contain the right information.
+     *
+     * @param $get: representing the $_GET super-global
+     * @param $post: representing the $_POST super-global
+     * @throws Exception
+     */
+    private function validateAttributes(array $get, array $post)
+    {
+        if(!is_array($get) || !is_array($post))
+            throw new Exception("Fields attribute is not of type array.");
+
+        if(!isset($get['view']) || !isset($get["subView"]) || !isset($get['from']) ||  !isset($post))
+            throw new Exception("Invalid Arguments in CollectInfo.");
+    }
+
     /**
      * __construct
      *
@@ -42,8 +60,12 @@ class DAOAdapter
      * @param $pathInfo  $_SERVER['PATH_INFO']
      * @throws Exception
      */
-    public function __construct(Service $service)
+    public function __construct(array $get, array $post)
     {
+
+        $this->validateAttributes($get, $post);
+
+
         // sanitize path info first
         $this->splitPathInfo($pathInfo);
 

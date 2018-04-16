@@ -15,7 +15,7 @@ class Product implements IDO
     {
         $r = new Http();
         $res = $r->setWebService("webapi")
-            ->setService("cart")
+            ->setService("product")
             ->setParameter($id)
             ->setMethod("GET")
             ->setMock()
@@ -29,7 +29,7 @@ class Product implements IDO
      * @param int $id
      * @return mixed
      */
-    public function create($id)
+    public function create($id, object $data)
     {
         // TODO: Implement create() method.
     }
@@ -39,9 +39,16 @@ class Product implements IDO
      * @param int $id
      * @return mixed
      */
-    public function update($id)
+    public function update($id, object $data)
     {
-        // TODO: Implement update() method.
+        // set options
+        $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
+        $path = MOCK_RESOURCES_PATH . "/" . "product.json";
+        $fp = fopen($path, 'w');
+        fwrite($fp, json_encode($data, $options));
+        fclose($fp);
+
+        return true;
     }
 
     /**
@@ -49,7 +56,7 @@ class Product implements IDO
      * @param int $id
      * @return mixed
      */
-    public function delete($id)
+    public function delete($id, object $data)
     {
         // TODO: Implement delete() method.
     }
