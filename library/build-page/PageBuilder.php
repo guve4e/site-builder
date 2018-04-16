@@ -213,6 +213,15 @@ final class PageBuilder
         return self::$instance;
     }
 
+    /**
+     * Getter
+     * @return string: CSS class
+     */
+    public function getBodyClass()
+    {
+        return  $this->view->getViewBodyClass();
+    }
+
     public function __destruct()
     {
         unset($this->file);
@@ -224,14 +233,5 @@ final class PageBuilder
         unset($this->pageTitle);
 
         self::$instance = null;
-    }
-
-    /**
-     * Getter
-     * @return string: CSS class
-     */
-    public function getBodyClass()
-    {
-        return  $this->view->getViewBodyClass();
     }
 }

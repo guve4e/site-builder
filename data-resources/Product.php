@@ -29,7 +29,7 @@ class Product implements IDO
      * @param int $id
      * @return mixed
      */
-    public function create($id, object $data)
+    public function create($id, object $data): bool
     {
         // TODO: Implement create() method.
     }
@@ -39,7 +39,7 @@ class Product implements IDO
      * @param int $id
      * @return mixed
      */
-    public function update($id, object $data)
+    public function update($id, object $data): bool
     {
         // set options
         $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
@@ -51,12 +51,35 @@ class Product implements IDO
         return true;
     }
 
+    public function add($id, object $data): bool
+    {
+        // set options
+        $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
+        $path = MOCK_RESOURCES_PATH . "/" . "product.json";
+
+        $file = file_get_contents($path);
+        $fileJson = json_decode($file);
+
+        $fileJson->product_count = $fileJson->product_count + 1;
+
+        $arrayToPush = json_decode(json_encode($data), true);
+        array_push($fileJson->products, $arrayToPush);
+
+
+        $a = json_decode(json_encode($fileJson));
+        $fp = fopen($path, 'w');
+        fwrite($fp, json_encode($a, $options));
+        fclose($fp);
+
+        return true;
+    }
+
     /**
      * Delete Resource.
      * @param int $id
      * @return mixed
      */
-    public function delete($id, object $data)
+    public function delete($id, object $data): bool
     {
         // TODO: Implement delete() method.
     }

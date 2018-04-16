@@ -12,21 +12,21 @@ interface IDO
     /**
      * Create resource.
      * @param int $id
-     * @return mixed
+     * @return bool
      */
-    public function create($id, object $data);
+    public function create($id, object $data): bool;
 
     /**
      * Update Resource.
      * @param int $id
-     * @return mixed
+     * @return bool
      */
-    public function update($id, object $data);
+    public function update($id, object $data): bool;
 
     /**
      * Delete Resource.
      * @param int $id
-     * @return mixed
+     * @return bool
      */
-    public function delete($id, object $data);
+    public function delete($id, object $data): bool;
 }
