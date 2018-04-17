@@ -19,7 +19,7 @@ trait SessionHelper
      * @param object $user
      * @throws Exception
      */
-    protected function saveUserInSession(object $user)
+    protected function saveUserInSession(stdClass $user)
     {
         $jsonLoader = new SiteConfigurationLoader(new File());
         $configuration = $jsonLoader->getData();

@@ -123,7 +123,7 @@ class Logger
       * @param array $args
       * @throws Exception
       */
-     public function logMessage($args) : void
+     public function logMessage($args)
      {
          $msg = $this->retrieveMessage(func_get_args());
 

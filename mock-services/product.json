@@ -1,5 +1,5 @@
 {
-    "product_count": 6,
+    "product_count": 7,
     "products": [
         {
             "name": "product1",
@@ -24,6 +24,10 @@
         {
             "name": "Some other Product",
             "price": "999999999"
+        },
+        {
+            "name": "EEE",
+            "price": "333"
         }
     ]
 }

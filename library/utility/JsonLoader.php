@@ -84,7 +84,7 @@ final class JsonLoader
      * Getter.
      * @return mixed
      */
-    public function getDataAsJson() : object
+    public function getDataAsJson() : stdClass
     {
         $objectData = json_decode(json_encode($this->data));
         return $objectData;

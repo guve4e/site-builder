@@ -130,7 +130,7 @@ class RestResponse
      * Gives the body as an JSON object.
      * @return object as JSON .
      */
-    public function getBodyAsJson() : object
+    public function getBodyAsJson() : stdClass
     {
         return $this->file->jsonDecode($this->body, false);
     }
