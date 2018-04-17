@@ -1,7 +1,7 @@
 
 <aside>
     <h3>Side Menu</h3>
-    <div class="menu_section">
+    <div class="sidenav">
         <ul>
             <?php
             $this->printMenu();

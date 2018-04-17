@@ -43,6 +43,9 @@ try {
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no"/>
 
+    <link rel='stylesheet' type='text/css' href='css/navbar.css' />
+    <link rel='stylesheet' type='text/css' href='css/sidenav.css' />
+
     <!--*** Set Title ***-->
     <title><?php $site->printTitle(); ?></title>
 

@@ -2,11 +2,11 @@
 
 ?>
 
+
 <header>
     <nav>
-        <h3 align="center">Navbar</h3>
-        <div align="right">
-            <a href="login.php">Login</a>
+        <div class="navbar">
+            <a href="#"><span>Login</span></a>
         </div>
     </nav>
 </header>
