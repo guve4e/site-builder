@@ -285,6 +285,11 @@ final class View
         return $this->viewJSPath;
     }
 
+    public function isFullScreen()
+    {
+        return $this->viewConfig['full_screen'];
+    }
+
     public function __destruct()
     {
         unset($this->file);

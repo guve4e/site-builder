@@ -1,6 +1,6 @@
 <?php
 
-require_once(LIBRARY_PATH . "/form/FormHandler.php");
+require_once (LIBRARY_PATH . "/form/FormHandler.php");
 require_once (DATA_RESOURCE_PATH . "/Product.php");
 
 // GET INFO

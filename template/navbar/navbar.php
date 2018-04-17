@@ -1,12 +1,10 @@
 <?php
 
 ?>
-
-
 <header>
     <nav>
         <div class="navbar">
-            <a href="#"><span>Login</span></a>
+            <a href="?page=login"><span>Login</span></a>
         </div>
     </nav>
 </header>

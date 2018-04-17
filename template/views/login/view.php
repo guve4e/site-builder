@@ -1,7 +1,8 @@
 <?php
-session_start();
-require_once("../relative-paths.php");
+require_once (HTTP_PATH . "/phphttp/RestCall.php");
+
 ?>
+
 <script>
 
     /**
@@ -87,35 +88,34 @@ require_once("../relative-paths.php");
     <title> Login Page</title>
 
 </head>
-    <body>
-    <div>
-        <div id="login_card" align="center">
-            <div id="login_form">
-                <form action="authentication-handler.php?id=existing_user" method="post">
-                    <br>
-                    <div >
-                        <label for="login_username">Username</label>
-                        <input type="text" id="login_username" name="login_username" />
-                    </div>
-                    <br>
-                    <div >
-                        <label for="login_password">Password</label>
-                        <input type="password" id="login_password" name="login_password" />
-                    </div>
-                    <br>
-                    <div>
-                        <button type="submit">Sign In</button>
-                    </div>
-                </form>
-            </div>
-
-            <div>
-                <a href="#" id="signup_form_show">Create an account</a>
+<body>
+<div>
+    <div id="login_card" align="center">
+        <div id="login_form">
+            <form action="authentication-handler.php?id=existing_user" method="post">
                 <br>
-            </div>
-            <div>
-                <a href="logout.php" >Close</a>
-            </div>
+                <div >
+                    <label for="login_username">Username</label>
+                    <input type="text" id="login_username" name="login_username" />
+                </div>
+                <br>
+                <div >
+                    <label for="login_password">Password</label>
+                    <input type="password" id="login_password" name="login_password" />
+                </div>
+                <br>
+                <div>
+                    <button type="submit">Sign In</button>
+                </div>
+            </form>
         </div>
-    </body>
-</html>
+
+        <div>
+            <a href="#" id="signup_form_show">Create an account</a>
+            <br>
+        </div>
+        <div>
+            <a href="logout.php" >Close</a>
+        </div>
+    </div>
+</body>

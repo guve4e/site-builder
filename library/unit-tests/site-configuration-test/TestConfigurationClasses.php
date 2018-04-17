@@ -173,6 +173,7 @@ class JsonLoaderTest extends TestCase
         $siteJson = [
             "view" => "page_home",
             "title" => "Home",
+            "full_screen" => true,
             "body_class_style"=> "",
             "styles" => [],
             "scripts" => []

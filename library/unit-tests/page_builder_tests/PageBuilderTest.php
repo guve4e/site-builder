@@ -37,6 +37,7 @@ class PageBuilderTest extends TestCase
             ->willReturn([
                 'body_class_style' => 'some_style',
                 'title' => 'some_title',
+                'full_screen' => true,
                 'styles' => [],
                 'scripts' => []
             ]);

@@ -59,7 +59,8 @@ class ViewConfigurationLoader
     {
         $info = $this->jsonLoader->getData();
 
-        if (!isset($info['body_class_style']) || !isset($info['title']) || !isset($info['styles']) ||  !isset($info['scripts']))
+        if (!isset($info['body_class_style']) || !isset($info['title']) || !isset($info['full_screen']) ||
+            !isset($info['styles']) ||  !isset($info['scripts']))
             throw new Exception("Wrong View Configuration File");
     }
 

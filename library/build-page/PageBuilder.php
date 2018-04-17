@@ -51,7 +51,7 @@ final class PageBuilder
      * @var object
      * Loaded info from json file.
      */
-    private $pageConfig;
+    private $siteConfig;
 
     /**
      * @var string
@@ -83,7 +83,7 @@ final class PageBuilder
     {
         // get site configuration
         $siteConfig = new TemplateConfigurationLoader($file);
-        $this->pageConfig = $siteConfig->getData();
+        $this->siteConfig = $siteConfig->getData();
     }
 
     /**
@@ -92,7 +92,7 @@ final class PageBuilder
      */
     private function loadPageTitle()
     {
-        $this->pageTitle = $this->pageConfig['title'];
+        $this->pageTitle = $this->siteConfig['title'];
     }
 
     /**
@@ -129,7 +129,7 @@ final class PageBuilder
      */
     public function printStyles()
     {
-        PrintHTML::printListStyles($this->pageConfig['styles']);
+        PrintHTML::printListStyles($this->siteConfig['styles']);
         $this->view->printListStyles();
     }
 
@@ -142,8 +142,14 @@ final class PageBuilder
      */
     public function build()
     {
-        $this->navbar->build();
-        $this->menu->build();
+        // if the view is full-screen
+        // we don't want to build menu and navbar
+        if (!$this->view->isFullScreen())
+        {
+            $this->navbar->build();
+            $this->menu->build();
+        }
+        // we always want the view
         $this->view->build();
     }
 
@@ -155,7 +161,7 @@ final class PageBuilder
      */
     public function printScripts()
     {
-        PrintHTML::printListScripts($this->pageConfig['scripts']);
+        PrintHTML::printListScripts($this->siteConfig['scripts']);
         $this->view->printListScripts();
     }
 
@@ -229,7 +235,7 @@ final class PageBuilder
         unset($this->view);
         unset($this->menu);
         unset($this->navbar);
-        unset($this->pageConfig);
+        unset($this->siteConfig);
         unset($this->pageTitle);
 
         self::$instance = null;
