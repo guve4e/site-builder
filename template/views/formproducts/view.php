@@ -25,7 +25,11 @@ try {
 }
 
 ?>
-
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
 <div align="center">
     <h4 >Form Products View</h4>
 
@@ -57,15 +61,21 @@ try {
 <div>
     <h4 align="center">Products View</h4>
     <div align="center">
-        <?php
-
-        print "<h3>Product Count {$productObject->product_count}<h3>";
-
-        foreach($productObject->products as $product)
-        {
-            echo "<h5>Product Name : {$product->name}</h5>";
-            echo "<h5>Product Price: {$product->price}</h5>";
-        }
-        ?>
+        <table style="width:50%">
+            <tr>
+                <th>Product Name</th>
+                <th>Product Price</th>
+            </tr>
+            <?php
+            foreach($productObject->products as $product)
+            {
+                echo "<tr>";
+                echo "    <td>{$product->name}</td>";
+                echo "    <td>{$product->price}</td>";
+                echo "</tr>";
+            }
+            ?>
+        </table>
     </div>
+
 </div>

@@ -1,5 +1,5 @@
 {
-    "product_count": 7,
+    "product_count": 9,
     "products": [
         {
             "name": "product1",
@@ -14,20 +14,8 @@
             "price": 100.4
         },
         {
-            "name": "test product",
-            "price": "899"
-        },
-        {
-            "name": "Some Other Priduct",
-            "price": "999.4"
-        },
-        {
-            "name": "Some other Product",
-            "price": "999999999"
-        },
-        {
-            "name": "EEE",
-            "price": "333"
+            "name": "product4",
+            "price": "8.26"
         }
     ]
 }
