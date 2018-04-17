@@ -3,11 +3,11 @@
  * TODO Test $viewKey
  *
  */
-require_once("../../relative-paths.php");
-require_once("../UtilityTest.php");
-require_once("../../library/build-page/View.php");
-require_once("../../library/build-page/Menu.php");
-require_once("../../library/build-page/Navbar.php");
+require_once ("../../../relative-paths.php");
+require_once ("../UtilityTest.php");
+require_once (BUILD_PATH . "/View.php");
+require_once (BUILD_PATH . "/Menu.php");
+require_once (BUILD_PATH . "/Navbar.php");
 
 use PHPUnit\Framework\TestCase;
 

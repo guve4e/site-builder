@@ -1,6 +1,6 @@
 <?php
 
-require_once ("../../relative-paths.php");
+require_once ("../../../relative-paths.php");
 require_once (UTILITY_PATH . "/JsonLoader.php");
 require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
 require_once (CONFIGURATION_PATH . "/TemplateConfigurationLoader.php");

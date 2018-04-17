@@ -1,7 +1,7 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once ("../../relative-paths.php");
+require_once ("../../../relative-paths.php");
 require_once(LIBRARY_PATH . "/form/FormHandler.php");
 
 class FormHandlerTest extends TestCase

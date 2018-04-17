@@ -1,9 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once ("../../relative-paths.php");
-require_once (LIBRARY_PATH . "/dao/DAOAdapter.php");
-require_once(LIBRARY_PATH . "/form/FormExtractor.php");
+require_once ("../../../relative-paths.php");
+require_once (LIBRARY_PATH . "/form/FormExtractor.php");
 
 class FormExtractorTest extends TestCase
 {

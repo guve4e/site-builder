@@ -3,7 +3,7 @@
  * Tests IdentifyUser Class.
  */
 
-require_once("../../relative-paths.php");
+require_once ("../../../relative-paths.php");
 require_once ("../UtilityTest.php");
 require_once (USER_SESSION_PATH . "/IdentifyUser.php");
 require_once (UTILITY_PATH . "/Logger.php");
@@ -34,8 +34,6 @@ class IdentifyUserTest extends TestCase
         $_SERVER['REMOTE_ADDR'] = "REMOTE_ADDR";
         $_SERVER['HTTP_USER_AGENT'] = "HTTP_USER_AGENT";
         $_SERVER['HTTP_ACCEPT'] = "HTTP_ACCEPT";
-
-
 
         $this->userObject = $this->getMockBuilder(User::class)
             ->setMethods(['create', 'get'])
