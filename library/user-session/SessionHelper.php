@@ -30,4 +30,24 @@ trait SessionHelper
         $logger = new Logger(new File());
         $logger->logMessage("User Session: ", print_r($user, true));
     }
+
+    /**
+     * @return null
+     * @throws Exception
+     */
+    protected function getUserFromSession()
+    {
+        $jsonLoader = new SiteConfigurationLoader(new File());
+        $configuration = $jsonLoader->getData();
+        $sessionToken = $configuration->session->key;
+
+        $user = null;
+        if(isset($_SESSION[$sessionToken]))
+            $user = $_SESSION[$sessionToken];
+        else
+            throw new Exception("User is not SET!");
+
+        return $user;
+    }
+
 }

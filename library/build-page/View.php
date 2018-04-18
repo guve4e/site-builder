@@ -1,11 +1,14 @@
 <?php
 require_once ("PrintHTML.php");
 require_once (CONFIGURATION_PATH . "/ViewConfigurationLoader.php");
+require_once (USER_SESSION_PATH . "/SessionHelper.php");
 /**
  *
  */
 final class View
 {
+    use SessionHelper;
+
     /**
      * @var string
      * The path to

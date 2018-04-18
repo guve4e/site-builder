@@ -13,7 +13,7 @@ function getUserFromSession()
 }
 
 try {
-    $userFromSession =getUserFromSession();
+    $userFromSession = $this->getUserFromSession();
 } catch (Exception $e) {
     die($e->getMessage());
 }

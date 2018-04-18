@@ -397,3 +397,510 @@
     [product_count] => 12
 )
 
+<Message 2018-04-18 19:01:17 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:03:24 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:03:58 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:04:04 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:04:07 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:04:08 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:11:09 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:11:11 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:11:18 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:11:31 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:13:33 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:14:04 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:14:23 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:14:25 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:14:32 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:14:34 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:15:29 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:15:36 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:15:47 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:16:03 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:16:32 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:16:43 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:17:07 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:17:18 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:17:43 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:23:52 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:23:53 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:23:57 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:24:07 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:24:11 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:24:14 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:24:21 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:26:17 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:26:21 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:26:23 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:26:26 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:26:29 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:26:33 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:26:43 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:26:47 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:26:55 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:27:18 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:27:38 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:27:55 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:31:25 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:39:15 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 19:47:47 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:03:46 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:05:51 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:00 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:04 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:05 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:07 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:09 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:10 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:12 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:13 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:15 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:16 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:17 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:22 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:24 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:06:26 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:11:33 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:11:46 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:16:25 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:17:10 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:17:35 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
