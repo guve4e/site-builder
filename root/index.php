@@ -10,7 +10,6 @@ require_once ("../relative-paths.php");
 require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
 require_once (FORM_HANDLER_PATH . "/FormHandler.php");
 require_once (USER_SESSION_PATH . "/Chrono.php");
-require_once (USER_SESSION_PATH . "/UserSession.php");
 require_once (HTTP_PATH . "/PhpHttpAdapter.php");
 require_once (BUILD_PATH . "/PageBuilder.php");
 
@@ -18,15 +17,15 @@ Chrono::checkTimer();
 
 try {
 
-    // load configuration
-    $jsonLoader = new SiteConfigurationLoader(new File());
-    $configuration = $jsonLoader->getData();
-
-    // make Session with user
-    $session = UserSession::Session($configuration);
+//    // load configuration
+//    $jsonLoader = new SiteConfigurationLoader(new File());
+//    $configuration = $jsonLoader->getData();
+//
+//    // make Session with user
+//    $session = UserSession::Session($configuration);
 
     // construct the page
-    $site = PageBuilder::MakePage(new File(), $session, $_GET);
+    $site = PageBuilder::MakePage(new File(), $_GET);
 
 } catch (Exception $e) {
     die('Caught exception: ' . $e->getMessage() . "\n");

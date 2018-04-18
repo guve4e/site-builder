@@ -46,12 +46,15 @@ class CookieSetterTest extends TestCase
         $cookie = new CookieSetter("SomeCookie", 2);
 
         try {
-
             // Act
+            // We cant call $cookie->setCookie, because of a header problem
+            // Then invoke makeHash, to make sure we are generating same
+            // hash every time
+
             $this->invokeMethod($cookie, 'makeHash');
 
         } catch (ReflectionException $e) {
-            echo "Reflection Problem!";
+            echo $e->getMessage();
         }
 
         // Assert
@@ -62,5 +65,6 @@ class CookieSetterTest extends TestCase
     protected function tearDown()
     {
         $_SERVER = array();
+        $_COOKIE = array();
     }
 }

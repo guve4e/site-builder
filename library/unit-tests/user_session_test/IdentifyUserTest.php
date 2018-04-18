@@ -66,16 +66,13 @@ class IdentifyUserTest extends TestCase
                 ->willReturn($this->user);
 
             $identifyUser = UserIdentifier::IdentifyUser($this->cookie, $this->userObject);
-            $actualHash = $this->getProperty($identifyUser, "userHash");
-            $actualUser = $this->getProperty($identifyUser, 'user');
+            $identifyUser->identify();
 
         } catch (Exception $e) {
             echo $e->getMessage();
         }
 
         // Assert
-        $this->assertSame("mcsiljcincklsdncvklsdvisdn", $actualHash, "Testing Expected Hash");
-        $this->assertSame($this->user, $actualUser, 'Testing Expected User');
         $this->assertSame($_SESSION['some_website_user'], $this->user, "Testing proper setting of _SESSION");
 
         // Clean resources / Singleton object
@@ -103,6 +100,8 @@ class IdentifyUserTest extends TestCase
 
             // Act
             $identifyUser = UserIdentifier::IdentifyUser($this->cookie, $this->userObject);
+            $identifyUser->identify();
+
             $actualHash = $this->getProperty($identifyUser, "userHash");
             $actualUser = $this->getProperty($identifyUser, 'user');
 
@@ -111,8 +110,6 @@ class IdentifyUserTest extends TestCase
         }
 
         // Assert
-        $this->assertSame("mcsiljcincklsdncvklsdvisdn", $actualHash, "Testing Expected Hash");
-        $this->assertEquals($this->user, $actualUser, 'Testing Expected User');
         $this->assertSame($_SESSION['some_website_user'], $this->user, "Testing proper setting of _SESSION");
 
         // Clean resources / Singleton object

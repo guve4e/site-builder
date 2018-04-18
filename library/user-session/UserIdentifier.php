@@ -51,6 +51,7 @@ class UserIdentifier
     /**
      * Identify constructor.
      * @param CookieSetter $cookieSetter
+     * @param User $user
      * @throws Exception
      */
     private function __construct(CookieSetter $cookieSetter, User $user)
@@ -127,7 +128,7 @@ class UserIdentifier
      * Singleton.
      * @access public
      * @param CookieSetter $cookieSetter
-     * @param PhpHttpAdapter $http
+     * @param User $user
      * @return UserIdentifier
      * @throws Exception
      */

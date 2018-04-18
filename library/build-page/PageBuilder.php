@@ -3,8 +3,10 @@ require_once ("View.php");
 require_once ("Navbar.php");
 require_once ("Menu.php");
 require_once ("PrintHTML.php");
+require_once (USER_SESSION_PATH . "/CookieSetter.php");
+require_once (USER_SESSION_PATH . "/UserIdentifier.php");
 require_once (CONFIGURATION_PATH . "/TemplateConfigurationLoader.php");
-
+require_once (CONFIGURATION_PATH. "/SiteConfigurationLoader.php");
 /**
  *
  */
@@ -51,18 +53,18 @@ final class PageBuilder
      * @var object
      * Loaded info from json file.
      */
-    private $siteConfig;
+    private $templateConfiguration;
+
+    /**
+     * @var stdClass
+     */
+    private $siteConfiguration;
 
     /**
      * @var string
      * Site title.
      */
     private $pageTitle;
-
-    /**
-     * @var UserSession object
-     */
-    private $userSession;
 
     /**
      * @var object
@@ -84,11 +86,26 @@ final class PageBuilder
      * @param File $file
      * @throws Exception
      */
-    private function loadSiteConfig(File $file)
+    private function loadTemplateConfig(File $file)
     {
         // get site configuration
-        $siteConfig = new TemplateConfigurationLoader($file);
-        $this->siteConfig = $siteConfig->getData();
+        $templateConfigurationLoader = new TemplateConfigurationLoader($file);
+        $this->templateConfiguration = $templateConfigurationLoader->getData();
+    }
+
+    /**
+     * Loads information about the site
+     * store it in siteConfig object
+     * at this point siteConfig contains all
+     * the information needed to print the page.
+     * @param File $file
+     * @throws Exception
+     */
+    private function loadSiteConfig(File $file)
+    {
+        // load configuration
+        $jsonLoader = new SiteConfigurationLoader(new File());
+        $this->siteConfiguration = $jsonLoader->getData();
     }
 
     /**
@@ -97,24 +114,46 @@ final class PageBuilder
      */
     private function loadPageTitle()
     {
-        $this->pageTitle = $this->siteConfig['title'];
+        $this->pageTitle = $this->templateConfiguration['title'];
     }
 
+    /**
+     * @throws Exception
+     */
     private function identifyUser()
     {
-        $this->userSession->identifyUser();
+        $sessionConfiguration = $this->loadSessionConfiguration();
+
+        $cookieSetter = new CookieSetter($sessionConfiguration['cookieName'], $sessionConfiguration['cookieTime']);
+        $userIdentifier = UserIdentifier::IdentifyUser($cookieSetter, new User());
+
+        $userIdentifier->identify();
+    }
+
+    /**
+     * Loads session key from
+     * relative-paths.php file.
+     *
+     * @throws Exception
+     */
+    private function loadSessionConfiguration() : array
+    {
+        return [
+            "sessionKey" => $this->siteConfiguration->session->key,
+            "cookieName" => $this->siteConfiguration->cookie->name,
+            "cookieTime" =>  $this->siteConfiguration->cookie->time
+        ];
     }
 
     /**
      * PageBuilder constructor.
      * @param File $file
-     * @param UserSession $userSession
      * @param array $get
      * @throws Exception
      */
-    private function __construct(File $file, UserSession $userSession, array $get)
+    private function __construct(File $file, array $get)
     {
-        if(!isset($get) || !isset($file) || !isset($userSession))
+        if(!isset($get) || !isset($file))
             throw new Exception("Unable to construct the page wrong parameters in PageBuilder constructor!");
 
         // When page is loaded for first time _GET is empty
@@ -122,14 +161,13 @@ final class PageBuilder
             $this->viewName = $get[$this->getSuperglobalKeyName];
 
         $this->file = $file;
-        $this->userSession = $userSession;
 
         $this->view = View::MakeView($file, $this->viewName);
         $this->menu = Menu::MakeMenu($file, $this->view->getViewName());
         $this->navbar = Navbar::MakeNavbar($file, $this->view->getViewBodyClass());
 
+        $this->loadTemplateConfig($file);
         $this->loadSiteConfig($file);
-
         $this->loadPageTitle();
     }
 
@@ -141,7 +179,7 @@ final class PageBuilder
      */
     public function printStyles()
     {
-        PrintHTML::printListStyles($this->siteConfig['styles']);
+        PrintHTML::printListStyles($this->templateConfiguration['styles']);
         $this->view->printListStyles();
     }
 
@@ -173,7 +211,7 @@ final class PageBuilder
      */
     public function printScripts()
     {
-        PrintHTML::printListScripts($this->siteConfig['scripts']);
+        PrintHTML::printListScripts($this->templateConfiguration['scripts']);
         $this->view->printListScripts();
     }
 
@@ -232,10 +270,10 @@ final class PageBuilder
      * @return PageBuilder
      * @throws Exception
      */
-    public static function MakePage(File $file, UserSession $userSession, array $get) : PageBuilder
+    public static function MakePage(File $file, array $get) : PageBuilder
     {
         if (self::$instance === null) {
-            self::$instance = new PageBuilder($file, $userSession , $get);
+            self::$instance = new PageBuilder($file, $get);
         }
 
         return self::$instance;
@@ -248,7 +286,7 @@ final class PageBuilder
         unset($this->view);
         unset($this->menu);
         unset($this->navbar);
-        unset($this->siteConfig);
+        unset($this->templateConfiguration);
         unset($this->pageTitle);
 
         self::$instance = null;
