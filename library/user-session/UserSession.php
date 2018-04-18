@@ -20,7 +20,7 @@ final class UserSession
     /**
      * @var string
      */
-    private static $sessionKey = null;
+    private $sessionKey = null;
 
     /**
      * @var string
@@ -48,7 +48,7 @@ final class UserSession
      */
     private function loadSessionConfiguration()
     {
-        self::$sessionKey = $this->configuration->session->key;
+        $this->sessionKey = $this->configuration->session->key;
         $this->cookieName = $this->configuration->cookie->name;
         $this->cookieTime = $this->configuration->cookie->time;
     }
@@ -102,19 +102,15 @@ final class UserSession
      * super-global.
      * Called from almost every view.php
      * file.
-     * @return user: Either the user is
-     * identified or authenticated.
+     * @return user: identified user
      * If not any of those, assert.
-     * @static
      * @throws Exception
      */
-    public static function getUserFromSession()
+    public function getUserFromSession()
     {
         $user = null;
-        if(isset($_SESSION['authenticated_user']))
-            $user = $_SESSION['authenticated_user'];
-        else if(isset($_SESSION[self::$sessionKey]))
-            $user = $_SESSION[self::$sessionKey];
+        if(isset($_SESSION[$this->sessionKey]))
+            $user = $_SESSION[$this->sessionKey];
         else
             throw new Exception("User is not SET!");
 

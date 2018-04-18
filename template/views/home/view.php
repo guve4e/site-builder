@@ -1,15 +1,26 @@
 <?php
 require_once (DATA_RESOURCE_PATH . "/User.php");
 
+function getUserFromSession()
+{
+    $user = null;
+    if(isset($_SESSION["some_website_user"]))
+        $user = $_SESSION["some_website_user"];
+    else
+        throw new Exception("User is not SET!");
+
+    return $user;
+}
+
 try {
-    $userFromSession = UserSession::getUserFromSession();
+    $userFromSession =getUserFromSession();
 } catch (Exception $e) {
     die($e->getMessage());
 }
 
 $u = new User();
 try {
-    $user = $u->get($userFromSession->id);
+    $user = $u->get($userFromSession->hash);
 } catch (Exception $e) {
     die($e->getMessage());
 }
