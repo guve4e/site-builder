@@ -7,7 +7,6 @@ require_once (USER_SESSION_PATH . "/SessionHelper.php");
  */
 final class View
 {
-    use SessionHelper;
 
     /**
      * @var string

@@ -12,7 +12,7 @@
  * is identified.
  */
 
-require_once ("IdentifyUser.php");
+require_once("UserIdentifier.php");
 require_once (DATA_RESOURCE_PATH . "/User.php");
 
 final class UserSession
@@ -64,19 +64,7 @@ final class UserSession
     private function makeUser()
     {
         $cookieSetter = new CookieSetter($this->cookieName, $this->cookieTime);
-        $this->identifyUser = IdentifyUser::IdentifyUser($cookieSetter, new User());
-    }
-
-    /**
-     *
-     *
-     * @return bool: True if user is authenticated,
-     * false otherwise.
-     */
-    private function isUserAuthenticated()
-    {
-        // IdentifiedUser can be saved in the session already
-        return isset($_SESSION['authenticated_user']);
+        $this->identifyUser = UserIdentifier::IdentifyUser($cookieSetter, new User());
     }
 
     /**
@@ -86,7 +74,6 @@ final class UserSession
      */
     private function __construct(StdClass $configuration)
     {
-
         if (!isset($configuration))
             throw new Exception("Bad parameter in UserSession constructor!");
 

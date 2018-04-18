@@ -68,8 +68,6 @@ try {
 
     try {
 
-
-
         $site->build();
         $site->printScripts();
         $site->loadJavaScript();

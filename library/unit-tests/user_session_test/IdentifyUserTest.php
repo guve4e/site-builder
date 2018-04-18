@@ -5,7 +5,7 @@
 
 require_once ("../../../relative-paths.php");
 require_once ("../UtilityTest.php");
-require_once (USER_SESSION_PATH . "/IdentifyUser.php");
+require_once(USER_SESSION_PATH . "/UserIdentifier.php");
 require_once (UTILITY_PATH . "/Logger.php");
 require_once (DATA_RESOURCE_PATH . "/User.php");
 
@@ -65,21 +65,21 @@ class IdentifyUserTest extends TestCase
             $this->userObject->method('get')
                 ->willReturn($this->user);
 
-            $identifyUser = IdentifyUser::IdentifyUser($this->cookie, $this->userObject);
+            $identifyUser = UserIdentifier::IdentifyUser($this->cookie, $this->userObject);
             $actualHash = $this->getProperty($identifyUser, "userHash");
             $actualUser = $this->getProperty($identifyUser, 'user');
-
-            // Assert
-            $this->assertSame("mcsiljcincklsdncvklsdvisdn", $actualHash, "Testing Expected Hash");
-            $this->assertSame($this->user, $actualUser, 'Testing Expected User');
-            $this->assertSame($_SESSION['some_website_user'], $this->user, "Testing proper setting of _SESSION");
-
-            // Clean resources / Singleton object
-            $identifyUser->__destruct();
 
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
+        // Assert
+        $this->assertSame("mcsiljcincklsdncvklsdvisdn", $actualHash, "Testing Expected Hash");
+        $this->assertSame($this->user, $actualUser, 'Testing Expected User');
+        $this->assertSame($_SESSION['some_website_user'], $this->user, "Testing proper setting of _SESSION");
+
+        // Clean resources / Singleton object
+        $identifyUser->__destruct();
     }
 
     public function testIdentifyExistingUser() {
@@ -102,21 +102,22 @@ class IdentifyUserTest extends TestCase
                 ->willReturn($this->user);
 
             // Act
-            $identifyUser = IdentifyUser::IdentifyUser($this->cookie, $this->userObject);
+            $identifyUser = UserIdentifier::IdentifyUser($this->cookie, $this->userObject);
             $actualHash = $this->getProperty($identifyUser, "userHash");
             $actualUser = $this->getProperty($identifyUser, 'user');
-
-            // Assert
-            $this->assertSame("mcsiljcincklsdncvklsdvisdn", $actualHash, "Testing Expected Hash");
-            $this->assertEquals($this->user, $actualUser, 'Testing Expected User');
-            $this->assertSame($_SESSION['some_website_user'], $this->user, "Testing proper setting of _SESSION");
-
-            // Clean resources / Singleton object
-            $identifyUser->__destruct();
 
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+
+        // Assert
+        $this->assertSame("mcsiljcincklsdncvklsdvisdn", $actualHash, "Testing Expected Hash");
+        $this->assertEquals($this->user, $actualUser, 'Testing Expected User');
+        $this->assertSame($_SESSION['some_website_user'], $this->user, "Testing proper setting of _SESSION");
+
+        // Clean resources / Singleton object
+        $identifyUser->__destruct();
+
     }
 
     protected function tearDown()

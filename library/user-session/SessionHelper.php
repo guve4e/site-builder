@@ -11,23 +11,43 @@ require_once (UTILITY_PATH . "/File.php");
 require_once (UTILITY_PATH . "/JsonLoader.php");
 require_once (CONFIGURATION_PATH. "/SiteConfigurationLoader.php");
 
-trait SessionHelper
+class SessionHelper
 {
+    /**
+     * @throws Exception
+     */
+    private static function getSessionToken()
+    {
+        $jsonLoader = new SiteConfigurationLoader(new File());
+        $configuration = $jsonLoader->getData();
+        $sessionToken = $configuration->session->key;
+
+        return $sessionToken;
+    }
+
+    /**
+     * @return Logger
+     * @throws Exception
+     */
+    private static function getLogger()
+    {
+        return new Logger(new File());
+    }
+
     /**
      * Saves user object into $_SESSION
      * super-global.
      * @param object $user
      * @throws Exception
      */
-    protected function saveUserInSession(stdClass $user)
+    public static function saveUserInSession(stdClass $user)
     {
-        $jsonLoader = new SiteConfigurationLoader(new File());
-        $configuration = $jsonLoader->getData();
-        $sessionToken = $configuration->session->key;
 
+        $sessionToken = self::getSessionToken();
         // save info in session
         $_SESSION[$sessionToken] = $user;
-        $logger = new Logger(new File());
+
+        $logger = self::getLogger();
         $logger->logMessage("User Session: ", print_r($user, true));
     }
 
@@ -35,11 +55,9 @@ trait SessionHelper
      * @return null
      * @throws Exception
      */
-    protected function getUserFromSession()
+    public static function getUserFromSession()
     {
-        $jsonLoader = new SiteConfigurationLoader(new File());
-        $configuration = $jsonLoader->getData();
-        $sessionToken = $configuration->session->key;
+        $sessionToken = self::getSessionToken();
 
         $user = null;
         if(isset($_SESSION[$sessionToken]))

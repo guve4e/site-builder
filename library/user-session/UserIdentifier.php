@@ -17,10 +17,8 @@ require_once ("CookieSetter.php");
 require_once ("SessionHelper.php");
 require_once (DATA_RESOURCE_PATH . "/User.php");
 
-class IdentifyUser
+class UserIdentifier
 {
-    use SessionHelper;
-
     /**
      * @var object
      * Makes a cookie
@@ -122,7 +120,7 @@ class IdentifyUser
         // retrieve user from web-api
         $this->user = $this->retrieveUser();
         // save to session
-        $this->saveUserInSession($this->user);
+        SessionHelper::saveUserInSession($this->user);
     }
 
     /**
@@ -130,13 +128,13 @@ class IdentifyUser
      * @access public
      * @param CookieSetter $cookieSetter
      * @param PhpHttpAdapter $http
-     * @return IdentifyUser
+     * @return UserIdentifier
      * @throws Exception
      */
-    public static function IdentifyUser(CookieSetter $cookieSetter, User $user) : IdentifyUser
+    public static function IdentifyUser(CookieSetter $cookieSetter, User $user) : UserIdentifier
     {
         if (self::$instance === null) {
-            self::$instance = new IdentifyUser($cookieSetter, $user);
+            self::$instance = new UserIdentifier($cookieSetter, $user);
         }
 
         return self::$instance;

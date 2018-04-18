@@ -1,26 +1,18 @@
 <?php
+
 require_once (DATA_RESOURCE_PATH . "/User.php");
 
-function getUserFromSession()
-{
-    $user = null;
-    if(isset($_SESSION["some_website_user"]))
-        $user = $_SESSION["some_website_user"];
-    else
-        throw new Exception("User is not SET!");
-
-    return $user;
-}
-
-try {
-    $userFromSession = $this->getUserFromSession();
-} catch (Exception $e) {
-    die($e->getMessage());
-}
-
 $u = new User();
+
 try {
+
+    // we need to know who is the user so we can retrieve
+    // her information
+    $userFromSession = SessionHelper::getUserFromSession();
+
+    // now we can get the right info
     $user = $u->get($userFromSession->hash);
+
 } catch (Exception $e) {
     die($e->getMessage());
 }

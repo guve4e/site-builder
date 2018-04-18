@@ -6,8 +6,6 @@ require_once (HTTP_PATH . "/Http.php");
 
 class User implements IDO
 {
-    use SessionHelper;
-
     /**
      * Get resource.
      * @param int $id
