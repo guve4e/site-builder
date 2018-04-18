@@ -38,11 +38,6 @@ final class Navbar
     private $file;
 
     /**
-     * @var static Singleton
-     */
-    private static $instance;
-
-    /**
      * Decide if the page will have secondary sidebar
      */
     private function setBodyClassStyle()
@@ -59,7 +54,7 @@ final class Navbar
      * @param $bodyClass
      * @throws Exception
      */
-    private function __construct(File $file, string $bodyClass)
+    public function __construct(File $file, string $bodyClass)
     {
         if(!isset($file) || !isset($bodyClass))
             throw new Exception("The name of the view is not set!");
@@ -91,29 +86,9 @@ final class Navbar
             include (TEMPLATE_PATH . '/second_sidebar.php');
     }
 
-    /**
-     * Singleton.
-     * @access public
-     * @param File $file
-     * @param string $bodyClass
-     * @return Navbar
-     * @throws Exception
-     */
-    public static function MakeNavbar(File $file, string $bodyClass) : Navbar
-    {
-
-        if (self::$instance === null) {
-            self::$instance = new Navbar($file, $bodyClass);
-        }
-
-        return self::$instance;
-    }
-
     public function __destruct()
     {
         unset($this->file);
         unset($this->bodyClass);
-
-        self::$instance = null;
     }
 }

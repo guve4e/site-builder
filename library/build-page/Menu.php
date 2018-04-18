@@ -29,17 +29,12 @@ final class Menu
     private $file;
 
     /**
-     * @var static Singleton
-     */
-    private static $instance;
-
-    /**
      * Menu constructor.
      * @param File $file
      * @param string $viewName
      * @throws Exception
      */
-    private function __construct(File $file, string $viewName)
+    public function __construct(File $file, string $viewName)
     {
         if(!isset($viewName) || !isset($file))
             throw new Exception("The name of the view is not set!");
@@ -88,29 +83,11 @@ final class Menu
         }
     }
 
-    /**
-     * Singleton.
-     * @access public
-     * @param File $file
-     * @param $viewName
-     * @return Menu
-     * @throws Exception
-     */
-    public static function MakeMenu(File $file, $viewName) : Menu
-    {
-        if (self::$instance === null) {
-            self::$instance = new Menu($file, $viewName);
-        }
-
-        return self::$instance;
-    }
 
     public function __destruct()
     {
         unset($this->file);
         unset($this->menuConfig);
         unset($this->viewName);
-
-        self::$instance = null;
     }
 }

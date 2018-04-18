@@ -73,18 +73,13 @@ final class View
     private $file;
 
     /**
-     * @var static Singleton
-     */
-    private static $instance;
-
-    /**
      * View constructor.
      *
      * @param $file file object
      * @param $viewName string representing the name of the view
      * @throws Exception
      */
-    private function __construct(File $file, string $viewName)
+    public function __construct(File $file, string $viewName)
     {
         if (!isset($viewName) || !isset($file))
             throw new Exception("page name is NOT set");
@@ -232,22 +227,6 @@ final class View
     }
 
     /**
-     * Singleton.
-     * @param File $file
-     * @param $viewName
-     * @return View
-     * @throws Exception
-     */
-    public static function MakeView(File $file, $viewName) : View
-    {
-        if (self::$instance === null) {
-            self::$instance = new View($file, $viewName);
-        }
-
-        return self::$instance;
-    }
-
-    /**
      * @return string
      */
     public function getViewName() : string
@@ -303,6 +282,5 @@ final class View
         unset($this->viewJSPath);
         unset($this->viewDir);
         unset($this->viewConfig);
-        self::$instance = null;
     }
 }

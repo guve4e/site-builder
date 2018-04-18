@@ -37,6 +37,7 @@ class ViewNavbarMenuTest extends TestCase
             ->willReturn([
                 'body_class_style' => 'some_style',
                 'title' => 'some_title',
+                "full_screen" => true,
                 'styles' => [],
                 'scripts' => []
             ]);
@@ -50,7 +51,7 @@ class ViewNavbarMenuTest extends TestCase
 
         try {
             // Act
-            $file = View::MakeView($this->mockFile, 'some_view');
+            $file = new View($this->mockFile, 'some_view');
         } catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -70,7 +71,7 @@ class ViewNavbarMenuTest extends TestCase
      * @expectedException  Exception
      */
     public function testViewMustThrowExceptionIfFileDoesNotExists() {
-        View::MakeView(new File(), "some_view");
+        new View(new File(), "some_view");
     }
 
     public function testProperConstructionOnMenu()
@@ -104,7 +105,7 @@ class ViewNavbarMenuTest extends TestCase
 
         try {
             // Act
-            $menu = Menu::MakeMenu($mockFile, 'some_view');
+            $menu = new Menu($mockFile, 'some_view');
 
             // Careful here we brake encapsulation using reflection
             $actualMenuConfig = $this->getProperty($menu, "menuConfig");
@@ -122,7 +123,7 @@ class ViewNavbarMenuTest extends TestCase
     {
         try {
             // Act
-            $menu = Navbar::MakeNavbar($this->mockFile, 'some_body_class');
+            $menu = new Navbar($this->mockFile, 'some_body_class');
 
             // Careful here we brake encapsulation using reflection
             $actualBodyClass = $this->getProperty($menu, "bodyClass");

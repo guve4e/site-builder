@@ -118,6 +118,7 @@ final class PageBuilder
     }
 
     /**
+     * Identifies User
      * @throws Exception
      */
     private function identifyUser()
@@ -162,9 +163,9 @@ final class PageBuilder
 
         $this->file = $file;
 
-        $this->view = View::MakeView($file, $this->viewName);
-        $this->menu = Menu::MakeMenu($file, $this->view->getViewName());
-        $this->navbar = Navbar::MakeNavbar($file, $this->view->getViewBodyClass());
+        $this->view = new View($file, $this->viewName);
+        $this->menu = new Menu($file, $this->view->getViewName());
+        $this->navbar = new Navbar($file, $this->view->getViewBodyClass());
 
         $this->loadTemplateConfig($file);
         $this->loadSiteConfig($file);
@@ -265,7 +266,6 @@ final class PageBuilder
      * Singleton.
      * @access public
      * @param File $file object
-     * @param UserSession $userSession
      * @param array $get $_GET super-global
      * @return PageBuilder
      * @throws Exception

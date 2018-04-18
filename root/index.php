@@ -13,16 +13,10 @@ require_once (USER_SESSION_PATH . "/Chrono.php");
 require_once (HTTP_PATH . "/PhpHttpAdapter.php");
 require_once (BUILD_PATH . "/PageBuilder.php");
 
-Chrono::checkTimer();
+
 
 try {
-
-//    // load configuration
-//    $jsonLoader = new SiteConfigurationLoader(new File());
-//    $configuration = $jsonLoader->getData();
-//
-//    // make Session with user
-//    $session = UserSession::Session($configuration);
+    Chrono::checkTimer();
 
     // construct the page
     $site = PageBuilder::MakePage(new File(), $_GET);

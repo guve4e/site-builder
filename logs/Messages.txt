@@ -904,3 +904,491 @@
     [products_in_cart] => 12
 )
 
+<Message 2018-04-18 20:21:05 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:32:25 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:32:27 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:32:28 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:32:29 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:32:30 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:32:32 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 20:32:33 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:19:32 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:19:38 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:19:52 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:20:28 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:21:51 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:21:55 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:22:08 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:28:40 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:28:44 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:30:41 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:38:59 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:39:02 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:39:04 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:39:05 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:39:07 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 21:39:09 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 22:01:47 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 22:02:29 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 22:02:32 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 22:02:34 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 22:02:36 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-18 22:13:15 >User Session:  stdClass Object
+(
+    [name] => Some Name
+)
+
+<Message 2018-04-18 22:13:34 >User Session:  stdClass Object
+(
+    [name] => Some Name
+)
+
+<Message 2018-04-18 22:13:37 >User Session:  stdClass Object
+(
+    [name] => Some Name
+)
+
+<Message 2018-04-18 22:14:16 >User Session:  stdClass Object
+(
+    [name] => Some Name
+)
+
+<Message 2018-04-18 22:14:57 >User Session:  stdClass Object
+(
+    [name] => Some Name
+)
+
+<Message 2018-04-18 22:14:57 >User Session:  stdClass Object
+(
+    [name] => Some Name
+)
+
+<Message 2018-04-19 00:05:01 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:05:04 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:05:06 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:05:07 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:05:08 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:05:10 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:05:12 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:12:43 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:12:47 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:13:35 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:13:38 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:13:39 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:13:41 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:13:43 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:13:44 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:13:46 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:13:48 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:26:51 >User Session:  stdClass Object
+(
+    [name] => Some Name
+)
+
+<Message 2018-04-19 00:26:51 >User Session:  stdClass Object
+(
+    [name] => Some Name
+)
+
+<Message 2018-04-19 00:48:43 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:48:44 >User Session:  stdClass Object
+(
+    [u_id] => 1001
+    [u_name] => John Doe
+    [u_address] => stdClass Object
+        (
+            [address_1] => 345 N Elm Ave
+            [address_2] => 
+            [city] => Wood Dale
+            [state] => IL
+            [zip] => 60191
+        )
+
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
+<Message 2018-04-19 00:48:46 >User Session:  stdClass Object
+(
+    [hash] => F786602500180f3d2d851e97b382a3c7
+    [products_in_cart] => 12
+)
+
