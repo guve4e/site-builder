@@ -17,6 +17,7 @@ require_once (BUILD_PATH . "/PageBuilder.php");
 Chrono::checkTimer();
 
 try {
+
     // load configuration
     $jsonLoader = new SiteConfigurationLoader(new File());
     $configuration = $jsonLoader->getData();
@@ -25,7 +26,7 @@ try {
     $session = UserSession::Session($configuration);
 
     // construct the page
-    $site = PageBuilder::MakePage(new File(), $_GET);
+    $site = PageBuilder::MakePage(new File(), $session, $_GET);
 
 } catch (Exception $e) {
     die('Caught exception: ' . $e->getMessage() . "\n");
@@ -66,6 +67,8 @@ try {
     /** construct the page **/
 
     try {
+
+
 
         $site->build();
         $site->printScripts();

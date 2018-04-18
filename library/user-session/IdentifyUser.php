@@ -63,9 +63,6 @@ class IdentifyUser
         // initialize CookieSetter and User Object
         $this->cookieSetter = $cookieSetter;
         $this->user = $user;
-
-        // identify user
-        $this->identify();
     }
 
     /**
@@ -91,8 +88,10 @@ class IdentifyUser
 
         // get the hash
         $hash = $this->cookieSetter->getHash();
+
+        // TODO
         // create user
-        $this->user->create($hash);
+        $this->user->create($hash, new StdCLass);
     }
 
     /**
@@ -106,7 +105,7 @@ class IdentifyUser
      *
      * @throws Exception
      */
-    private function identify()
+    public function identify()
     {
         if (isset($_COOKIE[$this->cookieSetter->getCookieName()])) // existing user
         {

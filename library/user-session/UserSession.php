@@ -40,6 +40,8 @@ final class UserSession
      */
     private $configuration;
 
+    private $identifyUser;
+
     /**
      * Loads session key from
      * relative-paths.php file.
@@ -61,11 +63,8 @@ final class UserSession
      */
     private function makeUser()
     {
-        if(!$this->isUserAuthenticated())
-        {
-            $cookieSetter = new CookieSetter($this->cookieName, $this->cookieTime);
-            IdentifyUser::IdentifyUser($cookieSetter, new User());
-        }
+        $cookieSetter = new CookieSetter($this->cookieName, $this->cookieTime);
+        $this->identifyUser = IdentifyUser::IdentifyUser($cookieSetter, new User());
     }
 
     /**
@@ -95,6 +94,11 @@ final class UserSession
 
         $this->loadSessionConfiguration();
         $this->makeUser();
+    }
+
+    public function identifyUser()
+    {
+        $this->identifyUser->identify();
     }
 
     /**

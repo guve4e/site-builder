@@ -60,6 +60,11 @@ final class PageBuilder
     private $pageTitle;
 
     /**
+     * @var UserSession object
+     */
+    private $userSession;
+
+    /**
      * @var object
      * Provides file system
      * functionality
@@ -95,15 +100,21 @@ final class PageBuilder
         $this->pageTitle = $this->siteConfig['title'];
     }
 
+    private function identifyUser()
+    {
+        $this->userSession->identifyUser();
+    }
+
     /**
      * PageBuilder constructor.
      * @param File $file
+     * @param UserSession $userSession
      * @param array $get
      * @throws Exception
      */
-    private function __construct(File $file, array $get)
+    private function __construct(File $file, UserSession $userSession, array $get)
     {
-        if(!isset($get) || !isset($file))
+        if(!isset($get) || !isset($file) || !isset($userSession))
             throw new Exception("Unable to construct the page wrong parameters in PageBuilder constructor!");
 
         // When page is loaded for first time _GET is empty
@@ -111,6 +122,7 @@ final class PageBuilder
             $this->viewName = $get[$this->getSuperglobalKeyName];
 
         $this->file = $file;
+        $this->userSession = $userSession;
 
         $this->view = View::MakeView($file, $this->viewName);
         $this->menu = Menu::MakeMenu($file, $this->view->getViewName());
@@ -134,14 +146,14 @@ final class PageBuilder
     }
 
     /**
-     * Sets a global variable for all the views.
-     * Includes HTML for the navbar, menu and
-     * the view.
+     * TODO: Not quite!!
      * Referenced from "index.php".
      * @throws Exception
      */
     public function build()
     {
+        $this->identifyUser();
+
         // if the view is full-screen
         // we don't want to build menu and navbar
         if (!$this->view->isFullScreen())
@@ -203,29 +215,30 @@ final class PageBuilder
     }
 
     /**
-     * Singleton.
-     * @access public
-     * @param File $file object
-     * @param array $get $_GET super-global
-     * @return PageBuilder
-     * @throws Exception
-     */
-    public static function MakePage(File $file, array $get) : PageBuilder
-    {
-        if (self::$instance === null) {
-            self::$instance = new PageBuilder($file, $get);
-        }
-
-        return self::$instance;
-    }
-
-    /**
      * Getter
      * @return string: CSS class
      */
     public function getBodyClass()
     {
         return  $this->view->getViewBodyClass();
+    }
+
+    /**
+     * Singleton.
+     * @access public
+     * @param File $file object
+     * @param UserSession $userSession
+     * @param array $get $_GET super-global
+     * @return PageBuilder
+     * @throws Exception
+     */
+    public static function MakePage(File $file, UserSession $userSession, array $get) : PageBuilder
+    {
+        if (self::$instance === null) {
+            self::$instance = new PageBuilder($file, $userSession , $get);
+        }
+
+        return self::$instance;
     }
 
     public function __destruct()
