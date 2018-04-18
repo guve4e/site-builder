@@ -12,6 +12,12 @@
 final class Navbar
 {
     /**
+     * @var string
+     * The name of the navbar file.
+     */
+    private $navbarFileName = "navbar";
+
+    /**
      * @var boolean
      * Some pages have secondary
      * slide-bar.
@@ -70,12 +76,19 @@ final class Navbar
     /**
      * Includes the "*php" file
      * corresponding to the navbar.
+     * @throws Exception
      */
     public function build()
     {
-        include(NAVBAR_PATH . '/navbar.php');
+        $path = NAVBAR_PATH . "/{$this->navbarFileName}.php";
+
+        if (!$this->file->fileExists($path))
+            throw new Exception("Navbar can not be build '{$path}' does not exist!");
+
+        include($path);
+
         if ($this->hasSecondarySidebar)
-            include(TEMPLATE_PATH . '/second_sidebar.php');
+            include (TEMPLATE_PATH . '/second_sidebar.php');
     }
 
     /**

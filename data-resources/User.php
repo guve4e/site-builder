@@ -1,19 +1,51 @@
 <?php
 
 require_once (LIBRARY_PATH . "/dao/IDO.php");
+require_once (LIBRARY_PATH . "/user-session/SessionHelper.php");
+require_once (HTTP_PATH . "/Http.php");
 
 class User implements IDO
 {
+    use SessionHelper;
+
     /**
      * Get resource.
      * @param int $id
      * @return mixed
      */
+    public function authenticate($id, stdClass $fields)
+    {
+        // Fake call to back end
+        $authenticated = $fields->login_username == "root" && $fields->login_password == "pass";
+        if ($authenticated) {
+            $_SESSION['authenticated_user'] = true;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Get resource.
+     * @param int $id
+     * @return mixed
+     * @throws Exception
+     */
     public function get($id)
     {
-        $user = new StdClass;
-        $user->id = 1001;
-        $user->product_count = 12;
+        $r = new Http();
+        $r->setWebService("webapi")
+            ->setParameter($id)
+            ->setMethod("GET")
+            ->setMock();
+
+        if (isset($_SESSION["authenticated_user"]))
+            $r->setService("authenticated-user");
+        else
+            $r->setService("user");
+
+        $user = $r->send();
+
         return $user;
     }
 

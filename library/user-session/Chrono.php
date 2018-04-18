@@ -56,7 +56,7 @@ class Chrono
             if ($time_now > $_SESSION['time_expiration'])
             {
                 session_destroy();
-                header("Location: login.php");
+                header("Location: ?page=login");
             }
         }
     }

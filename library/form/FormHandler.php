@@ -16,7 +16,7 @@ class FormHandler
      */
     public function validateComponents()
     {
-        if (!isset($this->verb) || !isset($this->entity) || !isset($this->parameter) || !isset($this->navigateAfterUpdate) ||
+        if (!isset($this->verb) || !isset($this->entity) || !isset($this->navigateAfterUpdate) ||
             !isset($this->pathFail) || !isset($this->pathSuccess) || !isset($this->navigateTo))
             throw new Exception("Not All Form Action Components are set!");
     }

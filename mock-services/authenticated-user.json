@@ -1,0 +1,13 @@
+{
+  "u_id" : 1001,
+  "u_name": "John Doe",
+  "u_address": {
+    "address_1": "345 N Elm Ave",
+    "address_2": "",
+    "city": "Wood Dale",
+    "state": "IL",
+    "zip": 60191
+  },
+  "hash": "F786602500180f3d2d851e97b382a3c7",
+  "products_in_cart": 12
+}

@@ -2,7 +2,7 @@
 session_start();
 
 require_once ("../relative-paths.php");
-require_once(LIBRARY_PATH . "/form/FormExtractor.php");
+require_once (LIBRARY_PATH . "/form/FormExtractor.php");
 
 try {
     new FormExtractor($_GET, $_POST);

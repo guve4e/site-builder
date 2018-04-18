@@ -20,7 +20,7 @@ final class UserSession
     /**
      * @var string
      */
-    private $sessionKey = null;
+    private static $sessionKey = null;
 
     /**
      * @var string
@@ -48,7 +48,7 @@ final class UserSession
      */
     private function loadSessionConfiguration()
     {
-        $this->sessionKey = $this->configuration->session->key;
+        self::$sessionKey = $this->configuration->session->key;
         $this->cookieName = $this->configuration->cookie->name;
         $this->cookieTime = $this->configuration->cookie->time;
     }
@@ -113,8 +113,8 @@ final class UserSession
         $user = null;
         if(isset($_SESSION['authenticated_user']))
             $user = $_SESSION['authenticated_user'];
-        else if(isset($_SESSION['crystalpure_user']))
-            $user = $_SESSION['crystalpure_user'];
+        else if(isset($_SESSION[self::$sessionKey]))
+            $user = $_SESSION[self::$sessionKey];
         else
             throw new Exception("User is not SET!");
 

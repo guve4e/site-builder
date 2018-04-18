@@ -8,6 +8,7 @@ session_start();
 
 require_once ("../relative-paths.php");
 require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
+require_once (FORM_HANDLER_PATH . "/FormHandler.php");
 require_once (USER_SESSION_PATH . "/Chrono.php");
 require_once (USER_SESSION_PATH . "/UserSession.php");
 require_once (HTTP_PATH . "/PhpHttpAdapter.php");

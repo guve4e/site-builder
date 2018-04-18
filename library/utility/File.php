@@ -135,6 +135,7 @@ class File {
     }
 
     /**
+     * Writes bytes to file handle.
      * @param $fileDescriptor resource pointer to file
      * @param string $content content to be written
      * @return bool|int how many bytes are actually written or false

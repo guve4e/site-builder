@@ -8,6 +8,9 @@ defined("ROOT_PATH")
 defined("DATA_RESOURCE_PATH")
     or define("DATA_RESOURCE_PATH", realpath(dirname(__FILE__) . '/data-resources'));
 
+defined("FORM_HANDLER_PATH")
+    or define("FORM_HANDLER_PATH", realpath(dirname(__FILE__) . '/library/form'));
+
 defined("LIBRARY_PATH")
     or define("LIBRARY_PATH", realpath(dirname(__FILE__) . '/library'));
 

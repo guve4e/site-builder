@@ -61,8 +61,15 @@ class FormExtractor
         $this->navigate($success);
     }
 
-    private function navigate(bool $success)
+    /**
+     * @param $success
+     * @throws Exception
+     */
+    private function navigate($success)
     {
+        if ($success == null)
+            throw new Exception("Resource method '{$this->verb}' didn't return success boolean!");
+
         if($this->navigate)
         {
             // if response is not successful

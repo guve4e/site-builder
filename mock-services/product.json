@@ -1,5 +1,5 @@
 {
-    "product_count": 3,
+    "product_count": 7,
     "products": [
         {
             "name": "product1",
@@ -12,6 +12,10 @@
         {
             "name": "product3",
             "price": 100.4
+        },
+        {
+            "name": "pro",
+            "price": "dasdad"
         }
     ]
 }
