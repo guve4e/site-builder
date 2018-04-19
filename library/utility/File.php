@@ -88,11 +88,15 @@ class File {
      * Wrapper over file_get_contents
      * @param string $fileName
      * @return string
+     * @throws Exception
      */
     public function loadFileContent(string $fileName) : string
     {
         // open file and get contents
         $stringContent = file_get_contents($fileName);
+
+        if ($stringContent === false)
+            throw new Exception("file_put_contents failed");
 
         return $stringContent;
     }
