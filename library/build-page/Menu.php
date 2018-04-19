@@ -79,7 +79,7 @@ final class Menu
     {
         // iterate trough each item and display it
         foreach ($this->menuConfig as $m) {
-            PrintHTML::printOneLink($m, $this->viewName);
+            PrintHTML::printOneMenuLink($m, $this->viewName);
         }
     }
 

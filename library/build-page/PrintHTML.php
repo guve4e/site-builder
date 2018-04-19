@@ -15,7 +15,7 @@ final class PrintHTML
      *         Each item has title, icon and id.
      * @param $viewName: string, the name of the view
      */
-    public static function printOneLink($item, $viewName)
+    public static function printOneMenuLink($item, $viewName)
     {
 
         $title = $item['title']; // extract title
