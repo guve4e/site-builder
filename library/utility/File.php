@@ -58,12 +58,12 @@ class File {
 
     /**
      * Encodes string data as JSON.
-     * @param string $data data to be encoded
+     * @param $data string or object to be encoded
      * @param int $optionFlags
      * @return string JSON string
      * @throws Exception
      */
-    public function jsonEncode(string $data, $optionFlags = JSON_PRETTY_PRINT) : string
+    public function jsonEncode($data, $optionFlags = JSON_PRETTY_PRINT) : string
     {
         $res = json_encode($data, $optionFlags);
         // check for successful encode

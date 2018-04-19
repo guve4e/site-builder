@@ -22,7 +22,6 @@ class ViewNavbarMenuTest extends TestCase
      */
     protected function setUp()
     {
-        // Create a stub for the JsonLoader class
         $this->mockFile = $this->getMockBuilder(File::class)
             ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
             ->getMock();
