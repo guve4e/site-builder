@@ -146,6 +146,15 @@ final class PageBuilder
         ];
     }
 
+    private function filterGet($key)
+    {
+        $get = [];
+        foreach ($_GET as $key => $value) {
+            $get[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_STRING);
+        }
+        return $get;
+    }
+
     /**
      * PageBuilder constructor.
      * @param File $file
@@ -156,6 +165,9 @@ final class PageBuilder
     {
         if(!isset($get) || !isset($file))
             throw new Exception("Unable to construct the page wrong parameters in PageBuilder constructor!");
+
+        // filter _GET first
+        $get = $this->filterGet($this->getSuperglobalKeyName);
 
         // When page is loaded for first time _GET is empty
         if(isset($get[$this->getSuperglobalKeyName]))

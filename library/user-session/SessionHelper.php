@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: mac
- * Date: 3/24/18
- * Time: 10:56 PM
- */
 
 require_once (UTILITY_PATH . "/Logger.php");
 require_once (UTILITY_PATH . "/File.php");
 require_once (UTILITY_PATH . "/JsonLoader.php");
 require_once (CONFIGURATION_PATH. "/SiteConfigurationLoader.php");
+
 
 class SessionHelper
 {
@@ -48,7 +43,7 @@ class SessionHelper
         $_SESSION[$sessionToken] = $user;
 
         $logger = self::getLogger();
-        $logger->logMessage("User Session: ", print_r($user, true));
+        $logger->logMessage("User Get: ", print_r($user, true));
     }
 
     /**

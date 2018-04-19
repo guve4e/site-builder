@@ -52,7 +52,7 @@ class SiteConfigurationLoader
         $key = !isset($jsonData->session->key);
         $time = !isset($jsonData->session->time);
         if($session || $key || $time)
-            throw new Exception("Bad Session Object in Config File!");
+            throw new Exception("Bad Get Object in Config File!");
     }
 
     /**
