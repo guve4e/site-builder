@@ -98,7 +98,7 @@ class PageBuilderTest extends TestCase
             ]);
     }
 
-    public function testProperCreation()
+    public function testGetBodyClass()
     {
         try {
             // Act
@@ -113,8 +113,29 @@ class PageBuilderTest extends TestCase
         $this->page->__destruct();
     }
 
+    public function testPrint()
+    {
+        try {
+            // Act
+            $this->page = PageBuilder::MakePage($this->mockFile, $_GET);
+            $this->page->build();
+
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+        // Assert
+        $this->assertEquals("some_style", $this->page->getBodyClass());
+
+        // Clean
+        $this->page->__destruct();
+    }
+
     protected function tearDown()
     {
-        $_GET = array();
+        // remove all session variables
+        session_unset();
+        $_SESSION = array();
+        // destroy the session
+        session_destroy();
     }
 }
