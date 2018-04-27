@@ -29,7 +29,7 @@ class Product implements IDO
      * @param int $id
      * @return mixed
      */
-    public function create($id, stdClass $data): bool
+    public function create($id, stdClass $data = null): bool
     {
         // TODO: Implement create() method.
     }
@@ -39,7 +39,7 @@ class Product implements IDO
      * @param int $id
      * @return mixed
      */
-    public function update($id, stdClass $data): bool
+    public function update($id, stdClass $data = null): bool
     {
         // set options
         $options = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
@@ -79,7 +79,7 @@ class Product implements IDO
      * @param int $id
      * @return mixed
      */
-    public function delete($id, stdClass $data): bool
+    public function delete($id, stdClass $data = null): bool
     {
         // TODO: Implement delete() method.
     }
