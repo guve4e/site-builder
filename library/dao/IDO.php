@@ -14,19 +14,19 @@ interface IDO
      * @param int $id
      * @return bool
      */
-    public function create($id, stdClass $data): bool;
+    public function create($id, stdClass $data = null): bool;
 
     /**
      * Update Resource.
      * @param int $id
      * @return bool
      */
-    public function update($id, stdClass $data): bool;
+    public function update($id, stdClass $data = null): bool;
 
     /**
      * Delete Resource.
      * @param int $id
      * @return bool
      */
-    public function delete($id, stdClass $data): bool;
+    public function delete($id, stdClass $data = null): bool;
 }

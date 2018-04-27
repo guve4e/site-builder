@@ -79,7 +79,7 @@ class UserIdentifier
      * @access private
      * @throws Exception
      */
-    private function setUser()
+    private function makeNewUser()
     {
         // set up new cookie on
         // client's computer
@@ -88,9 +88,11 @@ class UserIdentifier
         // get the hash
         $hash = $this->cookieSetter->getHash();
 
-        // TODO
-        // create user
-        $this->user->create($hash, new StdCLass);
+        // TODO should you pass empty object
+        // Try create user. If not successful, there is
+        // no reason to proceed. It is a fatal Exception
+        if (!$this->user->create($hash))
+            throw new Exception("Something went wrong! Please contact customer support. Code: 17786");
     }
 
     /**
@@ -113,7 +115,7 @@ class UserIdentifier
         }
         else // new user
         {
-            $this->setUser();
+            $this->makeNewUser();
             // get hash from cookie
             $this->userHash = $_COOKIE[$this->cookieSetter->getCookieName()];
         }

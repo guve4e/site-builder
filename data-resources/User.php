@@ -51,10 +51,14 @@ class User implements IDO
      * Create resource.
      * @param int $id
      * @return mixed
+     * @throws Exception
      */
-    public function create($id, stdClass $data): bool
+    public function create($id, stdClass $data = null): bool
     {
-        // TODO: Implement create() method.
+        // Here we access db or make api call to
+        // create new user entity with the $data provided.
+        // If everything ok return true.
+        throw new Exception("Cookie is created, Refresh!");
     }
 
     /**
@@ -62,7 +66,7 @@ class User implements IDO
      * @param int $id
      * @return mixed
      */
-    public function update($id, stdClass $data): bool
+    public function update($id, stdClass $data = null): bool
     {
         // TODO: Implement update() method.
     }
@@ -72,7 +76,7 @@ class User implements IDO
      * @param int $id
      * @return mixed
      */
-    public function delete($id, stdClass $data): bool
+    public function delete($id, stdClass $data = null): bool
     {
         // TODO: Implement delete() method.
     }
