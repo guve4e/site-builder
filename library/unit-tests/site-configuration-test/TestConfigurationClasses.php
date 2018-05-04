@@ -54,7 +54,7 @@ class JsonLoaderTest extends TestCase
         ];
 
         // Create a stub for the JsonLoader class
-        $mockFile = $this->getMockBuilder(File::class)
+        $mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode'))
             ->getMock();
 
@@ -101,7 +101,7 @@ class JsonLoaderTest extends TestCase
         ];
 
         // Create a stub for the JsonLoader class
-        $mockFile = $this->getMockBuilder(File::class)
+        $mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode'))
             ->getMock();
 
@@ -150,7 +150,7 @@ class JsonLoaderTest extends TestCase
 
         $expectedSiteConfigurationJson = json_decode($json);
 
-        $mockFile = $this->getMockBuilder(File::class)
+        $mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode'))
             ->getMock();
 
@@ -180,7 +180,7 @@ class JsonLoaderTest extends TestCase
         ];
 
         // Create a stub for the JsonLoader class
-        $mockFile = $this->getMockBuilder(File::class)
+        $mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode'))
             ->getMock();
 
@@ -215,7 +215,7 @@ class JsonLoaderTest extends TestCase
         ];
 
         // Create a stub for the JsonLoader class
-        $mockFile = $this->getMockBuilder(File::class)
+        $mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode'))
             ->getMock();
 
@@ -246,7 +246,7 @@ class JsonLoaderTest extends TestCase
         ];
 
         // Create a stub for the JsonLoader class
-        $mockFile = $this->getMockBuilder(File::class)
+        $mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode'))
             ->getMock();
 
@@ -280,7 +280,7 @@ class JsonLoaderTest extends TestCase
         ];
 
         // Create a stub for the JsonLoader class
-        $mockFile = $this->getMockBuilder(File::class)
+        $mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode'))
             ->getMock();
 

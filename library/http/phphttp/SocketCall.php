@@ -135,7 +135,7 @@ class SocketCall extends AHttpRequest
      * Static constructor / factory
      * @throws Exception
      */
-    public static function create(File $file = null) : SocketCall
+    public static function create(FileManager $file = null) : SocketCall
     {
         $instance = new self($file);
         return $instance;

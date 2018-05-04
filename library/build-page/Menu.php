@@ -30,11 +30,11 @@ final class Menu
 
     /**
      * Menu constructor.
-     * @param File $file
+     * @param FileManager $file
      * @param string $viewName
      * @throws Exception
      */
-    public function __construct(File $file, string $viewName)
+    public function __construct(FileManager $file, string $viewName)
     {
         if(!isset($viewName) || !isset($file))
             throw new Exception("The name of the view is not set!");

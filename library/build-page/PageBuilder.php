@@ -83,10 +83,10 @@ final class PageBuilder
      * store it in siteConfig object
      * at this point siteConfig contains all
      * the information needed to print the page.
-     * @param File $file
+     * @param FileManager $file
      * @throws Exception
      */
-    private function loadTemplateConfig(File $file)
+    private function loadTemplateConfig(FileManager $file)
     {
         // get site configuration
         $templateConfigurationLoader = new TemplateConfigurationLoader($file);
@@ -98,13 +98,13 @@ final class PageBuilder
      * store it in siteConfig object
      * at this point siteConfig contains all
      * the information needed to print the page.
-     * @param File $file
+     * @param FileManager $file
      * @throws Exception
      */
-    private function loadSiteConfig(File $file)
+    private function loadSiteConfig(FileManager $file)
     {
         // load configuration
-        $jsonLoader = new SiteConfigurationLoader(new File());
+        $jsonLoader = new SiteConfigurationLoader(new FileManager());
         $this->siteConfiguration = $jsonLoader->getData();
     }
 
@@ -157,11 +157,11 @@ final class PageBuilder
 
     /**
      * PageBuilder constructor.
-     * @param File $file
+     * @param FileManager $file
      * @param array $get
      * @throws Exception
      */
-    private function __construct(File $file, array $get)
+    private function __construct(FileManager $file, array $get)
     {
         if(!isset($get) || !isset($file))
             throw new Exception("Unable to construct the page wrong parameters in PageBuilder constructor!");
@@ -277,12 +277,12 @@ final class PageBuilder
     /**
      * Singleton.
      * @access public
-     * @param File $file object
+     * @param FileManager $file object
      * @param array $get $_GET super-global
      * @return PageBuilder
      * @throws Exception
      */
-    public static function MakePage(File $file, array $get) : PageBuilder
+    public static function MakePage(FileManager $file, array $get) : PageBuilder
     {
         if (self::$instance === null) {
             self::$instance = new PageBuilder($file, $get);

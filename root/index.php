@@ -13,13 +13,11 @@ require_once (USER_SESSION_PATH . "/Chrono.php");
 require_once (HTTP_PATH . "/PhpHttpAdapter.php");
 require_once (BUILD_PATH . "/PageBuilder.php");
 
-
-
 try {
     Chrono::checkTimer();
 
     // construct the page
-    $site = PageBuilder::MakePage(new File(), $_GET);
+    $site = PageBuilder::MakePage(new FileManager(), $_GET);
 
 } catch (Exception $e) {
     die('Caught exception: ' . $e->getMessage() . "\n");

@@ -61,12 +61,12 @@ class MenuConfigurationLoader
         $infoMenuArray = $this->jsonLoader->getData();
 
         if (!$this->isMultiDimensionalArray($infoMenuArray))
-            throw new Exception("Wrong Menu Configuration File");
+            throw new Exception("Wrong Menu Configuration FileManager");
 
         foreach($infoMenuArray as $link)
         {
             if (!isset($link['title']) || !isset($link['id']) || !isset($link['icon']))
-                throw new Exception("Wrong Menu Configuration File");
+                throw new Exception("Wrong Menu Configuration FileManager");
         }
     }
 
@@ -74,7 +74,7 @@ class MenuConfigurationLoader
      * LoadSiteConfiguration constructor.
      * @throws Exception
      */
-    public function __construct(File $file)
+    public function __construct(FileManager $file)
     {
         $this->file = $file;
 

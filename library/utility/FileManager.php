@@ -4,7 +4,7 @@
  * Why Wrapper? For dependency injection, easy to unit test.
  */
 
-class File {
+class FileManager {
 
     /**
      * Determines the type of the JSON Error

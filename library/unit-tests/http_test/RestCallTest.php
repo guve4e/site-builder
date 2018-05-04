@@ -3,7 +3,7 @@
 use PHPUnit\Framework\TestCase;
 require_once("../../../relative-paths.php");
 require_once (HTTP_PATH . "/phphttp/RestCall.php");
-require_once (UTILITY_PATH . "/File.php");
+require_once(UTILITY_PATH . "/FileManager.php");
 
 class RestCallTest extends TestCase
 {
@@ -24,7 +24,7 @@ class RestCallTest extends TestCase
                         "{ \"key\": \"value\" }";
 
         // Create a stub for the JsonLoader class
-        $this->mockConnection = $this->getMockBuilder(File::class)
+        $this->mockConnection = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'close', 'getLine', 'endOfFile', 'socket', 'write', 'jsonDecode'))
             ->getMock();
 

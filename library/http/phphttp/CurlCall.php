@@ -28,7 +28,7 @@ class CurlCall extends AHttpRequest
      * Static constructor / factory
      * @throws Exception
      */
-    public static function create(File $file = null) : CurlCall
+    public static function create(FileManager $file = null) : CurlCall
     {
         $instance = new self();
         return $instance;

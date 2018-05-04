@@ -12,11 +12,11 @@ interface IHttpRequest
 {
     /**
      * Static constructor / factory.
-     * @param File to provide basic
+     * @param FileManager to provide basic
      * file manipulation functionality.
      * @return mixed
      */
-    public static function create(File $file = null);
+    public static function create(FileManager $file = null);
 
     /**
      * Sets URL.

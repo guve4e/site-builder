@@ -50,11 +50,11 @@ final class Navbar
 
     /**
      * Navbar constructor.
-     * @param File $file object
+     * @param FileManager $file object
      * @param $bodyClass
      * @throws Exception
      */
-    public function __construct(File $file, string $bodyClass)
+    public function __construct(FileManager $file, string $bodyClass)
     {
         if(!isset($file) || !isset($bodyClass))
             throw new Exception("The name of the view is not set!");

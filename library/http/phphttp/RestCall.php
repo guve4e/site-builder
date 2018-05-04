@@ -2,7 +2,7 @@
 
 require_once("CurlCall.php");
 require_once("SocketCall.php");
-require_once(UTILITY_PATH . "/File.php");
+require_once(UTILITY_PATH . "/FileManager.php");
 
 class RestCall
 {
@@ -16,7 +16,7 @@ class RestCall
      * @param string $restCallType Rest Call Type Curl vs Socket
      * @throws Exception
      */
-    public function __construct(string $restCallType, File $file)
+    public function __construct(string $restCallType, FileManager $file)
     {
         switch ($restCallType)
         {

@@ -16,7 +16,7 @@ class JsonLoaderTest extends TestCase
     protected function setUp()
     {
         // Create a stub for the JsonLoader class
-        $this->mockFile = $this->getMockBuilder(File::class)
+        $this->mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
             ->getMock();
 
@@ -68,7 +68,7 @@ class JsonLoaderTest extends TestCase
     {
         // Arrange
         // We want to simulate an empty config file
-        $mockFile = $this->getMockBuilder(File::class)
+        $mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'loadFileContent'))
             ->getMock();
 
@@ -87,6 +87,6 @@ class JsonLoaderTest extends TestCase
      */
     public function testLoadJsonMustThrowExceptionWhenFileDoesNotExists()
     {
-        new JsonLoader(new File(), "path/to/file");
+        new JsonLoader(new FileManager(), "path/to/file");
     }
 }

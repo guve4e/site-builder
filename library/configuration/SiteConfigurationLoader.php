@@ -52,7 +52,7 @@ class SiteConfigurationLoader
         $key = !isset($jsonData->session->key);
         $time = !isset($jsonData->session->time);
         if($session || $key || $time)
-            throw new Exception("Bad Get Object in Config File!");
+            throw new Exception("Bad Get Object in Config FileManager!");
     }
 
     /**
@@ -66,7 +66,7 @@ class SiteConfigurationLoader
         $time = !isset($jsonData->cookie->time);
 
         if($cookie || $name || $time)
-            throw new Exception("Bad Cookie Object in Config File!");
+            throw new Exception("Bad Cookie Object in Config FileManager!");
     }
 
     /**
@@ -82,7 +82,7 @@ class SiteConfigurationLoader
         // API token is not mandatory
 
         if ($serviceObject || $serviceName || $urlBaseLocal || $urlBaseRemote)
-            throw new Exception("Bad Services Object in Config File!");
+            throw new Exception("Bad Services Object in Config FileManager!");
     }
 
     /**
@@ -120,10 +120,10 @@ class SiteConfigurationLoader
 
     /**
      * TemplateConfigurationLoader constructor.
-     * @param File $file
+     * @param FileManager $file
      * @throws Exception
      */
-    public function __construct(File $file)
+    public function __construct(FileManager $file)
     {
         $this->file = $file;
         // construct the file path first

@@ -75,11 +75,11 @@ final class View
     /**
      * View constructor.
      *
-     * @param $file file object
+     * @param $file FileManager object
      * @param $viewName string representing the name of the view
      * @throws Exception
      */
-    public function __construct(File $file, string $viewName)
+    public function __construct(FileManager $file, string $viewName)
     {
         if (!isset($viewName) || !isset($file))
             throw new Exception("page name is NOT set");
@@ -90,8 +90,7 @@ final class View
         // if everything ok set the page id
         $this->viewName = $viewName;
 
-        // seth the path
-        $this->splitViewName();
+        $this->constructViewDirectoryPath();
 
         // set the view
         $this->constructViewPath();
@@ -102,28 +101,11 @@ final class View
     }
 
     /**
-     * TODO IMPORTANT!!!
-     * Given the page name, it extracts needed
-     * information and initializes some attributes.
+     *
      */
-    private function splitViewName() {
-
-        // explode the name
-        $view_parts = explode("-", $this->viewName, 3);
-
-        // page_name has to be the first string
-        $this->viewName = $view_parts[0];
-
-        // check if the page has a key
-        if (sizeof($view_parts) > 1) {
-            $this->viewKey = $view_parts[1];
-            // set page_path
-            $this->viewDir = VIEW_PATH . "/" . $this->viewName . '&' . $this->viewKey;
-        } else {
-            // if no key
-            // set page_path
-            $this->viewDir = VIEW_PATH . "/" . $this->viewName;
-        }
+    private function constructViewDirectoryPath()
+    {
+        $this->viewDir = VIEW_PATH . "/" . $this->viewName;
     }
 
     /**

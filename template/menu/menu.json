@@ -18,5 +18,10 @@
     "title": "Form Products",
     "id": "formproducts",
     "icon": "E8C2"
+  },
+  {
+    "title": "JS Ajax Demo",
+    "id": "ajax-demo",
+    "icon": "E8C2"
   }
 ]

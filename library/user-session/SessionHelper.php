@@ -1,7 +1,7 @@
 <?php
 
 require_once (UTILITY_PATH . "/Logger.php");
-require_once (UTILITY_PATH . "/File.php");
+require_once(UTILITY_PATH . "/FileManager.php");
 require_once (UTILITY_PATH . "/JsonLoader.php");
 require_once (CONFIGURATION_PATH. "/SiteConfigurationLoader.php");
 
@@ -13,7 +13,7 @@ class SessionHelper
      */
     private static function getSessionToken()
     {
-        $jsonLoader = new SiteConfigurationLoader(new File());
+        $jsonLoader = new SiteConfigurationLoader(new FileManager());
         $configuration = $jsonLoader->getData();
         $sessionToken = $configuration->session->key;
 
@@ -26,7 +26,7 @@ class SessionHelper
      */
     private static function getLogger()
     {
-        return new Logger(new File());
+        return new Logger(new FileManager());
     }
 
     /**

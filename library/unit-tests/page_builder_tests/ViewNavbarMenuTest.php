@@ -1,8 +1,5 @@
 <?php
-/**
- * TODO Test $viewKey
- *
- */
+
 require_once ("../../../relative-paths.php");
 require_once ("../UtilityTest.php");
 require_once (BUILD_PATH . "/View.php");
@@ -22,7 +19,7 @@ class ViewNavbarMenuTest extends TestCase
      */
     protected function setUp()
     {
-        $this->mockFile = $this->getMockBuilder(File::class)
+        $this->mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
             ->getMock();
 
@@ -70,7 +67,7 @@ class ViewNavbarMenuTest extends TestCase
      * @expectedException  Exception
      */
     public function testViewMustThrowExceptionIfFileDoesNotExists() {
-        new View(new File(), "some_view");
+        new View(new FileManager(), "some_view");
     }
 
     public function testProperConstructionOnMenu()
@@ -89,7 +86,7 @@ class ViewNavbarMenuTest extends TestCase
             ]
         ];
 
-        $mockFile = $this->getMockBuilder(File::class)
+        $mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
             ->getMock();
 

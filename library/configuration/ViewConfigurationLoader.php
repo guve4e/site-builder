@@ -61,14 +61,14 @@ class ViewConfigurationLoader
 
         if (!isset($info['body_class_style']) || !isset($info['title']) || !isset($info['full_screen']) ||
             !isset($info['styles']) ||  !isset($info['scripts']))
-            throw new Exception("Wrong View Configuration File");
+            throw new Exception("Wrong View Configuration FileManager");
     }
 
     /**
      * ViewConfigurationLoader constructor.
      * @throws Exception
      */
-    public function __construct(File $file, $viewName)
+    public function __construct(FileManager $file, $viewName)
     {
         $this->file = $file;
         $this->viewName = $viewName;

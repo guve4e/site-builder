@@ -3,7 +3,7 @@
 require_once("../../relative-paths.php");
 require_once ("../UtilityTest.php");
 require_once (UTILITY_PATH . "/Logger.php");
-require_once (UTILITY_PATH. "/File.php");
+require_once(UTILITY_PATH . "/FileManager.php");
 
 use PHPUnit\Framework\TestCase;
 
@@ -21,7 +21,7 @@ class LoggerTest extends TestCase
 
         try {
             // Act
-            $logger = new Logger(new File());
+            $logger = new Logger(new FileManager());
             $logger->logError("Some error", "Some other message");
             $logger->logWarning("Some warning", $msg, "Some other message");
             $logger->logDebug("Some debug info", 4, 5);

@@ -3,7 +3,7 @@
 /**
  * Loads json configuration file
  */
-require_once(UTILITY_PATH . "/File.php");
+require_once(UTILITY_PATH . "/FileManager.php");
 
 final class JsonLoader
 {
@@ -40,7 +40,7 @@ final class JsonLoader
         $stringFileContent = $this->file->loadFileContent($this->fileName);
 
         if ($stringFileContent == "")
-            throw new Exception("Empty Configuration File: {$this->fileName}");
+            throw new Exception("Empty Configuration FileManager: {$this->fileName}");
 
         $json = $this->file->jsonDecode($stringFileContent);
         return $json;
@@ -49,12 +49,12 @@ final class JsonLoader
     /**
      * JsonLoader Constructor.
      *
-     * @param File $fileSystem
+     * @param FileManager $fileSystem
      * @param string $fileName : the name of the file
      * to be encoded
      * @throws Exception
      */
-    public function __construct(File $fileSystem, string $fileName)
+    public function __construct(FileManager $fileSystem, string $fileName)
     {
         if (!isset($fileSystem) || $fileName == "")
             throw new Exception("Bad parameters in JsonLoader Constructor!");
@@ -62,7 +62,7 @@ final class JsonLoader
         $this->file = $fileSystem;
 
         if (!$this->file->fileExists($fileName))
-            throw new Exception("File Not found: " . $fileName);
+            throw new Exception("FileManager Not found: " . $fileName);
 
         // set filename
         $this->fileName = $fileName;

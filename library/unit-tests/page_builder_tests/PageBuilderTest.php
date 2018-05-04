@@ -3,7 +3,7 @@
 require_once ("../../../relative-paths.php");
 require_once ("../UtilityTest.php");
 require_once (LIBRARY_PATH . "/build-page/PageBuilder.php");
-require_once (UTILITY_PATH . "/File.php");
+require_once(UTILITY_PATH . "/FileManager.php");
 
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ class PageBuilderTest extends TestCase
     {
         $_GET['page'] = 'home';
 
-        $this->mockFile = $this->getMockBuilder(File::class)
+        $this->mockFile = $this->getMockBuilder(FileManager::class)
             ->setMethods(array('fileExists', 'jsonDecode', 'loadFileContent'))
             ->getMock();
 

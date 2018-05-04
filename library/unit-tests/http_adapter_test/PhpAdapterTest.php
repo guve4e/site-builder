@@ -5,7 +5,7 @@ require_once ("../../../relative-paths.php");
 require_once (HTTP_PATH . "/phphttp/RestCall.php");
 require_once (LIBRARY_PATH . "/http/PhpHttpAdapter.php");
 require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
-require_once (UTILITY_PATH . "/File.php");
+require_once(UTILITY_PATH . "/FileManager.php");
 
 class PhpAdapterTest extends TestCase
 {
@@ -50,7 +50,7 @@ class PhpAdapterTest extends TestCase
         $this->siteConfigurationJson = json_decode($json);
 
         $this->restCall = $this->getMockBuilder(RestCall::class)
-            ->setConstructorArgs(["Curl", new File])
+            ->setConstructorArgs(["Curl", new FileManager])
             ->setMethods(['send', 'getResponseWithInfo'])
             ->getMock();
 

@@ -63,19 +63,19 @@ class TemplateConfigurationLoader
         $infoTemplateArray = $this->jsonLoader->getData();
 
         if (!$this->isMultiDimensionalArray($infoTemplateArray))
-            throw new Exception("Wrong Site Configuration File Not Multidimensional Array");
+            throw new Exception("Wrong Site Configuration FileManager Not Multidimensional Array");
 
         // TODO REFACTOR IN SEPERATE FUNCTION WITH INFO WHAT IS WRONG
         if (!array_key_exists('title', $infoTemplateArray) || !array_key_exists('styles', $infoTemplateArray) || !array_key_exists('scripts', $infoTemplateArray))
-            throw new Exception("Wrong Site Configuration File");
+            throw new Exception("Wrong Site Configuration FileManager");
     }
 
     /**
      * TemplateConfigurationLoader constructor.
-     * @param File $file
+     * @param FileManager $file
      * @throws Exception
      */
-    public function __construct(File $file)
+    public function __construct(FileManager $file)
     {
         $this->file = $file;
         // construct the file path first

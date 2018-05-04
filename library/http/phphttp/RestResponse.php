@@ -43,7 +43,7 @@ class RestResponse
      * RestResponse constructor.
      */
     public function __construct() {
-        $this->file = new File();
+        $this->file = new FileManager();
     }
 
     /**

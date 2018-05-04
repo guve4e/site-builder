@@ -19,7 +19,7 @@ class Http
     public function __construct()
     {
         // load configuration
-        $jsonLoader = new SiteConfigurationLoader(new File());
+        $jsonLoader = new SiteConfigurationLoader(new FileManager());
         $this->configuration = $jsonLoader->getData();
     }
 
@@ -71,7 +71,7 @@ class Http
     public function send()
     {
         $rc = new PhpHttpAdapter();
-        $rc->setRestCallType(new RestCall("Curl", new File()))
+        $rc->setRestCallType(new RestCall("Curl", new FileManager()))
             ->setWebServicesConfiguration($this->configuration)
             ->setWebServiceName($this->webService)
             ->setController($this->service)
