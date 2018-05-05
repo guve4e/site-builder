@@ -275,6 +275,26 @@ final class PageBuilder
     }
 
     /**
+     * It is called from JS, to get information
+     * about the primary web service API
+     * @return string json or null
+     */
+    public function getPrimaryWebServiceInfoForJS()
+    {
+        if (!isset($this->siteConfiguration->web_services))
+            return null;
+
+        $primaryWebService = $this->siteConfiguration->web_services[0];
+
+        $config = [
+            "url_base_remote" => $primaryWebService->url_base_remote,
+            "url_base_local" => $primaryWebService->url_base_local
+        ];
+
+        return json_encode($config);
+    }
+
+    /**
      * Singleton.
      * @access public
      * @param FileManager $file object
