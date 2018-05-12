@@ -11,24 +11,7 @@ require_once (CONFIGURATION_PATH. "/SiteConfigurationLoader.php");
 
 final class Page
 {
-    /**
-     * @var string
-     * Represents the name of the _GET
-     * super global key;
-     * Ex:
-     * $_GET['page'] = "home"
-     * It represents 'page' string literal.
-     * It can be seen in URL as query string
-     * ?page=home, if its value is 'page'
-     */
-    private $getSuperglobalKeyName = "page";
 
-    /**
-     * @var string
-     * Name of a view.
-     * Initially it goes to home page.
-     */
-    private $viewName = "home";
 
     /**
      * @var object
@@ -81,40 +64,15 @@ final class Page
     }
 
     /**
-     * Filters _GET super-global
-     * @param $key
-     * @return array
-     */
-    private function filterGet($key)
-    {
-        $get = [];
-        foreach ($_GET as $key => $value) {
-            $get[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_STRING);
-        }
-        return $get;
-    }
-
-    /**
      * Page constructor.
      * Sets the name of the view
      * @param array $get
      * @throws Exception
      */
-    public function __construct(array $get, stdClass $siteConfiguration, $templateConfiguration)
+    public function __construct($siteConfiguration, $templateConfiguration)
     {
-        if(!isset($get) || !isset($siteConfiguration))
-            throw new Exception("Unable to construct the page wrong parameters in Page constructor!");
-
-        // filter _GET first
-        $get = $this->filterGet($this->getSuperglobalKeyName);
-
         $this->siteConfiguration = $siteConfiguration;
         $this->templateConfiguration = $templateConfiguration;
-
-        // when page is loaded for first time _GET is empty
-        if(isset($get[$this->getSuperglobalKeyName]))
-            $this->viewName = $get[$this->getSuperglobalKeyName];
-        // else viewName has default value
     }
 
     /**
@@ -135,22 +93,19 @@ final class Page
         $this->navbar = new Navbar($file, $this->view->getBodyClass());
     }
 
+    public function setView(View $view)
+    {
+        $this->view = $view;
+    }
+
+
     /**
      * @param File $file
      * @throws Exception
      */
     public function loadMenu(FileManager $file)
     {
-        $this->menu = new Menu($file, $this->view->getViewName());
-    }
-
-    /**
-     * @param File $file
-     * @throws Exception
-     */
-    public function loadView(FileManager $file)
-    {
-        $this->view = new View($file, $this->viewName);
+        $this->menu = new Menu($file);
     }
 
     /**
@@ -172,9 +127,9 @@ final class Page
      */
     public function buildHead()
     {
-        PrintHTML::printHead($this->pageTitle,
-            $this->templateConfiguration['styles'],
-            $this->view->getStyles());
+        $viewStyles = $this->view->getStyles();
+        $templateStyles = $this->templateConfiguration['styles'];
+        PrintHTML::printHead($this->pageTitle, $templateStyles, $viewStyles);
     }
 
     function buildClosingTags()

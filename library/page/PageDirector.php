@@ -9,7 +9,7 @@ interface IPageDirector
      * IPageDirector constructor.
      * @param IBuilder $builder
      */
-    public function __construct(IBuilder $builder);
+    public function __construct(IPageBuilder $builder);
 
     /**
      * @return mixed
@@ -23,15 +23,15 @@ interface IPageDirector
 class PageDirector implements IPageDirector {
 
     /**
-     * @var IBuilder|null
+     * @var IPageBuilder|null
      */
     private $builder = null;
 
     /**
      * PageDirector constructor.
-     * @param IBuilder $builder
+     * @param IPageBuilder $builder
      */
-    public function __construct(IBuilder $builder) {
+    public function __construct(IPageBuilder $builder) {
         $this->builder = $builder;
     }
 
@@ -41,9 +41,7 @@ class PageDirector implements IPageDirector {
     public function buildPage() {
 
         // load configurations
-        $this->builder->loadView();
-        $this->builder->loadMenu();
-        $this->builder->loadNavbar();
+        $this->builder->configure();
         $this->builder->loadPageTitle();
 
         // build and print html page
@@ -51,6 +49,6 @@ class PageDirector implements IPageDirector {
         $this->builder->buildBody();
         $this->builder->printScripts();
         $this->builder->loadJavaScript();
-        $this->builder->buildClosingTags();
+        $this->builder->printClosingTags();
     }
 }

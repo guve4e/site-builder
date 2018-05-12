@@ -16,12 +16,6 @@ final class Menu
     private $menuConfig;
 
     /**
-     * @var string
-     * The name of the view.
-     */
-    private $viewName;
-
-    /**
      * @var object
      * Provides file system
      * functionality
@@ -31,16 +25,15 @@ final class Menu
     /**
      * Menu constructor.
      * @param FileManager $file
-     * @param string $viewName
+
      * @throws Exception
      */
-    public function __construct(FileManager $file, string $viewName)
+    public function __construct(FileManager $file)
     {
-        if(!isset($viewName) || !isset($file))
-            throw new Exception("The name of the view is not set!");
+        if(!isset($file))
+            throw new Exception("File Manager not set in Menu!");
 
         $this->file = $file;
-        $this->viewName = $viewName;
 
         $this->loadMenuConfig();
     }
@@ -79,6 +72,5 @@ final class Menu
     {
         unset($this->file);
         unset($this->menuConfig);
-        unset($this->viewName);
     }
 }
