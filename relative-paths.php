@@ -33,7 +33,7 @@ defined("NAVBAR_PATH")
     or define("NAVBAR_PATH", realpath(dirname(__FILE__) . '/template/navbar'));
 
 defined("BUILD_PATH")
-    or define("BUILD_PATH", realpath(dirname(__FILE__) . '/library/build-page'));
+    or define("BUILD_PATH", realpath(dirname(__FILE__) . '/library/page'));
 
 defined("USER_SESSION_PATH")
     or define("USER_SESSION_PATH", realpath(dirname(__FILE__) . '/library/user-session'));

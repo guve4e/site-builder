@@ -2,7 +2,7 @@
 
 require_once ("../../../relative-paths.php");
 require_once ("../UtilityTest.php");
-require_once (LIBRARY_PATH . "/build-page/PageBuilder.php");
+require_once(LIBRARY_PATH . "/page/Page.php");
 require_once(UTILITY_PATH . "/FileManager.php");
 
 use PHPUnit\Framework\TestCase;
@@ -102,7 +102,7 @@ class PageBuilderTest extends TestCase
     {
         try {
             // Act
-            $this->page = PageBuilder::MakePage($this->mockFile, $_GET);
+            $this->page = Page::MakePage($this->mockFile, $_GET);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -117,7 +117,7 @@ class PageBuilderTest extends TestCase
     {
         try {
             // Act
-            $this->page = PageBuilder::MakePage($this->mockFile, $_GET);
+            $this->page = Page::MakePage($this->mockFile, $_GET);
             $this->page->build();
 
         } catch (Exception $e) {

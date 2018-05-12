@@ -2,7 +2,7 @@
 require_once (UTILITY_PATH . "/JsonLoader.php");
 
 /**
- * Loads PageBuilder json configuration
+ * Loads Page json configuration
  * file. Every page has view.php file with
  * html code and page.json file with
  * configuration about the page.

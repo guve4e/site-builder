@@ -7,10 +7,9 @@ require_once (USER_SESSION_PATH . "/CookieSetter.php");
 require_once (USER_SESSION_PATH . "/UserIdentifier.php");
 require_once (CONFIGURATION_PATH . "/TemplateConfigurationLoader.php");
 require_once (CONFIGURATION_PATH. "/SiteConfigurationLoader.php");
-/**
- *
- */
-final class PageBuilder
+
+
+final class Page
 {
     /**
      * @var string
@@ -66,17 +65,7 @@ final class PageBuilder
      */
     private $pageTitle;
 
-    /**
-     * @var object
-     * Provides file system
-     * functionality
-     */
-    private $file;
 
-    /**
-     * @var static Singleton
-     */
-    private static $instance;
 
     /**
      * Loads information about the site
@@ -86,7 +75,7 @@ final class PageBuilder
      * @param FileManager $file
      * @throws Exception
      */
-    private function loadTemplateConfig(FileManager $file)
+    public function loadTemplateConfig(FileManager $file)
     {
         // get site configuration
         $templateConfigurationLoader = new TemplateConfigurationLoader($file);
@@ -101,7 +90,7 @@ final class PageBuilder
      * @param FileManager $file
      * @throws Exception
      */
-    private function loadSiteConfig(FileManager $file)
+    public function loadSiteConfig(FileManager $file)
     {
         // load configuration
         $jsonLoader = new SiteConfigurationLoader(new FileManager());
@@ -112,7 +101,7 @@ final class PageBuilder
      * Extracts the title of the pge
      * from $pageConfig member variable.
      */
-    private function loadPageTitle()
+    public function loadPageTitle()
     {
         $this->pageTitle = $this->templateConfiguration['title'];
     }
@@ -121,7 +110,7 @@ final class PageBuilder
      * Identifies User
      * @throws Exception
      */
-    private function identifyUser()
+    public function identifyUser()
     {
         $sessionConfiguration = $this->loadSessionConfiguration();
 
@@ -156,15 +145,15 @@ final class PageBuilder
     }
 
     /**
-     * PageBuilder constructor.
+     * Page constructor.
      * @param FileManager $file
      * @param array $get
      * @throws Exception
      */
-    private function __construct(FileManager $file, array $get)
+    public function __construct(array $get)
     {
-        if(!isset($get) || !isset($file))
-            throw new Exception("Unable to construct the page wrong parameters in PageBuilder constructor!");
+        if(!isset($get))
+            throw new Exception("Unable to construct the page wrong parameters in Page constructor!");
 
         // filter _GET first
         $get = $this->filterGet($this->getSuperglobalKeyName);
@@ -173,15 +162,57 @@ final class PageBuilder
         if(isset($get[$this->getSuperglobalKeyName]))
             $this->viewName = $get[$this->getSuperglobalKeyName];
 
-        $this->file = $file;
+    }
 
-        $this->view = new View($file, $this->viewName);
-        $this->menu = new Menu($file, $this->view->getViewName());
+    /**
+     * @param FileManager $file
+     * @throws Exception
+     */
+    public function loadNavbar(FileManager $file)
+    {
         $this->navbar = new Navbar($file, $this->view->getViewBodyClass());
+    }
 
-        $this->loadTemplateConfig($file);
-        $this->loadSiteConfig($file);
-        $this->loadPageTitle();
+    /**
+     * @param File $file
+     * @throws Exception
+     */
+    public function loadMenu(FileManager $file)
+    {
+        $this->menu = new Menu($file, $this->view->getViewName());
+    }
+
+    /**
+     * @param File $file
+     * @throws Exception
+     */
+    public function loadView(FileManager $file)
+    {
+        $this->view = new View($file, $this->viewName);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function formatHead()
+    {
+        print "<!doctype html>\n";
+        print "<!--[if lte IE 9]> <html class=\"lte-ie9\" lang=\"en\"> <![endif]-->\n";
+        print "<!--[if gt IE 9]><!--> <html lang=\"en\"> <!--<![endif]-->\n";
+        print "<head>\n";
+        print "    <meta charset=\"UTF-8\">\n";
+        print "    <meta name=\"viewport\" content=\"initial-scale=1.0,maximum-scale=1.0,user-scalable=no\">\n";
+        print "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n";
+        print "    <!-- Remove Tap Highlight on Windows Phone IE -->\n";
+        print "    <meta name=\"msapplication-tap-highlight\" content=\"no\"/>\n";
+        print "    <link rel='stylesheet' type='text/css' href='css/navbar.css' />\n";
+        print "    <link rel='stylesheet' type='text/css' href='css/sidenav.css' />\n";
+        print "    <!--*** Set Title ***-->\n";
+        print "    <title>{$this->pageTitle}</title>\n";
+
+        $this->printStyles();
+
+        print "</head>\n";
     }
 
     /**
@@ -203,6 +234,8 @@ final class PageBuilder
      */
     public function build()
     {
+        print "    <body>";
+
         $this->identifyUser();
 
         // if the view is full-screen
@@ -212,8 +245,12 @@ final class PageBuilder
             $this->navbar->build();
             $this->menu->build();
         }
+
         // we always want the view
         $this->view->build();
+
+        print "    </body>";
+        print "</html>";
     }
 
     /**
@@ -294,23 +331,6 @@ final class PageBuilder
         return json_encode($config);
     }
 
-    /**
-     * Singleton.
-     * @access public
-     * @param FileManager $file object
-     * @param array $get $_GET super-global
-     * @return PageBuilder
-     * @throws Exception
-     */
-    public static function MakePage(FileManager $file, array $get) : PageBuilder
-    {
-        if (self::$instance === null) {
-            self::$instance = new PageBuilder($file, $get);
-        }
-
-        return self::$instance;
-    }
-
     public function __destruct()
     {
         unset($this->file);
@@ -320,7 +340,5 @@ final class PageBuilder
         unset($this->navbar);
         unset($this->templateConfiguration);
         unset($this->pageTitle);
-
-        self::$instance = null;
     }
 }
