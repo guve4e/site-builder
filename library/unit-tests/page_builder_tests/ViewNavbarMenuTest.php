@@ -53,9 +53,9 @@ class ViewNavbarMenuTest extends TestCase
         }
 
         // Assert
-        $this->assertEquals("some_title", $file->getViewTitle());
-        $this->assertEquals("some_style", $file->getViewBodyClass());
-        $this->assertEquals("some_view", $file->getViewName());
+        $this->assertEquals("some_title", $file->getTitle(), "Asserts right vew title");
+        $this->assertEquals("some_style", $file->getBodyClass(), "Asserts right body class");
+        $this->assertEquals("some_view", $file->getName(), "Asserts right vew name");
         $this->assertEquals($expectedJSPath, $file->getViewJSPath());
         $this->assertEquals($expectedViewPath, $file->getViewPath());
 
@@ -101,7 +101,7 @@ class ViewNavbarMenuTest extends TestCase
 
         try {
             // Act
-            $menu = new Menu($mockFile, 'some_view');
+            $menu = new Menu($mockFile);
 
             // Careful here we brake encapsulation using reflection
             $actualMenuConfig = $this->getProperty($menu, "menuConfig");

@@ -4,7 +4,7 @@ require_once ("../../../relative-paths.php");
 require_once ("../UtilityTest.php");
 require_once (LIBRARY_PATH . "/page/Page.php");
 require_once (UTILITY_PATH . "/FileManager.php");
-require_once(BUILD_PATH . "/IPageBuilder.php");
+require_once (BUILD_PATH . "/IPageBuilder.php");
 require_once (BUILD_PATH . "/PageDirector.php");
 
 

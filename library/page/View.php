@@ -197,7 +197,7 @@ final class View
     /**
      * @return string
      */
-    public function getViewName() : string
+    public function getName() : string
     {
         return $this->viewName;
     }
@@ -221,7 +221,7 @@ final class View
     /**
      * @return mixed
      */
-    public function getViewTitle() : string
+    public function getTitle() : string
     {
         return $this->viewTitle;
     }
