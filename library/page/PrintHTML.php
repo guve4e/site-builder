@@ -1,11 +1,7 @@
 <?php
 
-/**
- *
- */
 final class PrintHTML
 {
-
     /**
      * @param FileManager $file
      * @param string $path

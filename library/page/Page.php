@@ -11,8 +11,6 @@ require_once (CONFIGURATION_PATH. "/SiteConfigurationLoader.php");
 
 final class Page
 {
-
-
     /**
      * @var object
      * View object.
@@ -49,21 +47,6 @@ final class Page
     private $pageTitle;
 
     /**
-     * Loads session key from
-     * relative-paths.php file.
-     *
-     * @throws Exception
-     */
-    private function loadSessionConfiguration() : array
-    {
-        return [
-            "sessionKey" => $this->siteConfiguration->session->key,
-            "cookieName" => $this->siteConfiguration->cookie->name,
-            "cookieTime" =>  $this->siteConfiguration->cookie->time
-        ];
-    }
-
-    /**
      * Page constructor.
      * Sets the name of the view
      * @param array $get
@@ -98,7 +81,6 @@ final class Page
         $this->view = $view;
     }
 
-
     /**
      * @param File $file
      * @throws Exception
@@ -106,20 +88,6 @@ final class Page
     public function loadMenu(FileManager $file)
     {
         $this->menu = new Menu($file);
-    }
-
-    /**
-     * Identifies User
-     * @throws Exception
-     */
-    public function identifyUser()
-    {
-        $sessionConfiguration = $this->loadSessionConfiguration();
-
-        $cookieSetter = new CookieSetter($sessionConfiguration['cookieName'], $sessionConfiguration['cookieTime']);
-        $userIdentifier = UserIdentifier::IdentifyUser($cookieSetter, new User());
-
-        $userIdentifier->identify();
     }
 
     /**
@@ -138,15 +106,13 @@ final class Page
     }
 
     /**
-     * TODO: Not quite!!
-     * Referenced from "index.php".
+     * TODO brake down so Builder can decide what to do
+     * Builds Every Page
      * @throws Exception
      */
     public function build($file)
     {
         PrintHTML::printBodyOpenTag($this->view->getBodyClass());
-
-        $this->identifyUser();
 
         // if the view is full-screen
         // we don't want to build menu and navbar

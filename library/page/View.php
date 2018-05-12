@@ -2,12 +2,10 @@
 require_once ("PrintHTML.php");
 require_once (CONFIGURATION_PATH . "/ViewConfigurationLoader.php");
 require_once (USER_SESSION_PATH . "/SessionHelper.php");
-/**
- *
- */
+
+
 final class View
 {
-
     /**
      * @var string
      * The path to
@@ -158,7 +156,6 @@ final class View
     }
 
     /**
-     *
      * @throws Exception
      */
     private function setViewTitle()

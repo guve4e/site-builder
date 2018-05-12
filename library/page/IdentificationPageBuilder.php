@@ -5,7 +5,39 @@ require_once (BUILD_PATH . "/APageBuilder.php");
 
 class IdentificationPageBuilder extends APageBuilder
 {
+    /**
+     * @var stdClass
+     */
+    private $siteConfig;
 
+    /**
+     * Loads session key from
+     * relative-paths.php file.
+     *
+     * @throws Exception
+     */
+    private function loadSessionConfiguration() : array
+    {
+        return [
+            "sessionKey" => $this->siteConfig->session->key,
+            "cookieName" => $this->siteConfig->cookie->name,
+            "cookieTime" =>  $this->siteConfig->cookie->time
+        ];
+    }
+
+    /**
+     * Identifies User
+     * @throws Exception
+     */
+    private function identifyUser()
+    {
+        $sessionConfiguration = $this->loadSessionConfiguration();
+
+        $cookieSetter = new CookieSetter($sessionConfiguration['cookieName'], $sessionConfiguration['cookieTime']);
+        $userIdentifier = UserIdentifier::IdentifyUser($cookieSetter, new User());
+
+        $userIdentifier->identify();
+    }
 
     /**
      * Loads information about the site
@@ -21,37 +53,40 @@ class IdentificationPageBuilder extends APageBuilder
 
     /**
      * PageBuilder constructor.
-     * @param $siteConfig
-     * @param $templateConfig
+     * @param FileManager $file
+     * @param View $view
      * @throws Exception
      */
     public function __construct(FileManager $file, View $view) {
 
         parent::__construct($file, $view);
 
-        $siteConfig = $this->loadSiteConfig();
+        $this->siteConfig = $this->loadSiteConfig();
         $templateConfig = $this->loadTemplateConfig();
 
-        $this->page = new Page($siteConfig, $templateConfig);
+        $this->page = new Page($this->siteConfig, $templateConfig);
     }
 
     /**
      * Provides special configuration.
      * Every Builder will have its own.
-     * @return mixed
      * @throws Exception
      */
     public function configure()
     {
+        // every page is a vew
         $this->page->setView($this->view);
 
+        // load navbar and menu
         $this->page->loadNavbar($this->file);
         $this->page->loadMenu($this->file);
+
+        // identify user
+        $this->identifyUser();
     }
 
     /**
      * Loads page title
-     * @return mixed
      */
     public function loadPageTitle()
     {
@@ -60,7 +95,6 @@ class IdentificationPageBuilder extends APageBuilder
 
     /**
      * Builds Header <head></head>
-     * @return mixed
      * @throws Exception
      */
     public function buildHead()
@@ -70,7 +104,6 @@ class IdentificationPageBuilder extends APageBuilder
 
     /**
      * Builds Body <body></body>
-     * @return mixed
      * @throws Exception
      */
     public function buildBody()
@@ -81,7 +114,6 @@ class IdentificationPageBuilder extends APageBuilder
     /**
      * Print java script tags.
      * <script></script>
-     * @return mixed
      * @throws Exception
      */
     public function printScripts()
@@ -93,7 +125,6 @@ class IdentificationPageBuilder extends APageBuilder
      * Some views have custom JS
      * script, loaded at the bottom
      * of the page
-     * @return mixed
      * @throws Exception
      */
     public function loadJavaScript()
@@ -105,7 +136,6 @@ class IdentificationPageBuilder extends APageBuilder
      * Prints closing tags.
      * </body>
      * </head>
-     * @return mixed
      */
     public function printClosingTags()
     {

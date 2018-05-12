@@ -4,11 +4,10 @@ require_once (BUILD_PATH . "/APageBuilder.php");
 
 class FullScreenPageBuilder extends APageBuilder
 {
-
     /**
      * PageBuilder constructor.
-     * @param $siteConfig
-     * @param $templateConfig
+     * @param FileManager $file
+     * @param View $view
      * @throws Exception
      */
     public function __construct(FileManager $file, View $view) {
@@ -21,7 +20,6 @@ class FullScreenPageBuilder extends APageBuilder
     /**
      * Provides special configuration.
      * Every Builder will have its own.
-     * @return mixed
      */
     public function configure()
     {
@@ -31,7 +29,6 @@ class FullScreenPageBuilder extends APageBuilder
 
     /**
      * Loads page title
-     * @return mixed
      */
     public function loadPageTitle()
     {
@@ -40,7 +37,6 @@ class FullScreenPageBuilder extends APageBuilder
 
     /**
      * Builds Header <head></head>
-     * @return mixed
      * @throws Exception
      */
     public function buildHead()
@@ -50,7 +46,6 @@ class FullScreenPageBuilder extends APageBuilder
 
     /**
      * Builds Body <body></body>
-     * @return mixed
      * @throws Exception
      */
     public function buildBody()
@@ -61,7 +56,6 @@ class FullScreenPageBuilder extends APageBuilder
     /**
      * Print java script tags.
      * <script></script>
-     * @return mixed
      * @throws Exception
      */
     public function printScripts()
@@ -73,7 +67,6 @@ class FullScreenPageBuilder extends APageBuilder
      * Some views have custom JS
      * script, loaded at the bottom
      * of the page
-     * @return mixed
      * @throws Exception
      */
     public function loadJavaScript()
@@ -85,7 +78,6 @@ class FullScreenPageBuilder extends APageBuilder
      * Prints closing tags.
      * </body>
      * </head>
-     * @return mixed
      */
     public function printClosingTags()
     {

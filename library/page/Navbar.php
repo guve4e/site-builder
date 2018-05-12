@@ -74,6 +74,7 @@ final class Navbar
 
     public function getSideBarPath()
     {
+        // TODO: Every page must have its own sidebar???
         return TEMPLATE_PATH . '/second_sidebar.php';
     }
 

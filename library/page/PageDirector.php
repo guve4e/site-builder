@@ -1,21 +1,6 @@
 <?php
 
-/**
- * Interface IPageDirector
- */
-interface IPageDirector
-{
-    /**
-     * IPageDirector constructor.
-     * @param IBuilder $builder
-     */
-    public function __construct(IPageBuilder $builder);
-
-    /**
-     * @return mixed
-     */
-    public function buildPage();
-}
+require_once ("IPageDirector.php");
 
 /**
  * Class PageDirector
