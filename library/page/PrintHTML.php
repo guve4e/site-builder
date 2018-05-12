@@ -5,6 +5,31 @@
  */
 final class PrintHTML
 {
+
+    public static function printHead(string $title, $templateConfig, $viewConfig)
+    {
+        print "<!doctype html>\n";
+        print "<!--[if lte IE 9]> <html class=\"lte-ie9\" lang=\"en\"> <![endif]-->\n";
+        print "<!--[if gt IE 9]><!--> <html lang=\"en\"> <!--<![endif]-->\n";
+        print "<head>\n";
+        print "    <meta charset=\"UTF-8\">\n";
+        print "    <meta name=\"viewport\" content=\"initial-scale=1.0,maximum-scale=1.0,user-scalable=no\">\n";
+        print "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n";
+        print "    <!-- Remove Tap Highlight on Windows Phone IE -->\n";
+        print "    <meta name=\"msapplication-tap-highlight\" content=\"no\"/>\n";
+
+        print "    <link rel='stylesheet' type='text/css' href='css/navbar.css' />\n";
+        print "    <link rel='stylesheet' type='text/css' href='css/sidenav.css' />\n";
+
+        print "    <!--*** Set Title ***-->\n";
+        print "    <title>{$title}</title>\n";
+
+        PrintHTML::printListStyles($templateConfig);
+        PrintHTML::printListStyles($viewConfig);
+
+        print "</head>\n";
+    }
+
     /**
      * Handles redirection (navigation)
      * trough the left side menu.

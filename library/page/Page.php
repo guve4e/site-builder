@@ -66,6 +66,29 @@ final class Page
     private $pageTitle;
 
 
+    /**
+     * Loads session key from
+     * relative-paths.php file.
+     *
+     * @throws Exception
+     */
+    private function loadSessionConfiguration() : array
+    {
+        return [
+            "sessionKey" => $this->siteConfiguration->session->key,
+            "cookieName" => $this->siteConfiguration->cookie->name,
+            "cookieTime" =>  $this->siteConfiguration->cookie->time
+        ];
+    }
+
+    private function filterGet($key)
+    {
+        $get = [];
+        foreach ($_GET as $key => $value) {
+            $get[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_STRING);
+        }
+        return $get;
+    }
 
     /**
      * Loads information about the site
@@ -121,30 +144,6 @@ final class Page
     }
 
     /**
-     * Loads session key from
-     * relative-paths.php file.
-     *
-     * @throws Exception
-     */
-    private function loadSessionConfiguration() : array
-    {
-        return [
-            "sessionKey" => $this->siteConfiguration->session->key,
-            "cookieName" => $this->siteConfiguration->cookie->name,
-            "cookieTime" =>  $this->siteConfiguration->cookie->time
-        ];
-    }
-
-    private function filterGet($key)
-    {
-        $get = [];
-        foreach ($_GET as $key => $value) {
-            $get[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_STRING);
-        }
-        return $get;
-    }
-
-    /**
      * Page constructor.
      * @param FileManager $file
      * @param array $get
@@ -158,7 +157,7 @@ final class Page
         // filter _GET first
         $get = $this->filterGet($this->getSuperglobalKeyName);
 
-        // When page is loaded for first time _GET is empty
+        // when page is loaded for first time _GET is empty
         if(isset($get[$this->getSuperglobalKeyName]))
             $this->viewName = $get[$this->getSuperglobalKeyName];
 
@@ -194,37 +193,21 @@ final class Page
     /**
      * @throws Exception
      */
-    public function formatHead()
+    public function buildHead()
     {
-        print "<!doctype html>\n";
-        print "<!--[if lte IE 9]> <html class=\"lte-ie9\" lang=\"en\"> <![endif]-->\n";
-        print "<!--[if gt IE 9]><!--> <html lang=\"en\"> <!--<![endif]-->\n";
-        print "<head>\n";
-        print "    <meta charset=\"UTF-8\">\n";
-        print "    <meta name=\"viewport\" content=\"initial-scale=1.0,maximum-scale=1.0,user-scalable=no\">\n";
-        print "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n";
-        print "    <!-- Remove Tap Highlight on Windows Phone IE -->\n";
-        print "    <meta name=\"msapplication-tap-highlight\" content=\"no\"/>\n";
-        print "    <link rel='stylesheet' type='text/css' href='css/navbar.css' />\n";
-        print "    <link rel='stylesheet' type='text/css' href='css/sidenav.css' />\n";
-        print "    <!--*** Set Title ***-->\n";
-        print "    <title>{$this->pageTitle}</title>\n";
-
-        $this->printStyles();
-
-        print "</head>\n";
+        PrintHTML::printHead($this->pageTitle,
+            $this->templateConfiguration['styles'],
+            $this->view->getStyles());
     }
 
-    /**
-     * Print Site styles and
-     * View styles.
-     * Referenced from "index.php".
-     * @throws Exception
-     */
-    public function printStyles()
+    public function buildBody()
     {
-        PrintHTML::printListStyles($this->templateConfiguration['styles']);
-        $this->view->printListStyles();
+
+    }
+
+    function buildClosingTags()
+    {
+
     }
 
     /**
@@ -234,7 +217,7 @@ final class Page
      */
     public function build()
     {
-        print "    <body>";
+        print "    <body>\n";
 
         $this->identifyUser();
 
@@ -249,8 +232,6 @@ final class Page
         // we always want the view
         $this->view->build();
 
-        print "    </body>";
-        print "</html>";
     }
 
     /**
@@ -262,7 +243,7 @@ final class Page
     public function printScripts()
     {
         PrintHTML::printListScripts($this->templateConfiguration['scripts']);
-        $this->view->printListScripts();
+        PrintHTML::printListScripts($this->view->getScripts());
     }
 
     /**
@@ -275,13 +256,16 @@ final class Page
      * Referenced from "index.php".
      * @throws Exception
      */
-    public function loadJavaScript()
+    public function loadJavaScript(FileManager $file)
     {
         $javaScriptPath = $this->view->getViewJSPath();
 
         // load page javascript at the bottom
-        if ($this->file->fileExists($javaScriptPath))
+        if ($file->fileExists($javaScriptPath))
             include($this->view->getViewJSPath());
+
+        print "    </body>\n";
+        print "</html>\n";
     }
 
     /**
@@ -289,7 +273,7 @@ final class Page
      */
     public function printMenu()
     {
-       $this->menu->printMenu();
+
     }
 
     /**

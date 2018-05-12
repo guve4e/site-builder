@@ -170,27 +170,19 @@ final class View
     }
 
     /**
-     *
      * @throws Exception
      */
-    public function printListStyles()
+    public function getStyles()
     {
-        if (!isset($this->viewConfig['styles']))
-            throw new Exception("Wrong page json! 'styles' property not set!");
-
-        PrintHTML::printListStyles($this->viewConfig['styles']);
+       return $this->viewConfig['styles'];
     }
 
     /**
-     *
      * @throws Exception
      */
-    public function printListScripts()
+    public function getScripts()
     {
-        if (!isset($this->viewConfig['scripts']))
-            throw new Exception("Wrong page json! 'scripts' property not set!");
-
-        PrintHTML::printListScripts($this->viewConfig['scripts']);
+        return $this->viewConfig['scripts'];
     }
 
     /**

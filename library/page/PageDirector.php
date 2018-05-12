@@ -55,5 +55,8 @@ class PageDirector implements IPageDirector {
         $this->builder->formatHead();
 
         $this->builder->build();
+
+        $this->builder->printScripts();
+        $this->builder->loadJavaScript();
     }
 }

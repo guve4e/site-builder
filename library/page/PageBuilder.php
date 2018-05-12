@@ -14,6 +14,10 @@ interface IBuilder
     public function formatHead();
 
     public function build();
+
+
+    public function printScripts();
+    public function loadJavaScript();
 }
 
 class PageBuilder implements IBuilder {
@@ -80,7 +84,7 @@ class PageBuilder implements IBuilder {
      * @throws Exception
      */
     public function formatHead() {
-        $this->page->formatHead();
+        $this->page->buildHead();
     }
 
     /**
@@ -88,5 +92,16 @@ class PageBuilder implements IBuilder {
      */
     public function build() {
         $this->page->build();
+    }
+
+    public function printScripts() {
+        $this->page->printScripts();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function loadJavaScript() {
+        $this->page->loadJavaScript($this->file);
     }
 }

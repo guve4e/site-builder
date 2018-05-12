@@ -75,14 +75,10 @@ final class Menu
      * It is a wrapper to printOneLink.
      * Uses info stored in $menuConfig.
      */
-    public function printMenu()
+    public function getMenuConfig() : array
     {
-        // iterate trough each item and display it
-        foreach ($this->menuConfig as $m) {
-            PrintHTML::printOneMenuLink($m, $this->viewName);
-        }
+        return $this->menuConfig;
     }
-
 
     public function __destruct()
     {
