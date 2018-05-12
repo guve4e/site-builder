@@ -2,24 +2,61 @@
 
 require_once ("Page.php");
 
+/**
+ * Interface IBuilder
+ */
 interface IBuilder
 {
+    /**
+     * @return mixed
+     */
     public function loadNavbar();
-    public function loadMenu();
-    public function loadView();
-    public function loadTemplateConfig();
-    public function loadSiteConfig();
 
+    /**
+     * @return mixed
+     */
+    public function loadMenu();
+
+    /**
+     * @return mixed
+     */
+    public function loadView();
+
+
+    /**
+     * @return mixed
+     */
     public function loadPageTitle();
+
+    /**
+     * @return mixed
+     */
     public function buildHead();
 
+    /**
+     * @return mixed
+     */
     public function buildBody();
 
-
+    /**
+     * @return mixed
+     */
     public function printScripts();
+
+    /**
+     * @return mixed
+     */
     public function loadJavaScript();
+
+    /**
+     * @return mixed
+     */
+    public function buildClosingTags();
 }
 
+/**
+ * Class PageBuilder
+ */
 class PageBuilder implements IBuilder {
 
     /**
@@ -35,12 +72,39 @@ class PageBuilder implements IBuilder {
     private $page = null;
 
     /**
+     * Loads information about the site
+     * from config json file
+     * @throws Exception
+     */
+    private function loadSiteConfig() : stdClass
+    {
+        // load configuration
+        $jsonLoader = new SiteConfigurationLoader($this->file);
+        return $jsonLoader->getData();
+    }
+
+    /**
+     * Loads information about the template
+     * from json config file
+     * @throws Exception
+     */
+    private function loadTemplateConfig()
+    {
+        // get site configuration
+        $templateConfigurationLoader = new TemplateConfigurationLoader($this->file);
+        return  $templateConfigurationLoader->getData();
+    }
+
+    /**
      * PageBuilder constructor.
      * @throws Exception
      */
     public function __construct() {
         $this->file = new FileManager();
-        $this->page = new Page($_GET);
+        $siteConfig = $this->loadSiteConfig();
+        $templateConfig = $this->loadTemplateConfig();
+
+        $this->page = new Page($_GET, $siteConfig, $templateConfig);
     }
 
     /**
@@ -65,19 +129,8 @@ class PageBuilder implements IBuilder {
     }
 
     /**
-     * @throws Exception
+     * @return mixed|void
      */
-    public function loadTemplateConfig() {
-        $this->page->loadTemplateConfig($this->file);
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function loadSiteConfig() {
-        $this->page->loadSiteConfig($this->file);
-    }
-
     public function loadPageTitle() {
         $this->page->loadPageTitle();
     }
@@ -108,5 +161,13 @@ class PageBuilder implements IBuilder {
      */
     public function loadJavaScript() {
         $this->page->loadJavaScript($this->file);
+    }
+
+    /**
+     * @return mixed|void
+     */
+    public function buildClosingTags()
+    {
+        $this->page->buildClosingTags();
     }
 }

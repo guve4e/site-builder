@@ -4,6 +4,9 @@ require_once ("../../../relative-paths.php");
 require_once ("../UtilityTest.php");
 require_once (LIBRARY_PATH . "/page/Page.php");
 require_once (UTILITY_PATH . "/FileManager.php");
+require_once (BUILD_PATH . "/PageBuilder.php");
+require_once (BUILD_PATH . "/PageDirector.php");
+
 
 use PHPUnit\Framework\TestCase;
 
@@ -98,27 +101,15 @@ class PageBuilderTest extends TestCase
             ]);
     }
 
-    public function testGetBodyClass()
-    {
-        try {
-            // Act
-            $this->page = Page::MakePage($this->mockFile, $_GET);
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
-        // Assert
-        $this->assertEquals("some_style", $this->page->getBodyClass());
-
-        // Clean
-        $this->page->__destruct();
-    }
-
     public function testPrint()
     {
         try {
             // Act
-            $this->page = Page::MakePage($this->mockFile, $_GET);
-            $this->page->build();
+
+            $pageBuilder = new PageBuilder();
+            $pageDirector = new PageDirector($pageBuilder);
+            $pageDirector->buildPage();
+
 
         } catch (Exception $e) {
             echo $e->getMessage();

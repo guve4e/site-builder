@@ -100,48 +100,21 @@ final class Page
      * @param array $get
      * @throws Exception
      */
-    public function __construct(array $get)
+    public function __construct(array $get, stdClass $siteConfiguration, $templateConfiguration)
     {
-        if(!isset($get))
+        if(!isset($get) || !isset($siteConfiguration))
             throw new Exception("Unable to construct the page wrong parameters in Page constructor!");
 
         // filter _GET first
         $get = $this->filterGet($this->getSuperglobalKeyName);
 
+        $this->siteConfiguration = $siteConfiguration;
+        $this->templateConfiguration = $templateConfiguration;
+
         // when page is loaded for first time _GET is empty
         if(isset($get[$this->getSuperglobalKeyName]))
             $this->viewName = $get[$this->getSuperglobalKeyName];
         // else viewName has default value
-    }
-
-    /**
-     * Loads information about the site
-     * store it in siteConfig object
-     * at this point siteConfig contains all
-     * the information needed to print the page.
-     * @param FileManager $file
-     * @throws Exception
-     */
-    public function loadTemplateConfig(FileManager $file)
-    {
-        // get site configuration
-        $templateConfigurationLoader = new TemplateConfigurationLoader($file);
-        $this->templateConfiguration = $templateConfigurationLoader->getData();
-    }
-
-    /**
-     * Loads information about the site
-     * store it in siteConfig object
-     * at this point siteConfig contains all
-     * the information needed to print the page.
-     * @param FileManager $file
-     * @throws Exception
-     */
-    public function loadSiteConfig(FileManager $file)
-    {
-        // load configuration
-        $jsonLoader = new SiteConfigurationLoader(new FileManager());
-        $this->siteConfiguration = $jsonLoader->getData();
     }
 
     /**
@@ -204,11 +177,6 @@ final class Page
             $this->view->getStyles());
     }
 
-    public function buildBody()
-    {
-
-    }
-
     function buildClosingTags()
     {
         PrintHTML::printClosingTags();
@@ -267,9 +235,9 @@ final class Page
     public function loadJavaScript(FileManager $file)
     {
         $javaScriptPath = $this->view->getViewJSPath();
-
         // load page javascript at the bottom
-        PrintHTML::includeHTMLPage($file, $javaScriptPath);
+        if ($file->fileExists($javaScriptPath))
+            include($this->view->getViewJSPath());
     }
 
     /**

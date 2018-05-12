@@ -1,7 +1,5 @@
 <?php
 
-
-
 /**
  * Interface IPageDirector
  */
@@ -27,7 +25,7 @@ class PageDirector implements IPageDirector {
     /**
      * @var IBuilder|null
      */
-    private $builder = NULL;
+    private $builder = null;
 
     /**
      * PageDirector constructor.
@@ -42,21 +40,17 @@ class PageDirector implements IPageDirector {
      */
     public function buildPage() {
 
-
+        // load configurations
         $this->builder->loadView();
         $this->builder->loadMenu();
         $this->builder->loadNavbar();
-
-        $this->builder->loadTemplateConfig();
-        $this->builder->loadSiteConfig();
-
         $this->builder->loadPageTitle();
 
+        // build and print html page
         $this->builder->buildHead();
-
         $this->builder->buildBody();
-
         $this->builder->printScripts();
         $this->builder->loadJavaScript();
+        $this->builder->buildClosingTags();
     }
 }
