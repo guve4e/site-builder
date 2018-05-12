@@ -74,8 +74,15 @@ final class Navbar
 
     public function getSideBarPath()
     {
-        if ($this->hasSecondarySidebar)
-            return TEMPLATE_PATH . '/second_sidebar.php';
+        return TEMPLATE_PATH . '/second_sidebar.php';
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasSecondarySidebar(): bool
+    {
+        return $this->hasSecondarySidebar;
     }
 
     public function __destruct()

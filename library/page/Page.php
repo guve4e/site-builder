@@ -65,7 +65,6 @@ final class Page
      */
     private $pageTitle;
 
-
     /**
      * Loads session key from
      * relative-paths.php file.
@@ -81,6 +80,11 @@ final class Page
         ];
     }
 
+    /**
+     * Filters _GET super-global
+     * @param $key
+     * @return array
+     */
     private function filterGet($key)
     {
         $get = [];
@@ -88,6 +92,26 @@ final class Page
             $get[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_STRING);
         }
         return $get;
+    }
+
+    /**
+     * Page constructor.
+     * Sets the name of the view
+     * @param array $get
+     * @throws Exception
+     */
+    public function __construct(array $get)
+    {
+        if(!isset($get))
+            throw new Exception("Unable to construct the page wrong parameters in Page constructor!");
+
+        // filter _GET first
+        $get = $this->filterGet($this->getSuperglobalKeyName);
+
+        // when page is loaded for first time _GET is empty
+        if(isset($get[$this->getSuperglobalKeyName]))
+            $this->viewName = $get[$this->getSuperglobalKeyName];
+        // else viewName has default value
     }
 
     /**
@@ -130,46 +154,12 @@ final class Page
     }
 
     /**
-     * Identifies User
-     * @throws Exception
-     */
-    public function identifyUser()
-    {
-        $sessionConfiguration = $this->loadSessionConfiguration();
-
-        $cookieSetter = new CookieSetter($sessionConfiguration['cookieName'], $sessionConfiguration['cookieTime']);
-        $userIdentifier = UserIdentifier::IdentifyUser($cookieSetter, new User());
-
-        $userIdentifier->identify();
-    }
-
-    /**
-     * Page constructor.
-     * @param FileManager $file
-     * @param array $get
-     * @throws Exception
-     */
-    public function __construct(array $get)
-    {
-        if(!isset($get))
-            throw new Exception("Unable to construct the page wrong parameters in Page constructor!");
-
-        // filter _GET first
-        $get = $this->filterGet($this->getSuperglobalKeyName);
-
-        // when page is loaded for first time _GET is empty
-        if(isset($get[$this->getSuperglobalKeyName]))
-            $this->viewName = $get[$this->getSuperglobalKeyName];
-
-    }
-
-    /**
      * @param FileManager $file
      * @throws Exception
      */
     public function loadNavbar(FileManager $file)
     {
-        $this->navbar = new Navbar($file, $this->view->getViewBodyClass());
+        $this->navbar = new Navbar($file, $this->view->getBodyClass());
     }
 
     /**
@@ -188,6 +178,20 @@ final class Page
     public function loadView(FileManager $file)
     {
         $this->view = new View($file, $this->viewName);
+    }
+
+    /**
+     * Identifies User
+     * @throws Exception
+     */
+    public function identifyUser()
+    {
+        $sessionConfiguration = $this->loadSessionConfiguration();
+
+        $cookieSetter = new CookieSetter($sessionConfiguration['cookieName'], $sessionConfiguration['cookieTime']);
+        $userIdentifier = UserIdentifier::IdentifyUser($cookieSetter, new User());
+
+        $userIdentifier->identify();
     }
 
     /**
@@ -217,7 +221,7 @@ final class Page
      */
     public function build($file)
     {
-        PrintHTML::printBodyOpenTag("");
+        PrintHTML::printBodyOpenTag($this->view->getBodyClass());
 
         $this->identifyUser();
 
@@ -226,15 +230,16 @@ final class Page
         if (!$this->view->isFullScreen())
         {
             $path = $this->navbar->getNavbarPath();
-            PrintHTML::includeMenu($file, $path);
+            PrintHTML::includeHTMLPage($file, $path);
 
             $path = $this->menu->getMenuPath();
             $conf = $this->menu->getMenuConfig();
-            PrintHTML::includeMenu($file, $path, $conf);
+            PrintHTML::includeHTMLPage($file, $path, $conf);
         }
 
         // we always want the view
-        $this->view->build();
+        $path = $this->view->getPath();
+        PrintHTML::includeHTMLPage($file, $path);
     }
 
     /**
@@ -264,17 +269,7 @@ final class Page
         $javaScriptPath = $this->view->getViewJSPath();
 
         // load page javascript at the bottom
-        if ($file->fileExists($javaScriptPath))
-            include($this->view->getViewJSPath());
-    }
-
-    /**
-     * Getter
-     * @return string: CSS class
-     */
-    public function getBodyClass()
-    {
-        return  $this->view->getViewBodyClass();
+        PrintHTML::includeHTMLPage($file, $javaScriptPath);
     }
 
     /**

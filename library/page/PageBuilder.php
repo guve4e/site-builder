@@ -11,9 +11,9 @@ interface IBuilder
     public function loadSiteConfig();
 
     public function loadPageTitle();
-    public function formatHead();
+    public function buildHead();
 
-    public function build();
+    public function buildBody();
 
 
     public function printScripts();
@@ -29,8 +29,10 @@ class PageBuilder implements IBuilder {
      */
     private $file;
 
-
-    private $page = NULL;
+    /**
+     * @var null|Page
+     */
+    private $page = null;
 
     /**
      * PageBuilder constructor.
@@ -83,17 +85,20 @@ class PageBuilder implements IBuilder {
     /**
      * @throws Exception
      */
-    public function formatHead() {
+    public function buildHead() {
         $this->page->buildHead();
     }
 
     /**
      * @throws Exception
      */
-    public function build() {
+    public function buildBody() {
         $this->page->build($this->file);
     }
 
+    /**
+     * @throws Exception
+     */
     public function printScripts() {
         $this->page->printScripts();
     }

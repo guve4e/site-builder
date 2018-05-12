@@ -192,12 +192,9 @@ final class View
      * the view has one.
      * @throws Exception
      */
-    public function build()
+    public function getPath()
     {
-        // include the view
-        if (!$this->file->fileExists($this->viewPath))
-            throw new Exception("View can not be build {$this->viewPath} does not exist!");
-        require($this->viewPath);
+        return $this->viewPath;
     }
 
     /**
@@ -211,7 +208,7 @@ final class View
     /**
      * @return string
      */
-    public function getViewBodyClass() : string
+    public function getBodyClass() : string
     {
         return $this->viewBodyClass;
     }

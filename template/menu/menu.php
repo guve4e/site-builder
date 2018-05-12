@@ -4,7 +4,7 @@
     <div class="sidenav">
         <ul>
             <?php
-            PrintHTML::printMenu();
+                PrintHTML::printMenu($config);
             ?>
         </ul>
     </div>

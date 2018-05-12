@@ -5,15 +5,19 @@
  */
 final class PrintHTML
 {
-    public static $a;
 
-    public static function includeMenu(FileManager $file, string $path, $config = null)
+    /**
+     * @param FileManager $file
+     * @param string $path
+     * @param null $config
+     * @throws Exception
+     */
+    public static function includeHTMLPage(FileManager $file, string $path, $config = null)
     {
         // include the menu
         if (!$file->fileExists($path))
             throw new Exception("Can not be build '{$path}' does not exist!");
 
-        self::$a = $config;
         include($path);
     }
 
@@ -41,10 +45,10 @@ final class PrintHTML
         print "</head>\n";
     }
 
-    public static function printMenu()
+    public static function printMenu($menuItems)
     {
         // iterate trough each item and display it
-        foreach (self::$a as $m) {
+        foreach ($menuItems as $m) {
             PrintHTML::printOneMenuLink($m, "Some View");
         }
     }
