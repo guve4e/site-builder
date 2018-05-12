@@ -23,6 +23,8 @@ try {
     $pageDirector = new PageDirector($pageBuilder);
     $pageDirector->buildPage();
 
+    Chrono::startTimer();
+
 } catch (Exception $e) {
     die('Caught exception: ' . $e->getMessage() . "\n");
 }

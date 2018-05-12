@@ -5,6 +5,17 @@
  */
 final class PrintHTML
 {
+    public static $a;
+
+    public static function includeMenu(FileManager $file, string $path, $config = null)
+    {
+        // include the menu
+        if (!$file->fileExists($path))
+            throw new Exception("Can not be build '{$path}' does not exist!");
+
+        self::$a = $config;
+        include($path);
+    }
 
     public static function printHead(string $title, $templateConfig, $viewConfig)
     {
@@ -28,6 +39,19 @@ final class PrintHTML
         PrintHTML::printListStyles($viewConfig);
 
         print "</head>\n";
+    }
+
+    public static function printMenu()
+    {
+        // iterate trough each item and display it
+        foreach (self::$a as $m) {
+            PrintHTML::printOneMenuLink($m, "Some View");
+        }
+    }
+
+    public static function printBodyOpenTag(string $class)
+    {
+        print "    <body class='{$class}'>\n";
     }
 
     /**
@@ -153,5 +177,11 @@ final class PrintHTML
         print "        <div class='uk-alert uk-alert-danger'>{$msg}</div>\n";
         print "    </div>\n";
         print "</div>\n";
+    }
+
+    public static function printClosingTags()
+    {
+        print "    </body>\n";
+        print "</html>\n";
     }
 }

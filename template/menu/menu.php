@@ -4,10 +4,7 @@
     <div class="sidenav">
         <ul>
             <?php
-            // iterate trough each item and display it
-            foreach ($this->menuConfig as $m) {
-                PrintHTML::printOneMenuLink($m, $this->viewName);
-            }
+            PrintHTML::printMenu();
             ?>
         </ul>
     </div>

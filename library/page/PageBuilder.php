@@ -91,7 +91,7 @@ class PageBuilder implements IBuilder {
      * @throws Exception
      */
     public function build() {
-        $this->page->build();
+        $this->page->build($this->file);
     }
 
     public function printScripts() {

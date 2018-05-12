@@ -67,23 +67,15 @@ final class Navbar
         $this->setBodyClassStyle();
     }
 
-
-    /**
-     * Includes the "*php" file
-     * corresponding to the navbar.
-     * @throws Exception
-     */
-    public function build()
+    public function getNavbarPath()
     {
-        $path = NAVBAR_PATH . "/{$this->navbarFileName}.php";
+        return $path = NAVBAR_PATH . "/{$this->navbarFileName}.php";
+    }
 
-        if (!$this->file->fileExists($path))
-            throw new Exception("Navbar can not be build '{$path}' does not exist!");
-
-        include($path);
-
+    public function getSideBarPath()
+    {
         if ($this->hasSecondarySidebar)
-            include (TEMPLATE_PATH . '/second_sidebar.php');
+            return TEMPLATE_PATH . '/second_sidebar.php';
     }
 
     public function __destruct()

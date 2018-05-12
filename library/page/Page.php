@@ -207,7 +207,7 @@ final class Page
 
     function buildClosingTags()
     {
-
+        PrintHTML::printClosingTags();
     }
 
     /**
@@ -215,9 +215,9 @@ final class Page
      * Referenced from "index.php".
      * @throws Exception
      */
-    public function build()
+    public function build($file)
     {
-        print "    <body>\n";
+        PrintHTML::printBodyOpenTag("");
 
         $this->identifyUser();
 
@@ -225,13 +225,16 @@ final class Page
         // we don't want to build menu and navbar
         if (!$this->view->isFullScreen())
         {
-            $this->navbar->build();
-            $this->menu->build();
+            $path = $this->navbar->getNavbarPath();
+            PrintHTML::includeMenu($file, $path);
+
+            $path = $this->menu->getMenuPath();
+            $conf = $this->menu->getMenuConfig();
+            PrintHTML::includeMenu($file, $path, $conf);
         }
 
         // we always want the view
         $this->view->build();
-
     }
 
     /**
@@ -263,27 +266,6 @@ final class Page
         // load page javascript at the bottom
         if ($file->fileExists($javaScriptPath))
             include($this->view->getViewJSPath());
-
-        print "    </body>\n";
-        print "</html>\n";
-    }
-
-    /**
-     * Wrapper around Menu::printMenu()
-     */
-    public function printMenu()
-    {
-
-    }
-
-    /**
-     * Prints the title of the page
-     * Combines the title of the site and
-     * the title of the view
-     */
-    public function printTitle() {
-        // get the title for the site and the title for the view
-        echo $this->pageTitle . " - " . $this->view->getViewTitle();
     }
 
     /**

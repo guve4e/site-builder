@@ -60,14 +60,9 @@ final class Menu
      * corresponding to the menu.
      * @throws Exception
      */
-    public function build()
+    public function getMenuPath()
     {
-        $menuPath = MENU_PATH . '/menu.php';
-
-        // include the menu
-        if (!$this->file->fileExists($menuPath))
-            throw new Exception("Menu can not be build '{$menuPath}' does not exist!");
-        include($menuPath);
+        return MENU_PATH . '/menu.php';
     }
 
     /**
