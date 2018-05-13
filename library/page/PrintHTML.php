@@ -17,7 +17,7 @@ final class PrintHTML
         include($path);
     }
 
-    public static function printHead(string $title, $templateConfig, $viewConfig)
+    public static function printHead(string $pageTitle, string $viewTitle, $templateConfig, $viewConfig)
     {
         print "<!doctype html>\n";
         print "<!--[if lte IE 9]> <html class=\"lte-ie9\" lang=\"en\"> <![endif]-->\n";
@@ -28,12 +28,10 @@ final class PrintHTML
         print "    <meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">\n";
         print "    <!-- Remove Tap Highlight on Windows Phone IE -->\n";
         print "    <meta name=\"msapplication-tap-highlight\" content=\"no\"/>\n";
-
-        print "    <link rel='stylesheet' type='text/css' href='css/navbar.css' />\n";
-        print "    <link rel='stylesheet' type='text/css' href='css/sidenav.css' />\n";
-
+        print "    \n";
         print "    <!--*** Set Title ***-->\n";
-        print "    <title>{$title}</title>\n";
+        print "    <title>{$pageTitle} - {$viewTitle}</title>\n";
+        print "    \n";
 
         PrintHTML::printListStyles($templateConfig);
         PrintHTML::printListStyles($viewConfig);

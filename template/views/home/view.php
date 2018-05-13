@@ -19,9 +19,9 @@ try {
 
 ?>
 
-<div>
-    <h4 align="center">Home View</h4>
-    <div align="center"><?php var_dump($_SESSION) ?></div>
-    <br>
-    <div align="center"> <?php var_dump($user) ?> </div>
-</div>
+    <div>
+        <h4 align="center">Home View</h4>
+        <div align="center"><?php var_dump($_SESSION) ?></div>
+        <br>
+        <div align="center"> <?php var_dump($user) ?> </div>
+    </div>

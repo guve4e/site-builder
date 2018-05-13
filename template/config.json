@@ -4,48 +4,21 @@
     "styles": [
         {
             "rel": "stylesheet",
-            "type" : "",
-            "src": "bower",
-            "path": "/uikit/css/",
-            "name": "uikit.almost-flat",
+            "type" : "text/css",
+            "src": "css",
+            "path": "css/",
+            "name": "navbar",
             "media":"all",
-            "min": true
+            "min": false
         },
         {
             "rel": "stylesheet",
-            "type" : "",
-            "src": "",
-            "path": "assets/icons/flags/",
-            "name": "flags",
+            "type" : "text/css",
+            "src": "css",
+            "path": "css/",
+            "name": "sidenav",
             "media":"all",
-            "min": true
-        },
-        {
-            "rel": "stylesheet",
-            "type" : "",
-            "src": "",
-            "path": "assets/css/",
-            "name": "main",
-            "media":"all",
-            "min": true
-        },
-        {
-            "rel": "stylesheet",
-            "type" : "",
-            "src": "",
-            "path": "assets/css/",
-            "name": "style_switcher",
-            "media":"all",
-            "min": true
-        },
-        {
-            "rel": "stylesheet",
-            "type" : "",
-            "src": "bower",
-            "path": "/uikit/css/themes/",
-            "name": "themes_combined",
-            "media":"all",
-            "min": true
+            "min": false
         }
     ],
     "scripts": [

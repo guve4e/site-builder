@@ -97,7 +97,7 @@ final class Page
     {
         $viewStyles = $this->view->getStyles();
         $templateStyles = $this->templateConfiguration['styles'];
-        PrintHTML::printHead($this->pageTitle, $templateStyles, $viewStyles);
+        PrintHTML::printHead($this->pageTitle, $this->view->getTitle(), $templateStyles, $viewStyles);
     }
 
     public function buildClosingTags()
