@@ -20,7 +20,6 @@ class PageBuilderTest extends TestCase
         $this->expectOutputString($expectedString);
 
         PrintHTML::displayErrorPage("Some Message");
-
     }
 
     public function testPrintOneLink()
@@ -43,8 +42,5 @@ class PageBuilderTest extends TestCase
         $this->expectOutputString($expectedString);
 
         PrintHTML::printOneMenuLink($item, $viewName);
-
     }
-
-
 }
