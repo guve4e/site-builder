@@ -49,8 +49,8 @@ final class Page
     /**
      * Page constructor.
      * Sets the name of the view
-     * @param array $get
-     * @throws Exception
+     * @param $siteConfiguration
+     * @param $templateConfiguration
      */
     public function __construct($siteConfiguration, $templateConfiguration)
     {
@@ -82,7 +82,7 @@ final class Page
     }
 
     /**
-     * @param File $file
+     * @param FileManager $file
      * @throws Exception
      */
     public function loadMenu(FileManager $file)
@@ -100,33 +100,43 @@ final class Page
         PrintHTML::printHead($this->pageTitle, $templateStyles, $viewStyles);
     }
 
-    function buildClosingTags()
+    public function buildClosingTags()
     {
         PrintHTML::printClosingTags();
     }
 
-    /**
-     * TODO brake down so Builder can decide what to do
-     * Builds Every Page
-     * @throws Exception
-     */
-    public function build($file)
+    public function buildOpenTags()
     {
         PrintHTML::printBodyOpenTag($this->view->getBodyClass());
+    }
 
-        // if the view is full-screen
-        // we don't want to build menu and navbar
-        if (!$this->view->isFullScreen())
-        {
-            $path = $this->navbar->getNavbarPath();
-            PrintHTML::includeHTMLPage($file, $path);
+    /**
+     * @param FileManager $file
+     * @throws Exception
+     */
+    public function buildNavbar(FileManager $file)
+    {
+        $path = $this->navbar->getNavbarPath();
+        PrintHTML::includeHTMLPage($file, $path);
+    }
 
-            $path = $this->menu->getMenuPath();
-            $conf = $this->menu->getMenuConfig();
-            PrintHTML::includeHTMLPage($file, $path, $conf);
-        }
+    /**
+     * @param FileManager $file
+     * @throws Exception
+     */
+    public function buildMenu(FileManager $file)
+    {
+        $path = $this->menu->getMenuPath();
+        $conf = $this->menu->getMenuConfig();
+        PrintHTML::includeHTMLPage($file, $path, $conf);
+    }
 
-        // we always want the view
+    /**
+     * @param FileManager $file
+     * @throws Exception
+     */
+    public function buildView(FileManager $file)
+    {
         $path = $this->view->getPath();
         PrintHTML::includeHTMLPage($file, $path);
     }
@@ -151,7 +161,7 @@ final class Page
      * the "script.php" file at the bottom
      * of the view.
      * Referenced from "index.php".
-     * @throws Exception
+     * @param FileManager $file
      */
     public function loadJavaScript(FileManager $file)
     {

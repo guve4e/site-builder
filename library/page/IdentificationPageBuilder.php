@@ -108,7 +108,10 @@ class IdentificationPageBuilder extends APageBuilder
      */
     public function buildBody()
     {
-        $this->page->build($this->file);
+        $this->page->buildOpenTags();
+        $this->page->buildNavbar($this->file);
+        $this->page->buildMenu($this->file);
+        $this->page->buildView($this->file);
     }
 
     /**

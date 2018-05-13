@@ -50,7 +50,9 @@ class FullScreenPageBuilder extends APageBuilder
      */
     public function buildBody()
     {
-        $this->page->build($this->file);
+        $this->page->buildOpenTags();
+        $this->page->buildView($this->file);
+        $this->page->buildClosingTags();
     }
 
     /**
