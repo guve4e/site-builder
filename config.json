@@ -11,7 +11,7 @@
   "web_services": [
     {
       "name": "webapi",
-      "url_base_remote": "http://webapi.ddns.net/index.php",
+      "url_base_remote": "http://localhost/web-api/index.php",
       "url_base_local": "http://localhost/site-builder/mock-services",
       "api_token": "WRCdmach38E2*$%Ghdo@nf#cOBD4fd"
     },
