@@ -31,14 +31,16 @@
             let localElement = this.element;
             let localTime = this.time;
             let that = this;
+            let jsonKey = this.jsonKey;
 
             let xmlHttp = new XMLHttpRequest();
 
             if (this.time > 0)
                 xmlHttp.onreadystatechange = function () {
-
                     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-                        localElement.innerHTML = xmlHttp.responseText;
+
+                        let json = JSON.parse(xmlHttp.responseText);
+                        localElement.innerHTML = json[jsonKey];
 
                         // call send again, after certain time
                         setTimeout(function() { that.send(); }, localTime);
@@ -78,6 +80,11 @@
 
         setElement(element) {
             this.element = document.getElementById(element);
+            return this;
+        }
+
+        setReceivingJsonKey(keyName) {
+            this.jsonKey = keyName;
             return this;
         }
 

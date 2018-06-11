@@ -21,14 +21,13 @@ include (HTTP_PATH . "/jshttp.php");
 
     function bar() {
 
-        dataDiv = document.getElementById('ajax_button2');
-
-        const http = new JSHttp()
+        new JSHttp()
             .setMethod("GET")
             .setService("mockcontroller")
             .setParameter(1001)
             .setElement("current_data")
             .setTimer(60)
+            .setReceivingJsonKey('num')
             .send();
     }
 </script>
