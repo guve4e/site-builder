@@ -17,7 +17,7 @@
             return url
         }
 
-        send() {
+        constructUrl() {
             let url = this.urlRemote;
 
             if (this.mock)
@@ -27,6 +27,12 @@
                 if (this.param)
                     url = url + "/" + this.param;
             }
+
+            return url;
+        }
+
+        send() {
+            let url = this.constructUrl();
 
             // TODO clean these assignments
             let localElement = this.element;
