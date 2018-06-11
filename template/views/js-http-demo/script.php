@@ -19,15 +19,28 @@ include (HTTP_PATH . "/jshttp.php");
         alert(response)
     }
 
+    function moo() {
+        new JSHttp()
+            .setMethod("GET")
+            .setService("mockcontroller")
+            .setParameter(1001)
+            .setOutputElement("refreshed_data")
+            .setOutputElementReceivingJsonKey('num')
+            .setRefresh(true)
+            .setAsync(true)
+            .send();
+    }
+
     function bar() {
 
         new JSHttp()
             .setMethod("GET")
             .setService("mockcontroller")
             .setParameter(1001)
-            .setElement("current_data")
-            .setTimer(60)
-            .setReceivingJsonKey('num')
+            .setOutputElement("current_data")
+            .setOutputElementReceivingJsonKey('num')
+            .setTimer(30)
+            .setRefresh(true)
             .send();
     }
 </script>

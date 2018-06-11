@@ -11,10 +11,23 @@
     <br>
     <br>
     <div align="center">
-        <button onclick="bar()" id="ajax_button2">JS HTTP Request with timer</button>
+        <button onclick="moo()" id="ajax_button2">JS HTTP Request with refresh</button>
     </div>
+    <br>
+    <br>
+    <div id="refreshed_data" align="center">
+        <p>Expected Refreshed Value...</p>
+    </div>
+    <br>
+    <br>
+    <div align="center">
+        <button onclick="bar()" id="ajax_button3">JS HTTP Request with timer</button>
+    </div>
+
     <br>
     <br>
     <div id="current_data" align="center">
-        <p>Loading Data...</p>
+        <p>Expected Timer Value...</p>
     </div>
+
+
