@@ -35,7 +35,7 @@ class TemplateConfigurationLoader
     private $file;
 
     /**
-     *  Sets the path of the file
+     * Sets the path of the file
      */
     private function constructFilePath()
     {
@@ -45,13 +45,24 @@ class TemplateConfigurationLoader
     /**
      * Checks if given array is Multidimensional.
      * @param array $array
-     * @return true/false
+     * @throws Exception
      */
-    private function isMultiDimensionalArray(array $array)
+    private function validateMultiDimensionalArray(array $array)
     {
         $rv = array_filter($array, 'is_array');
-        if (count($rv) > 0) return true;
-        return false;
+        if (!count($rv) > 0)
+            throw new Exception("Wrong Site Configuration File Not Multidimensional Array");
+    }
+
+    /**
+     * @param array $infoTemplateArray
+     * @param string $key
+     * @throws Exception
+     */
+    private function validateKey(array $infoTemplateArray, string $key)
+    {
+        if (!array_key_exists($key, $infoTemplateArray))
+            throw new Exception("{$key} key is missing in site config file!");
     }
 
     /**
@@ -62,12 +73,10 @@ class TemplateConfigurationLoader
     {
         $infoTemplateArray = $this->jsonLoader->getData();
 
-        if (!$this->isMultiDimensionalArray($infoTemplateArray))
-            throw new Exception("Wrong Site Configuration File Not Multidimensional Array");
-
-        // TODO REFACTOR IN SEPERATE FUNCTION WITH INFO WHAT IS WRONG
-        if (!array_key_exists('title', $infoTemplateArray) || !array_key_exists('styles', $infoTemplateArray) || !array_key_exists('scripts', $infoTemplateArray))
-            throw new Exception("Wrong Site Configuration File");
+        $this->validateMultiDimensionalArray($infoTemplateArray);
+        $this->validateKey($infoTemplateArray, 'title');
+        $this->validateKey($infoTemplateArray, 'styles');
+        $this->validateKey($infoTemplateArray, 'scripts');
     }
 
     /**
