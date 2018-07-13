@@ -1,6 +1,7 @@
 <?php
 
 require_once (CONFIGURATION_PATH . "/SiteConfigurationLoader.php");
+require_once (HTTP_PATH . "/PhpHttpAdapter.php");
 
 class Http
 {
@@ -29,7 +30,7 @@ class Http
         return $this;
     }
 
-    public function setDataToSend(array $json_data)
+    public function setDataToSend($json_data)
     {
         $this->jsonData = $json_data;
         return $this;
@@ -76,7 +77,8 @@ class Http
             ->setWebServiceName($this->webService)
             ->setController($this->service)
             ->setMethod($this->method)
-            ->setParameter($this->parameter);
+            ->setParameter($this->parameter)
+            ->setDataToSend($this->jsonData);
 
         if ($this->mock)
             $rc->setMock();

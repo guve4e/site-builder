@@ -83,7 +83,7 @@ class RestCall
      * @return $this
      * @throws Exception
      */
-    public function addBody(array $jsonData) {
+    public function addBody($jsonData) {
         $this->strategy->addBody($jsonData);
         return $this;
     }

@@ -160,7 +160,7 @@ abstract class AHttpRequest implements IHttpRequest
      * @param mixed $jsonData
      * @throws Exception
      */
-    public function addBody(array $jsonData)
+    public function addBody($jsonData)
     {
         // preconditions
         if ($jsonData == null) throw new Exception("Null Json Data");

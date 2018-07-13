@@ -97,7 +97,7 @@ class Logger
      * @param $args
      * @throws Exception
      */
-    public function logDebug($args) : void
+    public function logDebug($args)
      {
          $msg = $this->retrieveMessage(func_get_args());
 

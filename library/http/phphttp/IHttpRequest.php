@@ -64,7 +64,7 @@ interface IHttpRequest
      * @param array $data
      * @return mixed
      */
-    public function addBody(array $data);
+    public function addBody($data);
 
     /**
      * Sends the HTTP Request.

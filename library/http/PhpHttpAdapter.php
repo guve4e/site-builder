@@ -1,6 +1,7 @@
 <?php
 
 require_once ("phphttp/RestCall.php");
+require_once (UTILITY_PATH . "/Logger.php");
 
 /**
  * Wrapper around RestCall.
@@ -269,7 +270,7 @@ class PhpHttpAdapter {
         return $this;
     }
 
-    public function setDataToSend(array $json_data)
+    public function setDataToSend($json_data)
     {
         $this->jsonData = $json_data;
         return $this;
