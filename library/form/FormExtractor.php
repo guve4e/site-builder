@@ -1,14 +1,18 @@
+
 <?php
 
 class FormExtractor
 {
+    private $file;
     private $entity;
     private $verb;
     private $parameter;
     private $navigate;
-    private $path_success;
-    private $path_fail;
+    private $pathSuccess;
+    private $pathFail;
     private $data;
+    private $pathSuccessParams = [];
+    private $pathFailParams = [];
 
     private $instance;
 
@@ -20,11 +24,10 @@ class FormExtractor
      * @param $post: representing the $_POST super-global
      * @throws Exception
      */
-    private function validateAttributes(array $get, array $post)
+    private function validateAttributes(FileManager $file, array $get, array $post)
     {
-        if(!isset($get['entity']) || !isset($get["verb"]) || !isset($get['parameter']) ||
-            !isset($get['navigate']) || !isset($get['path_success']) || !isset($get['path_fail']) ||
-            !isset($post))
+        if(!isset($file) || !isset($get['entity']) || !isset($get["verb"]) || !isset($get['parameter']) ||
+            !isset($get['navigate']) || !isset($get['path_success']) || !isset($get['path_fail']) || !isset($post))
             throw new Exception("Invalid Arguments in FormExtractor.");
 
         if(!is_array($post))
@@ -32,33 +35,36 @@ class FormExtractor
     }
 
     /**
-     * ServiceForm constructor.
-     *
-     * @param array $get : representing $_GET
-     * @param array $post : representing $_POST
+     * @param string $parameters
+     * @return string
      * @throws Exception
      */
-    public function __construct(array $get, array $post)
+    private function constructPath(string $parameters): string
     {
-        $this->validateAttributes($get, $post);
+        $params = $this->file->jsonDecode($parameters, true);
 
-        // Now we know that _GET and _POST are proper
+        $paramSting = "";
 
-        if ( $get['navigate'] == "true" || $get['navigate'] == "1")
-            $this->navigate = true;
-        else
-            $this->navigate = false;
+        foreach($params as $key => $value)
+            $paramSting .= "&{$key}={$value}";
 
-        $this->entity = $get['entity'];
-        $this->verb = $get["verb"];
-        $this->parameter = $get['parameter'];
-        $this->path_success = $get['path_success'];
-        $this->path_fail = $get['path_fail'];
+        return $paramSting;
+    }
 
-        $this->data = json_decode(json_encode($post));
+    /**
+     * @throws Exception
+     */
+    private function constructPathFail()
+    {
+        $this->pathFail .= $this->constructPath($this->pathFailParams);
+    }
 
-        $success = $this->callResource();
-        $this->navigate($success);
+    /**
+     * @throws Exception
+     */
+    private function constructPathSuccess()
+    {
+        $this->pathSuccess .= $this->constructPath($this->pathSuccessParams);
     }
 
     /**
@@ -67,28 +73,36 @@ class FormExtractor
      */
     private function navigate($success)
     {
-        if ($success == null)
+        if ($success === null)
             throw new Exception("Resource method '{$this->verb}' didn't return success boolean!");
 
         if($this->navigate)
         {
             // if response is not successful
             if ($success) {
-                header("Location: " . "./?page=" . $this->path_success);
+                header("Location: " . "./?page=" . $this->pathSuccess);
             } else { // if response is successful
                 // Log it first
                 // TODO
-                header("Location: " . "./?page=" . $this->path_fail);
+                header("Location: " . "./?page=" . $this->pathFail);
             }
         }
     }
 
-    public function callResource()
+    /**
+     * @return mixed
+     * @throws Exception
+     */
+    private function callResource()
     {
         // if file exists include it
         $class = ucfirst($this->entity);
         $path = DATA_RESOURCE_PATH . "/" . $class . ".php";
-        require_once($path);
+
+        if ($this->file->fileExists($path))
+            require_once($path);
+        else
+            throw new Exception("Resource file {$path} does not exists!");
 
         // text substitution
         // @example:
@@ -100,5 +114,48 @@ class FormExtractor
 
         // invoke method with the right parameter, if provided
         return $this->instance->$method($this->parameter, $this->data);
+    }
+
+    /**
+     * ServiceForm constructor.
+     *
+     * @param array $get : representing $_GET
+     * @param array $post : representing $_POST
+     * @throws Exception
+     */
+    public function __construct(FileManager $file, array $get, array $post)
+    {
+        $this->validateAttributes($file, $get, $post);
+        $this->file = $file;
+
+        // Now we know that _GET and _POST are proper
+
+        if ( $get['navigate'] == "true" || $get['navigate'] == "1")
+            $this->navigate = true;
+        else
+            $this->navigate = false;
+
+        $this->entity = $get['entity'];
+        $this->verb = $get["verb"];
+        $this->parameter = $get['parameter'];
+        $this->pathSuccess = $get['path_success'];
+        $this->pathFail = $get['path_fail'];
+
+        // check if navigation with parameters
+
+        if (isset($get['path_success_params'])) {
+            $this->pathSuccessParams = $get['path_success_params'];
+            $this->constructPathSuccess();
+        }
+
+        if (isset($get['path_fail_params'])) {
+            $this->pathFailParams = $get['path_fail_params'];
+            $this->constructPathFail();
+        }
+
+        $this->data = json_decode(json_encode($post));
+
+        $success = $this->callResource();
+        $this->navigate($success);
     }
 }

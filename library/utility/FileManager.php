@@ -37,7 +37,6 @@ class FileManager {
         throw new Exception("json_decode failed: {$msg}");
     }
 
-
     /**
      * Decodes the string provided as Json.
      * @param string data to be decoded.

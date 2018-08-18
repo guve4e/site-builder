@@ -9,9 +9,10 @@ include (HTTP_PATH . "/jshttp.php");
         let sendData = {key: "value"};
 
         const http = new JSHttp()
-            .isMock(true)
+         //   .isMock(true)
             .setMethod("GET")
-            .setService("user")
+            .setService("mockcontroller")
+            .setParameter(1001)
             .setDataToSend(sendData);
 
         let response = http.send();

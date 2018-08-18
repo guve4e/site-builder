@@ -10,7 +10,7 @@ class FormHandlerTest extends TestCase
     {
     }
 
-    public function testDaoAdapterCall()
+    public function testProperCreationOfFOrmString()
     {
         // Arrange
         $expectedString = "form-handler.php?entity=Product&verb=update&parameter=12334&navigate=1&path_success=product&path_fail=home";
