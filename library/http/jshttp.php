@@ -40,6 +40,7 @@
             let that = this;
             let jsonKey = this.jsonKey;
             let time = this.time;
+            let data = this.data;
 
             let xmlHttp = new XMLHttpRequest();
 
@@ -58,7 +59,7 @@
             };
 
             xmlHttp.open(this.method, url, this.async);
-            xmlHttp.send(JSON.stringify(this.data));
+            xmlHttp.send(JSON.stringify(data));
             return xmlHttp.responseText;
         }
 

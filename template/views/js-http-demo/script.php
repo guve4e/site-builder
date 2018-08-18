@@ -23,10 +23,10 @@ include (HTTP_PATH . "/jshttp.php");
     function moo() {
         new JSHttp()
             .setMethod("GET")
-            .setService("mockcontroller")
+            .setService("tempsensor")
             .setParameter(1001)
             .setOutputElement("refreshed_data")
-            .setOutputElementReceivingJsonKey('num')
+            .setOutputElementReceivingJsonKey('temp')
             .setRefresh(true)
             .setAsync(true)
             .send();
@@ -36,10 +36,10 @@ include (HTTP_PATH . "/jshttp.php");
 
         new JSHttp()
             .setMethod("GET")
-            .setService("mockcontroller")
+            .setService("tempsensor")
             .setParameter(1001)
             .setOutputElement("current_data")
-            .setOutputElementReceivingJsonKey('num')
+            .setOutputElementReceivingJsonKey('temp')
             .setTimer(30)
             .setRefresh(true)
             .send();
