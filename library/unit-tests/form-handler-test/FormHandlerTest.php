@@ -10,25 +10,29 @@ class FormHandlerTest extends TestCase
     {
     }
 
+    /**
+     * @throws Exception
+     */
     public function testProperCreationOfFOrmString()
     {
         // Arrange
-        $expectedString = "form-handler.php?entity=Product&verb=update&parameter=12334&navigate=1&path_success=product&path_fail=home";
+        $expectedString = 'form-handler.php?entity=TestDataResource&verb=update' .
+            '&parameter=12334&navigate=1&path_success=product&path_fail=home&' .
+            'path_success_params={"product": "1" , "key": "value"}&path_fail_params={"product": "1" , "key": "value"}';
 
-        try {
-            $fh = new FormHandler();
-            $fh->navigateTo("form-handler")
-                ->setEntity("Product")
-                ->setVerb("update")
-                ->setParameter(12334)
-                ->setNavigateAfterUpdate(true)
-                ->setPathSuccess("product")
-                ->setPathFail("home")
-                ->printFormAction();
+        $fh = new FormHandler();
+        $fh->navigateTo("form-handler")
+            ->setEntity("TestDataResource")
+            ->setVerb("update")
+            ->setParameter(12334)
+            ->setNavigateAfterUpdate(true)
+            ->setPathSuccess("product")
+            ->setPathFail("home")
+            ->setPathSuccessParameters('{"product": "1" , "key": "value"}')
+            ->setPathFailParameters('{"product": "1" , "key": "value"}')
+            ->printFormAction();
 
             $actualString = $fh->getFormActionString();
-        } catch (Exception $e) {
-        }
 
         $this->assertEquals($expectedString, $actualString);
     }

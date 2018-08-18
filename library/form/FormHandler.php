@@ -9,17 +9,9 @@ class FormHandler
     private $navigateAfterUpdate;
     private $pathSuccess;
     private $pathFail;
+    private $pathSuccessParams = "";
+    private $pathFailParams = "";
     private $formActionString;
-
-    /**
-     * @throws Exception
-     */
-    public function validateComponents()
-    {
-        if (!isset($this->verb) || !isset($this->entity) || !isset($this->navigateAfterUpdate) ||
-            !isset($this->pathFail) || !isset($this->pathSuccess) || !isset($this->navigateTo))
-            throw new Exception("Not All Form Action Components are set!");
-    }
 
     /**
      * @throws Exception
@@ -31,7 +23,19 @@ class FormHandler
         $this->formActionString = $this->navigateTo .
             "?entity={$this->entity}&verb={$this->verb}&parameter={$this->parameter}" .
             "&navigate={$this->navigateAfterUpdate}&path_success={$this->pathSuccess}" .
-            "&path_fail={$this->pathFail}";
+            "&path_fail={$this->pathFail}" .
+            "&path_success_params={$this->pathSuccessParams}" .
+            "&path_fail_params={$this->pathFailParams}";
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function validateComponents()
+    {
+        if (!isset($this->verb) || !isset($this->entity) || !isset($this->navigateAfterUpdate) ||
+            !isset($this->pathFail) || !isset($this->pathSuccess) || !isset($this->navigateTo))
+            throw new Exception("Not All Form Action Components are set!");
     }
 
     /**
@@ -91,6 +95,18 @@ class FormHandler
     public function setPathFail($pathFail): FormHandler
     {
         $this->pathFail = $pathFail;
+        return $this;
+    }
+
+    public function setPathSuccessParameters(string $params): FormHandler
+    {
+        $this->pathSuccessParams = $params;
+        return $this;
+    }
+
+    public function setPathFailParameters(string $params): FormHandler
+    {
+        $this->pathFailParams = $params;
         return $this;
     }
 
