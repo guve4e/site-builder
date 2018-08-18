@@ -61,7 +61,7 @@ class FormExtractorTest extends TestCase
     public function testFormExtractorWithPathSuccessParameters()
     {
         // Arrange
-        $_GET['path_success_params'] = '{"product": "1" , "key": "value"}';
+        $_GET['path_success_params'] = 'product:1/key:value';
         $_GET['entity'] = "TestDataResource";
         $expectedHeaders = "Location: ./?page=home&product=1&key=value";
 
@@ -84,7 +84,7 @@ class FormExtractorTest extends TestCase
     public function testFormExtractorWithPathFailParameters()
     {
         // Arrange
-        $_GET['path_fail_params'] = '{"product": "1" , "key": "value"}';
+        $_GET['path_fail_params'] = 'product:1/key:value';
         $_GET['entity'] = "TestDataResource";
         $_GET['verb'] = "delete";
         $expectedHeaders = "Location: ./?page=home&product=1&key=value";

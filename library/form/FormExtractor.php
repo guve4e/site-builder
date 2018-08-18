@@ -34,6 +34,23 @@ class FormExtractor
             throw new Exception("Fields attribute is not of type array.");
     }
 
+    private function retrieveParameters(array $parameters): array
+    {
+        $parametersArray = [];
+
+        foreach($parameters as $parameter)
+        {
+            $params = explode(":", $parameter);
+
+            if (count($params) != 2)
+                throw new Exception("Bad path parameters!");
+
+            $parametersArray[$params[0]] = $params[1];
+        }
+
+        return $parametersArray;
+    }
+
     /**
      * @param string $parameters
      * @return string
@@ -41,11 +58,11 @@ class FormExtractor
      */
     private function constructPath(string $parameters): string
     {
-        $params = $this->file->jsonDecode($parameters, true);
+        $parametersArray = $this->retrieveParameters(explode("/", $parameters));
 
         $paramSting = "";
 
-        foreach($params as $key => $value)
+        foreach($parametersArray as $key => $value)
             $paramSting .= "&{$key}={$value}";
 
         return $paramSting;

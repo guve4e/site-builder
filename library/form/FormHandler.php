@@ -23,9 +23,13 @@ class FormHandler
         $this->formActionString = $this->navigateTo .
             "?entity={$this->entity}&verb={$this->verb}&parameter={$this->parameter}" .
             "&navigate={$this->navigateAfterUpdate}&path_success={$this->pathSuccess}" .
-            "&path_fail={$this->pathFail}" .
-            "&path_success_params={$this->pathSuccessParams}" .
-            "&path_fail_params={$this->pathFailParams}";
+            "&path_fail={$this->pathFail}";
+
+        if ($this->pathSuccessParams != "")
+            $this->formActionString .= "&path_success_params={$this->pathSuccessParams}";
+
+        if ($this->pathFailParams != "")
+            $this->formActionString .="&path_fail_params={$this->pathFailParams}";
     }
 
     /**

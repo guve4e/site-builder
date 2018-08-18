@@ -28,8 +28,8 @@ class FormHandlerTest extends TestCase
             ->setNavigateAfterUpdate(true)
             ->setPathSuccess("product")
             ->setPathFail("home")
-            ->setPathSuccessParameters('{"product": "1" , "key": "value"}')
-            ->setPathFailParameters('{"product": "1" , "key": "value"}')
+            ->setPathSuccessParameters('product:1/key:value')
+            ->setPathFailParameters('product:1/key:value')
             ->printFormAction();
 
             $actualString = $fh->getFormActionString();
