@@ -11,31 +11,44 @@ class FileManager {
      * and throws exception with right message.
      * @throws Exception
      */
-    private function handleJsonErrors()
+    private function handleJsonErrors(string $jsonString)
     {
-        $msg = "";
         switch (json_last_error()) {
             case JSON_ERROR_DEPTH:
-                $msg = ' - Maximum stack depth exceeded';
+                $msg = 'The maximum stack depth has been exceeded.';
                 break;
             case JSON_ERROR_STATE_MISMATCH:
-                $msg = ' - Underflow or the modes mismatch';
+                $msg = 'Invalid or malformed JSON.';
                 break;
             case JSON_ERROR_CTRL_CHAR:
-                $msg = ' - Unexpected control character found';
+                $msg = 'Control character error, possibly incorrectly encoded.';
                 break;
             case JSON_ERROR_SYNTAX:
-                $msg = ' - Syntax error, malformed JSON';
+                $msg = 'Syntax error, malformed JSON.';
                 break;
+            // PHP >= 5.3.3
             case JSON_ERROR_UTF8:
-                $msg = ' - Malformed UTF-8 characters, possibly incorrectly encoded';
+                $msg = 'Malformed UTF-8 characters, possibly incorrectly encoded.';
+                break;
+            // PHP >= 5.5.0
+            case JSON_ERROR_RECURSION:
+                $msg = 'One or more recursive references in the value to be encoded.';
+                break;
+            // PHP >= 5.5.0
+            case JSON_ERROR_INF_OR_NAN:
+                $msg = 'One or more NAN or INF values in the value to be encoded.';
+                break;
+            case JSON_ERROR_UNSUPPORTED_TYPE:
+                $msg = 'A value of a type that cannot be encoded was given.';
                 break;
             default:
-                $msg = ' - Unknown error';
+                $msg = 'Unknown JSON error occurred.';
                 break;
         }
-        throw new Exception("json_decode failed: {$msg}");
+
+        return "json_decode failed with message: {$msg}\n" . "Original Json: {$jsonString}";
     }
+
 
     /**
      * Decodes the string provided as Json.
@@ -50,7 +63,7 @@ class FileManager {
         $res = json_decode($data, $arr);
         // check for successful decode
         if ($res === false || is_null($res))
-            $this->handleJsonErrors();
+            throw new Exception($this->handleJsonErrors($data));
 
         return $res;
     }
@@ -67,7 +80,7 @@ class FileManager {
         $res = json_encode($data, $optionFlags);
         // check for successful encode
         if ($res === false || is_null($res))
-            $this->handleJsonErrors();
+            $this->handleJsonErrors($data);
 
         return $res;
     }
