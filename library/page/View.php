@@ -46,10 +46,11 @@ final class View
 
     /**
      * @var string
-     * Some pages have key
-     * in the query string.
+     * Footer is part of the view,
+     * since it shares the view
+     * configuration.
      */
-    private $viewKey;
+    private $viewFooterName;
 
     /**
      * @var string
@@ -96,6 +97,7 @@ final class View
         $this->loadViewConfig();
         $this->setBodyClass();
         $this->setViewTitle();
+        $this->setViewFooter();
     }
 
     /**
@@ -166,6 +168,14 @@ final class View
         $this->viewTitle = $this->viewConfig['title'];
     }
 
+    private function setViewFooter()
+    {
+        if (isset($this->viewConfig['footer']))
+            $this->viewFooterName = "/" . $this->viewConfig['footer'] . ".php";
+        else
+            $this->viewFooterName = null;
+    }
+
     /**
      * @throws Exception
      */
@@ -194,49 +204,44 @@ final class View
         return $this->viewPath;
     }
 
-    /**
-     * @return string
-     */
-    public function getName() : string
+    public function getName(): string
     {
         return $this->viewName;
     }
 
-    /**
-     * @return string
-     */
-    public function getBodyClass() : string
+    public function getBodyClass(): string
     {
         return $this->viewBodyClass;
     }
 
-    /**
-     * @return string
-     */
-    public function getViewPath() : string
+    public function getViewPath(): string
     {
         return $this->viewPath;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return $this->viewTitle;
     }
 
-    /**
-     * @return string
-     */
-    public function getViewJSPath() : string
+    public function getViewJSPath(): string
     {
         return $this->viewJSPath;
+    }
+
+    public function getViewFooterName(): string
+    {
+        return $this->viewFooterName;
     }
 
     public function isFullScreen()
     {
         return $this->viewConfig['full_screen'];
+    }
+
+    public function hasFooter(): bool
+    {
+        return !is_null($this->viewFooterName);
     }
 
     public function __destruct()
@@ -246,7 +251,6 @@ final class View
         unset($this->viewBodyClass);
         unset($this->viewTitle);
         unset($this->viewName);
-        unset($this->viewKey);
         unset($this->viewJSPath);
         unset($this->viewDir);
         unset($this->viewConfig);

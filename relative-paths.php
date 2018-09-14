@@ -53,6 +53,8 @@ defined("LOG_PATH")
 defined("MOCK_RESOURCES_PATH")
     or define("MOCK_RESOURCES_PATH", realpath(dirname(__FILE__) . '/mock-services'));
 
+defined("FOOTER_PATH")
+or define("FOOTER_PATH", realpath(dirname(__FILE__) . '/template/footers'));
 
 /**
 * Configure php.ini

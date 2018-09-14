@@ -30,13 +30,25 @@ final class Page
     private $menu;
 
     /**
+     * @var string
+     * Footer
+     */
+    private $footer;
+
+    private $sidebar;
+
+    /**
      * @var object
      * Loaded info from json file.
+     * Configuration for the template,
+     * general css styles and js scripts.
      */
     private $templateConfiguration;
 
     /**
      * @var stdClass
+     * Loaded info from json file.
+     * Configuration for the entire site.
      */
     private $siteConfiguration;
 
@@ -45,6 +57,8 @@ final class Page
      * Site title.
      */
     private $pageTitle;
+
+
 
     /**
      * Page constructor.
@@ -138,7 +152,12 @@ final class Page
     public function buildView(FileManager $file)
     {
         $path = $this->view->getPath();
+
+        // include the view first
         PrintHTML::includeHTMLPage($file, $path);
+        // include the footer if any
+        if ($this->view->hasFooter())
+            PrintHTML::includeHTMLPage($file, FOOTER_PATH . $this->view->getViewFooterName());
     }
 
     /**
