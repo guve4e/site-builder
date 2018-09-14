@@ -35,22 +35,23 @@ class ViewNavbarMenuTest extends TestCase
                 'title' => 'some_title',
                 "full_screen" => true,
                 'styles' => [],
-                'scripts' => []
+                'scripts' => [],
+                'footer' => "some-view-footer"
             ]);
     }
 
+    /*
+     * @throws Exception
+     */
     public function testProperConstructionOnViewWhenVewHasNoKey()
     {
         // Arrange
         $expectedJSPath = VIEW_PATH . "/some_view/script.php";
         $expectedViewPath = VIEW_PATH . "/some_view/view.php";
 
-        try {
-            // Act
-            $file = new View($this->mockFile, 'some_view');
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+
+        // Act
+        $file = new View($this->mockFile, 'some_view');
 
         // Assert
         $this->assertEquals("some_title", $file->getTitle(), "Asserts right vew title");
@@ -58,6 +59,8 @@ class ViewNavbarMenuTest extends TestCase
         $this->assertEquals("some_view", $file->getName(), "Asserts right vew name");
         $this->assertEquals($expectedJSPath, $file->getViewJSPath());
         $this->assertEquals($expectedViewPath, $file->getViewPath());
+        $this->assertEquals(true, $file->hasFooter());
+        $this->assertEquals("/some-view-footer.php", $file->getViewFooterName());
 
         // Clean
         $file->__destruct();
@@ -70,6 +73,9 @@ class ViewNavbarMenuTest extends TestCase
         new View(new FileManager(), "some_view");
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testProperConstructionOnMenu()
     {
         // Arrange
@@ -99,15 +105,12 @@ class ViewNavbarMenuTest extends TestCase
         $mockFile->method('jsonDecode')
             ->willReturn($expectedArray);
 
-        try {
-            // Act
-            $menu = new Menu($mockFile);
 
-            // Careful here we brake encapsulation using reflection
-            $actualMenuConfig = $this->getProperty($menu, "menuConfig");
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        // Act
+        $menu = new Menu($mockFile);
+
+        // Careful here we brake encapsulation using reflection
+        $actualMenuConfig = $this->getProperty($menu, "menuConfig");
 
         // Assert
         $this->assertEquals($expectedArray, $actualMenuConfig);
@@ -115,17 +118,16 @@ class ViewNavbarMenuTest extends TestCase
         $menu->__destruct();
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function testProperConstructionOnNavbar()
     {
-        try {
-            // Act
-            $menu = new Navbar($this->mockFile, 'some_body_class');
+        // Act
+        $menu = new Navbar($this->mockFile, 'some_body_class');
 
-            // Careful here we brake encapsulation using reflection
-            $actualBodyClass = $this->getProperty($menu, "bodyClass");
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        // Careful here we brake encapsulation using reflection
+        $actualBodyClass = $this->getProperty($menu, "bodyClass");
 
         // Assert
         $this->assertEquals("some_body_class", $actualBodyClass);
