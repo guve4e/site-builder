@@ -1,7 +1,7 @@
 <?php
 
 require_once (UTILITY_PATH . "/Logger.php");
-require_once(UTILITY_PATH . "/FileManager.php");
+require_once (UTILITY_PATH . "/FileManager.php");
 require_once (UTILITY_PATH . "/JsonLoader.php");
 require_once (CONFIGURATION_PATH. "/SiteConfigurationLoader.php");
 
@@ -26,7 +26,7 @@ class SessionHelper
      */
     private static function getLogger()
     {
-        return new Logger(new FileManager());
+     //   return new Logger(new FileManager());
     }
 
     /**
@@ -43,7 +43,7 @@ class SessionHelper
         $_SESSION[$sessionToken] = $user;
 
         $logger = self::getLogger();
-        $logger->logMessage("User Get: ", print_r($user, true));
+        //$logger->logMessage("User Get: ", print_r($user, true));
     }
 
     /**

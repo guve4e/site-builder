@@ -14,6 +14,9 @@ use PHPUnit\Framework\TestCase;
 
 class PageBuilderTest extends TestCase
 {
+    /**
+     * @throws Exception
+     */
     public function testFullScreenPageBuilder()
     {
         // Arrange
@@ -79,17 +82,15 @@ class PageBuilderTest extends TestCase
                 ]
             ]);
 
-        try {
-            // Act
-            $fullScreenPageBuilder = PageBuilderFactory::MakePageBuilder($mockFile, $_GET);
+        $fullScreenPageBuilder = PageBuilderFactory::MakePageBuilder($mockFile, $_GET);
 
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
         // Assert
         $this->assertInstanceOf('FullScreenPageBuilder', $fullScreenPageBuilder);
     }
 
+    /**
+     * @throws Exception
+     */
     public function testIdentificationPageBuilder()
     {
         // Arrange
@@ -185,13 +186,8 @@ class PageBuilderTest extends TestCase
                 ]
             ]);
 
-        try {
-            // Act
-            $identificationPageBuilder = PageBuilderFactory::MakePageBuilder($mockFile, $_GET);
+        $identificationPageBuilder = PageBuilderFactory::MakePageBuilder($mockFile, $_GET);
 
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
         // Assert
         $this->assertInstanceOf('IdentificationPageBuilder', $identificationPageBuilder);
     }

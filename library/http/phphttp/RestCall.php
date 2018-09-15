@@ -1,19 +1,19 @@
 <?php
 
-require_once("CurlCall.php");
-require_once("SocketCall.php");
+require_once("HttpCurlCall.php");
+require_once("HttpSocketCall.php");
 require_once(UTILITY_PATH . "/FileManager.php");
 
 class RestCall
 {
     /**
-     * @var null|SocketCall
+     * @var null|HttpSocketCall
      */
-    private $strategy = NULL;
+    private $strategy = null;
 
     /**
      * RestCall constructor.
-     * @param string $restCallType Rest Call Type Curl vs Socket
+     * @param string $restCallType
      * @throws Exception
      */
     public function __construct(string $restCallType, FileManager $file)
@@ -21,10 +21,10 @@ class RestCall
         switch ($restCallType)
         {
             case "Curl":
-                $this->strategy = new CurlCall();
+                $this->strategy = new HttpCurlCall();
                 break;
-            case "Socket":
-                $this->strategy = new SocketCall($file);
+            case "HttpSocket":
+                $this->strategy = new HttpSocketCall($file);
                 break;
         }
     }
@@ -83,7 +83,7 @@ class RestCall
      * @return $this
      * @throws Exception
      */
-    public function addBody($jsonData) {
+    public function addBody(array $jsonData) {
         $this->strategy->addBody($jsonData);
         return $this;
     }
@@ -119,6 +119,7 @@ class RestCall
 
     /**
      * @return mixed
+     * @throws Exception
      */
     public function getResponseAsJson() {
         return $this->strategy->getResponseAsJson();

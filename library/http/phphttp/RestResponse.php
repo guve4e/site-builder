@@ -120,6 +120,7 @@ class RestResponse
     /**
      * Gives the body as an array.
      * @return array representation of object .
+     * @throws Exception
      */
     public function getBodyAsArray() : array
     {
@@ -129,8 +130,9 @@ class RestResponse
     /**
      * Gives the body as an JSON object.
      * @return object as JSON .
+     * @throws Exception
      */
-    public function getBodyAsJson() : stdClass
+    public function getBodyAsJson()
     {
         return $this->file->jsonDecode($this->body, false);
     }

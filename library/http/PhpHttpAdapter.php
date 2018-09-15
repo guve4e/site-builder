@@ -158,7 +158,7 @@ class PhpHttpAdapter {
 
         // If client didn't specify body
         if (!is_null($this->jsonData))
-            $this->restCall->addBody($this->jsonData);
+            $this->restCall->addBody((array) $this->jsonData);
 
         // security header
         $headers = [

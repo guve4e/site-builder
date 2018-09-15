@@ -11,14 +11,6 @@
 interface IHttpRequest
 {
     /**
-     * Static constructor / factory.
-     * @param FileManager to provide basic
-     * file manipulation functionality.
-     * @return mixed
-     */
-    public static function create(FileManager $file = null);
-
-    /**
      * Sets URL.
      * @param string $url
      * @return mixed
@@ -64,7 +56,7 @@ interface IHttpRequest
      * @param array $data
      * @return mixed
      */
-    public function addBody($data);
+    public function addBody(array $data);
 
     /**
      * Sends the HTTP Request.
@@ -78,6 +70,13 @@ interface IHttpRequest
      * @return string
      */
     public function getResponseAsString();
+
+    /**
+     * Gives back the response
+     * form the server as an array.
+     * @return string
+     */
+    public function getResponseAsArray();
 
     /**
      * Gives back the response

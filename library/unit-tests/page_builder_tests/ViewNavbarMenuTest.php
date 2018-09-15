@@ -40,7 +40,7 @@ class ViewNavbarMenuTest extends TestCase
             ]);
     }
 
-    /*
+    /**
      * @throws Exception
      */
     public function testProperConstructionOnViewWhenVewHasNoKey()
@@ -48,7 +48,6 @@ class ViewNavbarMenuTest extends TestCase
         // Arrange
         $expectedJSPath = VIEW_PATH . "/some_view/script.php";
         $expectedViewPath = VIEW_PATH . "/some_view/view.php";
-
 
         // Act
         $file = new View($this->mockFile, 'some_view');
@@ -105,8 +104,6 @@ class ViewNavbarMenuTest extends TestCase
         $mockFile->method('jsonDecode')
             ->willReturn($expectedArray);
 
-
-        // Act
         $menu = new Menu($mockFile);
 
         // Careful here we brake encapsulation using reflection
@@ -123,7 +120,6 @@ class ViewNavbarMenuTest extends TestCase
      */
     public function testProperConstructionOnNavbar()
     {
-        // Act
         $menu = new Navbar($this->mockFile, 'some_body_class');
 
         // Careful here we brake encapsulation using reflection

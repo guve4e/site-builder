@@ -1,134 +1,113 @@
 <?php
+/**
+ * Logger
+ *
+ * @license http://www.opensource.org/licenses/gpl-license.php
+ *
+ */
+class Logger{
 
-abstract class Type
-{
-    const Error = "Error";
-    const Debug = "Debug";
-    const Message = "Message";
-    const Warning = "Warning";
-}
-
-class Logger
-{
     /**
      * How to end the row,
      * Linux or Windows versions
      *
      * @var string
      */
-     private $endRow = "\n";
-
-     /**
-      * @var object
-      * Provides file system
-      * functionality
-      */
-     private $file;
-
-     private $path = LOG_PATH;
+    private static $endRow = "\n";
 
     /**
-     * Main log method.
-     * @param string $fileName
-     * @param string $message
-     * @param string $type
-     * @throws Exception
+     * @var string
      */
-    private function log(string $fileName, string $message, string $type)
-    {
+    private static $endRowDouble = "\n\n";
+
+    /**
+     * Log function. Wrapper to file_put_contents()
+     *
+     *
+     * @param $file_name
+     * @param $msg
+     */
+    private static function _log($file_name, $msg) {
         // path to Logs
-        $path = $this->path  . '/' . $fileName . ".txt";
-        // get date
-        $date = date('Y-m-d H:i:s');
-
-        // record type, time and the message with new line at the end
-        $logMsg = "<{$type} {$date} >" . $message . $this->endRow;
-
-        $this->file->writeFileContent($path, $logMsg, FILE_APPEND | LOCK_EX);
+        $fname = LOG_PATH  . '/' . $file_name . ".txt";
+        // record time and the message with new line at the end
+        $log_msg =  "==================== " . date('Y-m-d H:i:s') . "===================="
+            . self::$endRowDouble . $msg . self::$endRow
+            . "============================================================" . self::$endRow;
+        // log to file
+        file_put_contents($fname, $log_msg, FILE_APPEND | LOCK_EX);
     }
 
     /**
-     * Checks if given argument
-     * is an array. If so it converts
-     * the elements to a string
-     * and concatenates one string
-     * representing the array elements
-     * as strings separated by space
-     * @param $args
-     * @return string representation of the array
+     * Log $_SERVER array
+     *
      */
-    private function retrieveMessage($args) : string
-    {
-        $args = implode(" ", $args);
-
-        return $args;
+    public static function logServer() {
+        // printable array
+        $server = print_r($_SERVER,true);
+        // call to private _log
+        self::_log("SERVER", $server);
     }
 
-     /**
-      * Logger constructor.
-      * @param FileManager $file
-      * @throws Exception
-      */
-     public function __construct(FileManager $file)
-     {
-         if (!isset($file))
-             throw new Exception("Bad file object in Logger Constructor!");
-
-         $this->file = $file;
-
-         if (PHP_OS === 'WINNT')
-             $this->endRow = "\r\n";
-     }
+    /**
+     * Print Headers
+     *
+     */
+    public static function logHeaders() {
+        // get the headers
+        $headers = getallheaders();
+        // printable array
+        $h = print_r($headers,true);
+        // call to private _log
+        self::_log("HEADERS", $h);
+    }
 
     /**
-     * @param array $args
-     * @throws Exception
+     * Log Exceptions
+     *
+     * @param $msg
      */
-    public function logError($args) : void
-     {
-         $msg = $this->retrieveMessage(func_get_args());
-
-         $fileName = "Errors";
-
-         $this->log($fileName, $msg, Type::Error);
-     }
+    public static function logException($msg) {
+        // name file
+        $file = "EXCEPTIONS";
+        self::_log($file,$msg);
+    }
 
     /**
-     * @param $args
-     * @throws Exception
+     * Log Mysql Response
+     *
+     * @param $msg
      */
-    public function logDebug($args)
-     {
-         $msg = $this->retrieveMessage(func_get_args());
+    public static function logMySqlResponse($msg) {
+        // name file
+        $file = "DATABASE_RESPONSE";
+        self::_log($file,$msg);
+    }
 
-         $fileName = "Debug";
+    /**
+     * Log Output
+     * Everything that is sent to caller.
+     *
+     * @param $msg
+     */
+    public static function logOutput($msg) {
+        // name file
+        $file = "OUTPUT";
+        self::_log($file,$msg);
+    }
 
-         $this->log($fileName, $msg, Type::Debug);
-     }
+    /**
+     * Generic Method to log messages
+     *
+     * @param $fname string filename
+     * @param $msg string message
+     */
+    public static function logMsg($fname, $msg) {
+        // printable array
+        $msg = print_r($msg,true);
+        // call to private _log
+        self::_log($fname, $msg);
+    }
 
-     /**
-      * @param array $args
-      * @throws Exception
-      */
-     public function logWarning($args) : void
-     {
-         $msg = $this->retrieveMessage(func_get_args());
+}// end Logger class
 
-         $fileName = "Warnings";
-
-         $this->log($fileName, $msg, Type::Warning);
-     }
-
-     /**
-      * @param array $args
-      * @throws Exception
-      */
-     public function logMessage($args)
-     {
-         $msg = $this->retrieveMessage(func_get_args());
-
-         $fileName = "Messages";
-
-         $this->log($fileName, $msg, Type::Message);
-     }
-}
