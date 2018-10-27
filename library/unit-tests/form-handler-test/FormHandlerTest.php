@@ -2,14 +2,10 @@
 
 use PHPUnit\Framework\TestCase;
 require_once ("../../../relative-paths.php");
-require_once(LIBRARY_PATH . "/form/FormHandler.php");
+require_once (LIBRARY_PATH . "/form/FormHandler.php");
 
 class FormHandlerTest extends TestCase
 {
-    protected function setUp()
-    {
-    }
-
     /**
      * @throws Exception
      */
@@ -18,7 +14,7 @@ class FormHandlerTest extends TestCase
         // Arrange
         $expectedString = 'form-handler.php?entity=TestDataResource&verb=update' .
             '&parameter=12334&navigate=1&path_success=product&path_fail=home&' .
-            'path_success_params={"product": "1" , "key": "value"}&path_fail_params={"product": "1" , "key": "value"}';
+            'path_success_params=product:1/key:value&path_fail_params=product:1/key:value';
 
         $fh = new FormHandler();
         $fh->navigateTo("form-handler")

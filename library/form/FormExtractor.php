@@ -1,19 +1,60 @@
-
 <?php
 
 class FormExtractor
 {
-    private $file;
+    /**
+     * @var FileManager
+     */
+    private $fileManager;
+
+    /**
+     * @var mixed
+     */
     private $entity;
+
+    /**
+     * @var mixed
+     */
     private $verb;
+
+    /**
+     * @var mixed
+     */
     private $parameter;
+
+    /**
+     * @var bool
+     */
     private $navigate;
+
+    /**
+     * @var mixed
+     */
     private $pathSuccess;
+
+    /**
+     * @var mixed
+     */
     private $pathFail;
+
+    /**
+     * @var mixed
+     */
     private $data;
+
+    /**
+     * @var array|mixed
+     */
     private $pathSuccessParams = [];
+
+    /**
+     * @var array|mixed
+     */
     private $pathFailParams = [];
 
+    /**
+     * @var
+     */
     private $instance;
 
     /**
@@ -34,6 +75,11 @@ class FormExtractor
             throw new Exception("Fields attribute is not of type array.");
     }
 
+    /**
+     * @param array $parameters
+     * @return array
+     * @throws Exception
+     */
     private function retrieveParameters(array $parameters): array
     {
         $parametersArray = [];
@@ -116,7 +162,7 @@ class FormExtractor
         $class = ucfirst($this->entity);
         $path = DATA_RESOURCE_PATH . "/" . $class . ".php";
 
-        if ($this->file->fileExists($path))
+        if ($this->fileManager->fileExists($path))
             require_once($path);
         else
             throw new Exception("Resource file {$path} does not exists!");
@@ -143,7 +189,7 @@ class FormExtractor
     public function __construct(FileManager $file, array $get, array $post)
     {
         $this->validateAttributes($file, $get, $post);
-        $this->file = $file;
+        $this->fileManager = $file;
 
         // Now we know that _GET and _POST are proper
 

@@ -2,15 +2,54 @@
 
 class FormHandler
 {
+    /**
+     * @var string
+     */
     private $navigateTo;
+
+    /**
+     * @var string
+     */
     private $entity;
+
+    /**
+     * @var string
+     */
     private $verb;
+
+    /**
+     * @var string
+     */
     private $parameter;
+
+    /**
+     * @var string
+     */
     private $navigateAfterUpdate;
+
+    /**
+     * @var string
+     */
     private $pathSuccess;
+
+    /**
+     * @var string
+     */
     private $pathFail;
+
+    /**
+     * @var string
+     */
     private $pathSuccessParams = "";
+
+    /**
+     * @var string
+     */
     private $pathFailParams = "";
+
+    /**
+     * @var string
+     */
     private $formActionString;
 
     /**
