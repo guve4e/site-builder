@@ -28,9 +28,7 @@ class FormHandlerTest extends TestCase
             ->setPathFailParameters('product:1/key:value')
             ->printFormAction();
 
-            $actualString = $fh->getFormActionString();
-
-        $this->assertEquals($expectedString, $actualString);
+        $this->expectOutputString($expectedString);
     }
 }
 
