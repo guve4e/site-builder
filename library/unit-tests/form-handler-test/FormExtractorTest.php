@@ -50,7 +50,7 @@ class FormExtractorTest extends TestCase
      */
     public function testFormExtractorMustThrowExceptionWhenEntityDoestExist()
     {
-        new FormExtractor(new FileManager, $_GET, $_POST);
+        new FormExtractor(new FileManager, $_GET, $_POST, $_FILES);
     }
 
     /**
@@ -65,7 +65,7 @@ class FormExtractorTest extends TestCase
         $expectedHeaders = "Location: ./?page=home&product=1&key=value";
 
         // Act
-        new FormExtractor($this->mockFile, $_GET, $_POST);
+        new FormExtractor(new FileManager, $_GET, $_POST, $_FILES);
 
         // Lets look if we have the right header
         // shift, because we are suppose to have an array with one element arr[0]
@@ -89,7 +89,7 @@ class FormExtractorTest extends TestCase
         $expectedHeaders = "Location: ./?page=home&product=1&key=value";
 
         // Act
-        new FormExtractor($this->mockFile, $_GET, $_POST);
+        new FormExtractor(new FileManager, $_GET, $_POST, $_FILES);
 
         // Lets look if we have the right header
         // shift, because we are suppose to have an array with one element arr[0]
