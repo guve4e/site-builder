@@ -54,7 +54,10 @@ defined("MOCK_RESOURCES_PATH")
     or define("MOCK_RESOURCES_PATH", realpath(dirname(__FILE__) . '/mock-services'));
 
 defined("FOOTER_PATH")
-or define("FOOTER_PATH", realpath(dirname(__FILE__) . '/template/footers'));
+    or define("FOOTER_PATH", realpath(dirname(__FILE__) . '/template/footers'));
+
+defined("UPLOADED_FILES_PATH")
+    or define("UPLOADED_FILES_PATH", realpath(dirname(__FILE__) . '/uploaded-files'));
 
 /**
 * Configure php.ini

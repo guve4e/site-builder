@@ -1,4 +1,5 @@
 <?php
+require_once (LIBRARY_PATH . "/form/FileUploader.php");
 
 class FormExtractor
 {
@@ -56,6 +57,7 @@ class FormExtractor
      * @var
      */
     private $instance;
+    private $uploadedFiles;
 
     /**
      * Validates if the super-globals $_GET and $_POST
@@ -153,6 +155,23 @@ class FormExtractor
     }
 
     /**
+     * @param $post
+     * @return mixed
+     * @throws Exception
+     */
+    private function uploadFiles($post)
+    {
+        if (isset($this->uploadedFiles['files']))
+        {
+            $fileUploader = new FileUploader($this->fileManager);
+            $fileUploader->setInfo($post);
+            $fileUploader->setUploadedFiles($this->uploadedFiles['files']);
+            $fileUploader->uploadFiles();
+        }
+        return $post;
+    }
+
+    /**
      * @return mixed
      * @throws Exception
      */
@@ -186,10 +205,11 @@ class FormExtractor
      * @param array $post : representing $_POST
      * @throws Exception
      */
-    public function __construct(FileManager $file, array $get, array $post)
+    public function __construct(FileManager $filefileManager, array $get, array $post, array $files)
     {
-        $this->validateAttributes($file, $get, $post);
-        $this->fileManager = $file;
+        $this->validateAttributes($filefileManager, $get, $post);
+        $this->fileManager = $filefileManager;
+        $this->uploadedFiles = $files;
 
         // Now we know that _GET and _POST are proper
 
@@ -216,7 +236,12 @@ class FormExtractor
             $this->constructPathFail();
         }
 
-        $this->data = json_decode(json_encode($post));
+        $post = $this->uploadFiles($post);
+
+        if (!empty($post))
+            $this->data = json_decode(json_encode($post));
+        else
+            $this->data = new StdClass();
 
         $success = $this->callResource();
         $this->navigate($success);

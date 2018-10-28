@@ -18,7 +18,7 @@ try {
         ->setVerb("add")
         ->setParameter(12334)
         ->setNavigateAfterUpdate(true)
-        ->setPathSuccess("formproducts")
+        ->setPathSuccess("form-products")
         ->setPathFail("home");
 } catch (Exception $e) {
 }

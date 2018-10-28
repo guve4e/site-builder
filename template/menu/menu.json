@@ -16,7 +16,12 @@
   },
   {
     "title": "Form Products",
-    "id": "formproducts",
+    "id": "form-products",
+    "icon": "E8C2"
+  },
+  {
+    "title": "Form File Upload",
+    "id": "form-file-upload",
     "icon": "E8C2"
   },
   {

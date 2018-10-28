@@ -53,6 +53,11 @@ class FormHandler
     private $formActionString;
 
     /**
+     * @var FileUploader
+     */
+    private $fileUploader;
+
+    /**
      * @throws Exception
      */
     private function generateFormActionString()
@@ -69,6 +74,15 @@ class FormHandler
 
         if ($this->pathFailParams != "")
             $this->formActionString .="&path_fail_params={$this->pathFailParams}";
+    }
+
+    public function __construct(FileUploader $fileUploader=null) {
+        $this->fileUploader = $fileUploader;
+    }
+
+    private function generateFormString(string $file = ""): string
+    {
+        return "<form method='POST' action='{$this->getFormActionString()}' {$file}>";
     }
 
     /**
@@ -178,5 +192,32 @@ class FormHandler
     {
         $this->generateFormActionString();
         echo $this->formActionString;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function printForm()
+    {
+        $this->generateFormActionString();
+        echo $this->generateFormString();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function printFileForm()
+    {
+        $this->generateFormActionString();
+        echo $this->generateFormString("enctype='multipart/form-data'") . "\n";
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function printFileUploadForm()
+    {
+        $this->printFileForm();
+        $this->fileUploader->printFormInputs();
     }
 }

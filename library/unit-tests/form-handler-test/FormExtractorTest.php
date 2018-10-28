@@ -5,7 +5,6 @@ require_once ("../../../relative-paths.php");
 require_once (LIBRARY_PATH . "/form/FormExtractor.php");
 require_once (UTILITY_PATH . "/FileManager.php");
 
-
 class FormExtractorTest extends TestCase
 {
     private $mockFile;
