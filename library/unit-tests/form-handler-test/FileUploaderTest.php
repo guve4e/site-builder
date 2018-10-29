@@ -7,6 +7,14 @@ require_once (LIBRARY_PATH . "/utility/FileManager.php");
 
 class FileUploaderTest extends TestCase
 {
+
+    public function setUp()
+    {
+        parent::setUp();
+
+
+    }
+
     /**
      * @expectedException Exception
      */
@@ -118,8 +126,18 @@ class FileUploaderTest extends TestCase
                 ]
             ];
 
+        $mockFileManager = $this->getMockBuilder(FileManager::class)
+            ->setMethods(['isUploadedFile','movedUploadedFile'])
+            ->getMock();
+
+        $mockFileManager->method('isUploadedFile')
+            ->willReturn(true);
+
+        $mockFileManager->method('movedUploadedFile')
+            ->willReturn(true);
+
         # Act
-        $fileUploader = new FileUploader(new FileManager());
+        $fileUploader = new FileUploader($mockFileManager);
         $fileUploader->setFileMaxSizeInBytes(184399)
             ->setFileName("some_file_name")
             ->setFilePath("/dir/tmp/")

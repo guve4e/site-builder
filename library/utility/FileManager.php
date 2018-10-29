@@ -167,6 +167,28 @@ class FileManager {
     }
 
     /**
+     * Wrapper over move_uploaded_file
+     * @param string $source
+     * @param $destination
+     * @return bool
+     */
+    public function movedUploadedFile(string $source, string $destination)
+    {
+        return move_uploaded_file($source, $destination);
+    }
+
+    /**
+     * Wrapper over move_uploaded_file
+     * @param string $tempFile
+     * @param $destination
+     * @return bool
+     */
+    public function isUploadedFile(string $tempFilePath)
+    {
+        return is_uploaded_file($tempFilePath);
+    }
+
+    /**
      * Checks if the end of file.
      * @param $fileDescriptor
      * @return bool

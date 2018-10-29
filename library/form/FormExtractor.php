@@ -57,6 +57,10 @@ class FormExtractor
      * @var
      */
     private $instance;
+
+    /**
+     * @var array
+     */
     private $uploadedFiles;
 
     /**

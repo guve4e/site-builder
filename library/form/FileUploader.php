@@ -18,6 +18,7 @@ class FileUploader
     private $filePath;
     private $fileName;
     private $files;
+    private $fileManager;
 
     private function getAcceptedFileExtensionsAsString()
     {
@@ -31,6 +32,7 @@ class FileUploader
      */
     public function __construct(FileManager $file)
     {
+        $this->fileManager = $file;
     }
 
     public function setFileMaxSizeInBytes(int $bytes): FileUploader {
@@ -113,6 +115,7 @@ class FileUploader
     {
         if (is_array($this->files['name'])) {
             foreach ($this->files['name'] as $key => $value) {
+                // Todo this is copying is not needed
                 $currentFile['name'] = $this->files['name'][$key];
                 $currentFile['type'] = $this->files['type'][$key];
                 $currentFile['tmp_name'] = $this->files['tmp_name'][$key];
@@ -123,8 +126,8 @@ class FileUploader
                 }
             }
         } else {
-            if ($this->checkFile($this->files)) {
-                $this->moveFile($this->files);
+            if ($this->checkFile($this->files['name'])) {
+                $this->moveFile($this->files['name']);
             }
         }
     }
@@ -159,8 +162,10 @@ class FileUploader
     }
 
     /**
+     * Move files from php temp directory
+     * to specific folder
      * @param $file
-     * @throws Exception
+     * @return bool
      */
     private function moveFile($file)
     {
@@ -172,13 +177,10 @@ class FileUploader
 
         $success = false;
 
-        if (is_uploaded_file($tmpFile))
-            $success = move_uploaded_file($tmpFile,  $destination);
+        if ($this->fileManager->isUploadedFile($tmpFile))
+            $success = $this->fileManager->movedUploadedFile($tmpFile,  $destination);
 
-        // Check for success
-        if (!$success){
-            throw new Exception( 'Could not upload ' . $file['name']);
-        }
+        return $success;
     }
 
     private function isRightSize(array $file)
