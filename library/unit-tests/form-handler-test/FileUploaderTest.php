@@ -149,6 +149,71 @@ class FileUploaderTest extends TestCase
 
         # Assert
     }
+
+    /**
+     * @throws Exception
+     */
+    public function testFooMulti()
+    {
+        # Arrange
+        $_FILES = [
+            "files" => [
+                "name" => [
+                    0 => "some_pdf.pdf",
+                    1 => "some_pic.jpg",
+                    2 => "some_doc.docx",
+                    3 => "some_js.js"
+                ],
+                "type" => [
+                    0 => "application/pdf",
+                    1 => "image/jpeg",
+                    2 => "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                    3 => "application/javascript"
+                ],
+                "tmp_name" => [
+                    0 => "C:\xampp\tmp\php85B2.tmp",
+                    1 => "C:\xampp\tmp\php85B3.tmp",
+                    2 => "C:\xampp\tmp\php85B4.tmp",
+                    3 => "C:\xampp\tmp\php85B5.tmp"
+                ],
+                "error" => [
+                    0 => 0,
+                    1 => 0,
+                    2 => 0,
+                    3 => 0
+                ],
+                "size" => [
+                    0 => 184399,
+                    1 => 283394,
+                    2 => 12334,
+                    3 => 2334
+                ]
+            ]
+        ];
+
+        $mockFileManager = $this->getMockBuilder(FileManager::class)
+            ->setMethods(['isUploadedFile','movedUploadedFile'])
+            ->getMock();
+
+        $mockFileManager->method('isUploadedFile')
+            ->willReturn(true);
+
+        $mockFileManager->method('movedUploadedFile')
+            ->willReturn(true);
+
+        # Act
+        $fileUploader = new FileUploader($mockFileManager);
+        $fileUploader->setFileMaxSizeInBytes(184399)
+            ->setFileName("some_file_name")
+            ->setFilePath("/dir/tmp/")
+            ->setAcceptedFileExtensions(["jpeg", "jpg", "png"]);
+
+        $fileUploader->setUploadedFiles($_FILES['files']);
+
+        $fileUploader->uploadFiles();
+
+        # Assert
+    }
 }
 
 
