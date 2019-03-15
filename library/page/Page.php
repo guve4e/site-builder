@@ -195,19 +195,12 @@ final class Page
      * about the primary web service API
      * @return string json or null
      */
-    public function getPrimaryWebServiceInfoForJS()
+    public function getWebServicesInfoForJS()
     {
         if (!isset($this->siteConfiguration->web_services))
             return null;
 
-        $primaryWebService = $this->siteConfiguration->web_services[0];
-
-        $config = [
-            "url_base_remote" => $primaryWebService->url_base_remote,
-            "url_base_local" => $primaryWebService->url_base_local
-        ];
-
-        return json_encode($config);
+        return json_encode($this->siteConfiguration->web_services);
     }
 
     public function __destruct()

@@ -1,117 +1,136 @@
 <script>
-    class JSHttp {
+    var http = (function(){
 
-        constructor() {
-            this.webservice = <?php echo $this->getPrimaryWebServiceInfoForJS(); ?>;
-            this.urlLocal = this.webservice['url_base_local'];
-            this.urlRemote = this.webservice['url_base_remote'];
-            this.mock = false;
-            this.async = false;
-            this.time = 0;
+        let webservice = <?php echo $this->getWebServicesInfoForJS(); ?>;
 
-            return this;
-        }
+        let urlLocal = webservice[0]['url_base_local'];
+        let urlRemote = webservice[0]['url_base_remote'];
 
-        makeMockUrl(url) {
-            url = url + "/" + this.controller + ".json";
+        let elements = [];
+        let jsonKeys = [];
+        let method = "GET";
+        let mock = false;
+        let async = false;
+        let time = 0;
+        let controller = "";
+        let parameter = "";
+        let refresh = false;
+        let data = "";
+
+        let makeMockUrl = (url) => {
+            url = url + "/" + controller + ".json";
             return url
-        }
+        };
 
-        constructUrl() {
-            let url = this.urlRemote;
+        let constructUrl = () => {
 
-            if (this.mock)
-                url = this.makeMockUrl(this.urlLocal);
+            let url = urlRemote;
+
+            if (mock)
+                url = makeMockUrl(urlLocal);
             else {
-                url = url + "/" + this.controller;
-                if (this.param)
-                    url = url + "/" + this.param;
+                url = url + "/" + controller;
+                if (parameter !== "")
+                    url = url + "/" + parameter;
             }
 
             return url;
-        }
+        };
 
-        send() {
-            let url = this.constructUrl();
-
-            // TODO clean these assignments
-            let localElement = this.element;
-            let localTime = this.time;
-            let that = this;
-            let jsonKey = this.jsonKey;
-            let time = this.time;
+        let send = () => {
+            let url = constructUrl();
 
             let xmlHttp = new XMLHttpRequest();
 
-            if (this.refresh > 0)
+            if (refresh > 0)
                 xmlHttp.onreadystatechange = function () {
                     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
 
                         let json = JSON.parse(xmlHttp.responseText);
-                        localElement.innerHTML = json[jsonKey];
+
+                        elements.forEach((_, i) => {
+                            elements[i].innerHTML = json[jsonKeys[i]]
+                        });
 
                         if (time > 0) {
                             // call send again, after certain time
-                            setTimeout(function() { that.send(); }, localTime);
+                            setTimeout(() => { send(); }, time);
                         }
                     }
-            };
+                };
 
-            xmlHttp.open(this.method, url, this.async);
-           // xmlHttp.setRequestHeader("ApiToken", "WRCdmach38E2*$%Ghdo@nf#cOBD4fd");
-            xmlHttp.send(JSON.stringify(this.data));
+            xmlHttp.open(method, url, async);
+            xmlHttp.send(JSON.stringify(data));
             return xmlHttp.responseText;
-        }
+        };
 
-        setMethod(method) {
-            this.method = method;
-            return this
-        }
+        let setMethod  = (verb) => {
+            method = verb;
+        };
 
-        setDataToSend(data) {
-            this.data = data;
-            return this
-        }
+        let setDataToSend = (body) => {
+            data = body;
+        };
 
-        setService(controller) {
-            this.controller = controller;
-            return this
-        }
+        let setService = (service) => {
+            controller = service;
+        };
 
-         setParameter(param) {
-            this.param = param;
-            return this
-        }
+        let setParameter = (param) => {
+            parameter = param;
+        };
 
-        setTimer(time) {
-            this.time = time;
-            this.async = true;
-            return this;
-        }
+        let setTimer = (timeInSeconds) => {
+            time = timeInSeconds;
+            async = true;
+        };
 
-        setAsync(async) {
-            this.async = async;
-            return this;
-        }
+        let setAsync = (asyncBool) => {
+            async = asyncBool;
+        };
 
-        setRefresh(refresh) {
-            this.refresh = refresh;
-            return this;
-        }
+        let setRefresh = (ref) => {
+            refresh = ref;
+        };
 
-        setOutputElement(element) {
-            this.element = document.getElementById(element);
-            return this;
-        }
+        let setOutputElements = (els) => {
+            els.forEach((_, i) => {
+                elements[i] = document.getElementById(_);
+            })
+        };
 
-        setOutputElementReceivingJsonKey(keyName) {
-            this.jsonKey = keyName;
-            return this;
-        }
+        let setOutputElementReceivingJsonKeys = (keys) => {
+            keys.forEach((_) => {jsonKeys.push(_)});
+        };
 
-        isMock(mock) {
-            this.mock = mock;
-            return this
-        }
-    }
+        let isMock = (isMock) => {
+            mock = isMock;
+        };
+
+        let setApi = (apiName) => {
+
+            let api = webservice.filter(_ => _.name === apiName);
+
+            if (api)
+            {
+                urlLocal = api[0].url_base_local;
+                urlRemote = api[0].url_base_remote;
+            }
+        };
+
+        return {
+            setMethod: setMethod,
+            setDataToSend: setDataToSend,
+            setService: setService,
+            setParameter: setParameter,
+            setTimer: setTimer,
+            setAsync: setAsync,
+            setRefresh: setRefresh,
+            setOutputElements: setOutputElements,
+            setOutputElementReceivingJsonKeys: setOutputElementReceivingJsonKeys,
+            isMock: isMock,
+            setApi: setApi,
+            send: send
+        };
+    })();
 </script>

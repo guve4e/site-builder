@@ -8,12 +8,12 @@ include (HTTP_PATH . "/jshttp.php");
 
         let sendData = {key: "value"};
 
-        const http = new JSHttp()
-         //   .isMock(true)
-            .setMethod("GET")
-            .setService("mockcontroller")
-            .setParameter(1001)
-            .setDataToSend(sendData);
+
+         //http.isMock(true)
+        http.setMethod("GET")
+        http.setService("mockcontroller")
+        http.setParameter(1001)
+        http.setDataToSend(sendData);
 
         let response = http.send();
 
@@ -21,27 +21,27 @@ include (HTTP_PATH . "/jshttp.php");
     }
 
     function moo() {
-        new JSHttp()
-            .setMethod("GET")
-            .setService("tempsensor")
-            .setParameter(1001)
-            .setOutputElement("refreshed_data")
-            .setOutputElementReceivingJsonKey('temp')
-            .setRefresh(true)
-            .setAsync(true)
-            .send();
+
+        http.setMethod("GET")
+        http.setService("tempsensor")
+        http.setParameter(1001)
+        http.setOutputElements(["refreshed_data"])
+        http.setOutputElementReceivingJsonKeys(['temp'])
+        http.setRefresh(true)
+        http.setAsync(true)
+        http.send();
     }
 
     function bar() {
 
-        new JSHttp()
-            .setMethod("GET")
-            .setService("tempsensor")
-            .setParameter(1001)
-            .setOutputElement("current_data")
-            .setOutputElementReceivingJsonKey('temp')
-            .setTimer(30)
-            .setRefresh(true)
-            .send();
+
+        http.setMethod("GET")
+        http.setService("tempsensor")
+        http.setParameter(1001)
+        http.setOutputElements(["current_data"])
+        http.setOutputElementReceivingJsonKeys(['temp'])
+        http.setTimer(30)
+        http.setRefresh(true)
+        http.send();
     }
 </script>
