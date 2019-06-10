@@ -25,8 +25,8 @@ include (HTTP_PATH . "/jshttp.php");
             .setMethod("GET")
             .setService("tempsensor")
             .setParameter(1001)
-            .setOutputElement("refreshed_data")
-            .setOutputElementReceivingJsonKey('temp')
+            .setOutputElement(["refreshed_data"])
+            .setOutputElementReceivingJsonKey(['temp'])
             .setRefresh(true)
             .setAsync(true)
             .send();
@@ -38,8 +38,8 @@ include (HTTP_PATH . "/jshttp.php");
             .setMethod("GET")
             .setService("tempsensor")
             .setParameter(1001)
-            .setOutputElement("current_data")
-            .setOutputElementReceivingJsonKey('temp')
+            .setOutputElement(["current_data"])
+            .setOutputElementReceivingJsonKey(['temp'])
             .setTimer(30)
             .setRefresh(true)
             .send();
