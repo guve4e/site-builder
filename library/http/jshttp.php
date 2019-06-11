@@ -4,9 +4,12 @@
         constructor() {
             this.webservice = <?php echo $this->getPrimaryWebServiceInfoForJS(); ?>;
 
+            if (this.webservice === undefined)
+                throw "Failed to load configuration!";
+
             this.urlLocal = this.webservice[0]['url_base_local'];
             this.urlRemote = this.webservice[0]['url_base_remote'];
-            this.authServer = "";
+            this.auth = [];
 
             this.mock = false;
             this.async = false;
@@ -47,6 +50,12 @@
             let url = this.constructUrl();
 
             let xmlHttp = new XMLHttpRequest();
+
+            if (this.auth)
+             {
+                 let token = this.getAuthToken();
+             }
+
 
             if (this.refresh > 0)
                 xmlHttp.onreadystatechange = () => {
@@ -134,9 +143,28 @@
             this.urlRemote = api[0].url_base_remote;
 
             // optional
-            this.authServer = api[0].auth_server_url;
+            this.auth = api[0].authorization;
 
             return this
+        }
+
+        getAuthToken() {
+            let http = new XMLHttpRequest();
+            let url = this.auth.url;
+            let params = 'grant_type=client_credentials';
+            http.open('POST', url, true);
+
+            http.setRequestHeader('Authorization', 'Basic ' + this.auth.token);
+
+            http.onreadystatechange = () => {
+                if(http.readyState === 4 && http.status === 200) {
+                    alert(http.responseText);
+                }
+            };
+
+            http.send(params);
+
+            return http.responseText;
         }
     }
 </script>

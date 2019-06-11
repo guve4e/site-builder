@@ -13,8 +13,11 @@
       "name": "webapi",
       "url_base_remote": "http://localhost/web-api/index.php",
       "url_base_local": "http://localhost/site-builder/mock-services",
-      "auth_server_url": "https://shileto-auth-service.herokuapp.com/oauth/token",
-      "secret": "",
+      "authorization": {
+        "url": "https://shileto-auth-service.herokuapp.com/oauth/token",
+        "username": "guest_app",
+        "password": "secret"
+      },
       "api_token": "WRCdmach38E2*$%Ghdo@nf#cOBD4fd"
     },
     {

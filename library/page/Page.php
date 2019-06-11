@@ -190,6 +190,23 @@ final class Page
             include($this->view->getViewJSPath());
     }
 
+    private function generateAuthInfo($service)
+    {
+        if (!array_key_exists('authorization', $service))
+            return $service;
+
+        $url = $service->authorization->url;
+        $username = $service->authorization->username;
+        $password = $service->authorization->password;
+
+        $service->authorization = [
+            "url" => $url,
+            "token" => base64_encode("{$username}:{$password}")
+        ];
+
+        return $service;
+    }
+
     /**
      * It is called from JS, to get information
      * about the primary web service API
@@ -200,7 +217,11 @@ final class Page
         if (!isset($this->siteConfiguration->web_services))
             return null;
 
-        return json_encode($this->siteConfiguration->web_services);
+        $service = $this->siteConfiguration->web_services;
+
+        $service = array_map(array( __CLASS__, 'generateAuthInfo' ), $service);
+
+        return json_encode($service);
     }
 
     public function __destruct()
