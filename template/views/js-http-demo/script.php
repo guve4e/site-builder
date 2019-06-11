@@ -10,6 +10,7 @@ include (HTTP_PATH . "/jshttp.php");
 
         const http = new JSHttp()
          //   .isMock(true)
+            .setApi("some_webapi")
             .setMethod("GET")
             .setService("mockcontroller")
             .setParameter(1001)

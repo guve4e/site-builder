@@ -6,6 +6,7 @@
 
             this.urlLocal = this.webservice[0]['url_base_local'];
             this.urlRemote = this.webservice[0]['url_base_remote'];
+            this.authServer = "";
 
             this.mock = false;
             this.async = false;
@@ -56,7 +57,6 @@
                         this.elements.forEach((_, i) => {
                             this.elements[i].innerHTML = json[this.jsonKeys[i]]
                         });
-
 
                         if (this.time > 0) {
                             // call send again, after certain time
@@ -127,11 +127,15 @@
 
             let api = this.webservice.filter(_ => _.name === apiName);
 
-            if (api)
-            {
-                this.urlLocal = api[0].url_base_local;
-                this.urlRemote = api[0].url_base_remote;
-            }
+            if (api === undefined || api.length === 0)
+                throw "This api doesn`t exist in the configuration file!";
+
+            this.urlLocal = api[0].url_base_local;
+            this.urlRemote = api[0].url_base_remote;
+
+            // optional
+            this.authServer = api[0].auth_server_url;
+
             return this
         }
     }
