@@ -4,9 +4,12 @@
         constructor() {
             this.webservice = <?php echo $this->getPrimaryWebServiceInfoForJS(); ?>;
 
+            if (this.webservice === undefined)
+                throw "Failed to load configuration!";
+
             this.urlLocal = this.webservice[0]['url_base_local'];
             this.urlRemote = this.webservice[0]['url_base_remote'];
-            this.authServer = "";
+            this.auth = [];
 
             this.mock = false;
             this.async = false;
@@ -134,7 +137,7 @@
             this.urlRemote = api[0].url_base_remote;
 
             // optional
-            this.authServer = api[0].auth_server_url;
+            this.auth = api[0].auth_server_url;
 
             return this
         }
