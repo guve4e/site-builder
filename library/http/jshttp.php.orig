@@ -10,8 +10,6 @@
             this.urlLocal = this.webservice[0]['url_base_local'];
             this.urlRemote = this.webservice[0]['url_base_remote'];
             this.auth = [];
-            this.isWithAuthorization = false;
-            this.tokenExpiresIn = 0;
 
             this.mock = false;
             this.async = false;
@@ -52,20 +50,11 @@
             let url = this.constructUrl();
 
             let xmlHttp = new XMLHttpRequest();
-            xmlHttp.open(this.method, url, this.async);
 
             if (this.auth)
-            {
-                let json = JSON.parse(this.getAuthToken());
-
-                this.tokenExpiresIn = json.expires_in;
-                this.authToken = json.access_token;
-
-                if (this.tokenExpiresIn === undefined || this.authToken === undefined)
-                    throw "Bad Call to Authorization Server!"
-
-                xmlHttp.setRequestHeader('Authorization', 'Barear ' + this.authToken);
-            }
+             {
+                 let token = this.getAuthToken();
+             }
 
 
             if (this.refresh > 0)
@@ -85,6 +74,7 @@
                     }
                 };
 
+            xmlHttp.open(this.method, url, this.async);
             xmlHttp.send(JSON.stringify(this.data));
             return xmlHttp.responseText;
         }
@@ -153,21 +143,30 @@
             this.urlRemote = api[0].url_base_remote;
 
             // optional
+<<<<<<< HEAD
             this.auth = api[0].authorization;
+=======
+            this.auth = api[0].auth_server_url;
+>>>>>>> 60041eeb5b6fde3a68969bbc07f07120afac06de
 
             return this
         }
 
         getAuthToken() {
             let http = new XMLHttpRequest();
-
-            let url = "http://" + this.auth.url + "?grant_type=client_credentials";
-
-            http.open('POST', url, false);
+            let url = this.auth.url;
+            let params = 'grant_type=client_credentials';
+            http.open('POST', url, true);
 
             http.setRequestHeader('Authorization', 'Basic ' + this.auth.token);
-            http.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            http.send();
+
+            http.onreadystatechange = () => {
+                if(http.readyState === 4 && http.status === 200) {
+                    alert(http.responseText);
+                }
+            };
+
+            http.send(params);
 
             return http.responseText;
         }
