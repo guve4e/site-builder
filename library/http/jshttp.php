@@ -26,6 +26,8 @@
             this.refresh = false;
             this.data = "";
 
+            this.xhr = new XMLHttpRequest();
+
             return this;
         }
 
@@ -48,31 +50,36 @@
             return url;
         }
 
+        requestHandler() {
+
+        }
+
+        prepareBarear() {
+            let json = JSON.parse(this.getAuthToken());
+
+            this.tokenExpiresIn = json.expires_in;
+            this.authToken = json.access_token;
+
+            if (this.tokenExpiresIn === undefined || this.authToken === undefined)
+                throw "Bad Call to Authorization Server!"
+
+            this.xhr.setRequestHeader('Authorization', 'Barear ' + this.authToken);
+        }
+
         send() {
             let url = this.constructUrl();
 
-            let xmlHttp = new XMLHttpRequest();
-            xmlHttp.open(this.method, url, this.async);
+            this.xhr.open(this.method, url, this.async);
 
             if (this.auth)
-            {
-                let json = JSON.parse(this.getAuthToken());
-
-                this.tokenExpiresIn = json.expires_in;
-                this.authToken = json.access_token;
-
-                if (this.tokenExpiresIn === undefined || this.authToken === undefined)
-                    throw "Bad Call to Authorization Server!"
-
-                xmlHttp.setRequestHeader('Authorization', 'Barear ' + this.authToken);
-            }
-
+                this.prepareBarear();
 
             if (this.refresh > 0)
-                xmlHttp.onreadystatechange = () => {
-                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                this.xhr.onreadystatechange = () => {
 
-                        let json = JSON.parse(xmlHttp.responseText);
+                    if (this.xhr.readyState === 4 && this.xhr.status === 200) {
+
+                        let json = JSON.parse(this.xhr.responseText);
 
                         this.elements.forEach((_, i) => {
                             this.elements[i].innerHTML = json[this.jsonKeys[i]]
@@ -83,10 +90,11 @@
                             setTimeout( () =>  { this.send(); }, this.time);
                         }
                     }
+
                 };
 
-            xmlHttp.send(JSON.stringify(this.data));
-            return xmlHttp.responseText;
+            this.xhr.send(JSON.stringify(this.data));
+            return this.xhr.responseText;
         }
 
         setMethod(method) {

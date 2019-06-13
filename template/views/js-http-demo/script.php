@@ -4,17 +4,19 @@ include (HTTP_PATH . "/jshttp.php");
 
 <script>
 
+    const http = new JSHttp();
+    const httpWithRefresh = new JSHttp();
+
     function foo() {
 
         let sendData = {key: "value"};
 
-        const http = new JSHttp()
-         //   .isMock(true)
-            .setApi("webapi")
-            .setMethod("GET")
-            .setService("mockcontroller")
-            .setParameter(1001)
-            .setDataToSend(sendData);
+        http
+             .setApi("webapi")
+             .setMethod("GET")
+             .setService("mockcontroller")
+             .setParameter(1001)
+             .setDataToSend(sendData);
 
         let response = http.send();
 
@@ -22,7 +24,9 @@ include (HTTP_PATH . "/jshttp.php");
     }
 
     function moo() {
-        new JSHttp()
+
+        httpWithRefresh
+            .setApi("webapi")
             .setMethod("GET")
             .setService("tempsensor")
             .setParameter(1001)
@@ -36,6 +40,7 @@ include (HTTP_PATH . "/jshttp.php");
     function bar() {
 
         new JSHttp()
+            .setApi("webapi")
             .setMethod("GET")
             .setService("tempsensor")
             .setParameter(1001)

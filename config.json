@@ -23,7 +23,7 @@
     {
       "name": "some_webapi",
       "url_base_remote": "http://localhost/web-api/index.php",
-      "url_base_local": "https://shileto-auth-service.herokuapp.com/oauth/token"
+      "url_base_local": "https://auth-server-shileto-bace.herokuapp.com//oauth/token"
     }
   ],
   "production": false,
