@@ -6,6 +6,7 @@ include (HTTP_PATH . "/jshttp.php");
 
     const http = new JSHttp();
     const httpWithRefresh = new JSHttp();
+    const httpWithRefreshAndTimer = new JSHttp();
 
     function foo() {
 
@@ -39,7 +40,7 @@ include (HTTP_PATH . "/jshttp.php");
 
     function bar() {
 
-        new JSHttp()
+        httpWithRefreshAndTimer
             .setApi("webapi")
             .setMethod("GET")
             .setService("tempsensor")

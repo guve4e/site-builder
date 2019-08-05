@@ -12,6 +12,7 @@
             this.auth = [];
             this.isWithAuthorization = false;
             this.tokenExpiresIn = 0;
+            this.timeWhenAuthorized = null;
 
             this.mock = false;
             this.async = false;
@@ -50,18 +51,15 @@
             return url;
         }
 
-        requestHandler() {
-
-        }
-
         prepareBarear() {
             let json = JSON.parse(this.getAuthToken());
 
             this.tokenExpiresIn = json.expires_in;
             this.authToken = json.access_token;
+            this.timeWhenAuthorized = new Date();
 
             if (this.tokenExpiresIn === undefined || this.authToken === undefined)
-                throw "Bad Call to Authorization Server!"
+                throw "Bad Call to Authorization Server!";
 
             this.xhr.setRequestHeader('Authorization', 'Barear ' + this.authToken);
         }
@@ -71,12 +69,20 @@
 
             this.xhr.open(this.method, url, this.async);
 
+            let timeNow = new Date();
+
+            if (this.timeWhenAuthorized !== null)
+            {
+                let time = timeNow - this.timeWhenAuthorized;
+                time /= 1000;
+                
+            }
+
             if (this.auth)
                 this.prepareBarear();
 
             if (this.refresh > 0)
                 this.xhr.onreadystatechange = () => {
-
                     if (this.xhr.readyState === 4 && this.xhr.status === 200) {
 
                         let json = JSON.parse(this.xhr.responseText);
@@ -90,7 +96,6 @@
                             setTimeout( () =>  { this.send(); }, this.time);
                         }
                     }
-
                 };
 
             this.xhr.send(JSON.stringify(this.data));
